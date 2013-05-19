@@ -36,7 +36,7 @@
 		this._params = [];
 		
 		// Grab all the parameters from the URL
-		while ((matches = paramRegex.exec(this.route.Url)) !== null) {
+		while ((matches = paramRegex.exec(this.route.url)) !== null) {
 			this._params.push(matches[1]);
 		}
 	};
@@ -49,15 +49,15 @@
 			///</summary>
 			///<param name="routeValues">Route values</param>
 			///<returns type="String">URL, or null when building a URL is not possible</returns>
-			var finalValues = merge(this._defaults, routeValues),
-				finalUrl = this.route.Url,
+			var finalValues = merge(this.route.defaults, routeValues),
+				finalUrl = this.route.url,
 				processedParams = { controller: true, action: true };
 				
 			// Ensure controller and action match
-			if (this.route.Defaults.controller && this.route.Defaults.controller !== finalValues.controller) {
+			if (this.route.defaults.controller && this.route.defaults.controller !== finalValues.controller) {
 				return null;
 			}
-			if (this.route.Defaults.action && this.route.Defaults.action !== finalValues.action) {
+			if (this.route.defaults.action && this.route.defaults.action !== finalValues.action) {
 				return null;
 			}
 		

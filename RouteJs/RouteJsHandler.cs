@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Routing;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace RouteJs
 {
@@ -33,7 +34,10 @@ namespace RouteJs
 		/// <returns>JavaScript for the routes</returns>
 		private string GetJavaScript(IEnumerable<RouteInfo> routes)
 		{
-			var jsonRoutes = JsonConvert.SerializeObject(routes);
+			var jsonRoutes = JsonConvert.SerializeObject(routes, new JsonSerializerSettings
+			{
+				ContractResolver = new CamelCasePropertyNamesContractResolver()
+			});
 			string content;
 
 			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("RouteJs.router.js"))
