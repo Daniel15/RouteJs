@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Unit Tests - Jasmine Spec Runner</title>
+	<link rel="stylesheet" href="jasmine/jasmine.css" />
+</head>
+
+<body>
+	<script src="jasmine/jasmine.js"></script>
+	<script src="jasmine/jasmine-html.js"></script>
+	
+	<!-- Source files -->
+	<script src="../RouteJs/router.js"></script>
+	
+	<!-- Spec files -->
+	<script src="RouterTests.js"></script>
+	
+	<script type="text/javascript">
+		(function() {
+			var jasmineEnv = jasmine.getEnv();
+			jasmineEnv.updateInterval = 1000;
+	
+			var htmlReporter = new jasmine.HtmlReporter();
+	
+			jasmineEnv.addReporter(htmlReporter);
+	
+			jasmineEnv.specFilter = function(spec) {
+				return htmlReporter.specFilter(spec);
+			};
+
+			jasmineEnv.execute();
+		})();
+	</script>
+</body>
+</html>

@@ -6,7 +6,7 @@ namespace RouteJs
 	/// <summary>
 	/// Main class for RouteJS. Handles retrieving the list of routes.
 	/// </summary>
-	class RouteJs
+	public class RouteJs
 	{
 		private readonly RouteCollection _routeCollection;
 

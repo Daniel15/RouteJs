@@ -122,5 +122,10 @@
 		}
 	};
 
+	// Public API
+	window.RouteJs = {
+		Route: Route,
+		RouteManager: RouteManager
+	};
 	//{ROUTES}
 }(window));
