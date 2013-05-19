@@ -53,6 +53,11 @@
 				finalUrl = this.route.url,
 				processedParams = { controller: true, action: true },
 				key;
+			
+			// Ensure constraints match
+			if (!this._checkConstraints(finalValues)) {
+				return null;
+			}
 
 			// Any values using a non-default value need to have a matching merge field in the URL
 			for (key in this.route.defaults) {
@@ -87,6 +92,45 @@
 			}
 			
 			return finalUrl;
+		},
+		
+		_checkConstraints: function (routeValues) {
+			///<summary>Validate that the route constraints match the specified route values</summary>
+			///<param name="routeValues">Route values</param>
+			///<returns type="Boolean"><c>true</c> if the route validation succeeds, otherwise <c>false</c>.</returns>
+			
+			// Bail out early if there's no constraints on this route
+			if (!this.route.constraints) {
+				return true;
+			}
+			
+			if (!this._parsedConstraints) {
+				this._parsedConstraints = this._parseConstraints();
+			}
+			
+			// Check every constraint matches
+			for (var key in this._parsedConstraints) {
+				if (this._parsedConstraints.hasOwnProperty(key) && !this._parsedConstraints[key].test(routeValues[key])) {
+					return false;
+				}
+			}
+
+			return true;
+		},
+		
+		_parseConstraints: function () {
+			///<summary>Parse the string constraints into regular expressions</summary>
+			
+			var parsedConstraints = {};
+			
+			for (var key in this.route.constraints) {
+				if (this.route.constraints.hasOwnProperty(key)) {
+					console.log(this.route.constraints[key]);
+					parsedConstraints[key] = new RegExp('^(' + this.route.constraints[key].replace(/\\/g, '\\') + ')');
+				}
+			}
+
+			return parsedConstraints;
 		}
 	};
 

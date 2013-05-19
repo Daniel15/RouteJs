@@ -74,6 +74,28 @@ describe('Route', function() {
 			expect(url).toEqual('hello/mvc/Foobar');
 		});
 	});
+
+	describe('Simple constraints', function() {
+		var route;
+		
+		beforeEach(function() {
+			route = new RouteJs.Route({
+				url: 'blog/page-{page}',
+				defaults: { controller: 'Blog', action: 'Index' },
+				constraints: { page: '\\d+' }
+			});
+		});
+
+		it('should allow valid values', function() {
+			var url = route.build({ controller: 'Blog', action: 'Index', page: 2 });
+			expect(url).toEqual('blog/page-2');
+		});
+		
+		it('should not allow valid values', function() {
+			var url = route.build({ controller: 'Blog', action: 'Index', page: 'foobar' });
+			expect(url).toBeNull();
+		});
+	});
 });
 
 describe('RouteManager', function() {
