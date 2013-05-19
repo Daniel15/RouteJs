@@ -83,12 +83,14 @@
 		}
 	};
 
-	var RouteManager = function (routes) {
+	var RouteManager = function (settings) {
 		///<summary>Manages routes and selecting the correct route to use when routing URLs</summary>
 		///<param name="routes">Raw route information</param>
+
+		this.baseUrl = settings.baseUrl;
 		this.routes = [];
-		for (var i = 0, count = routes.length; i < count; i++) {
-			this.routes.push(new Route(routes[i]));
+		for (var i = 0, count = settings.routes.length; i < count; i++) {
+			this.routes.push(new Route(settings.routes[i]));
 		}
 	};
 
@@ -114,7 +116,7 @@
 			for (var i = 0, count = this.routes.length; i < count; i++) {
 				var url = this.routes[i].build(routeValues);
 				if (url) {
-					return url;
+					return this.baseUrl + url;
 				}
 			}
 

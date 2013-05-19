@@ -24,8 +24,6 @@ var url = Router.action('Controller', 'Action');
 
 TODO
 ====
-- Write unit tests
-- Add caching headers in handler
 - Support optional ASP.NET MVC URLs (UrlParameter.Optional)
 - Create NuGet package
 - Support WebForms routes
