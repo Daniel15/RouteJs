@@ -81,16 +81,19 @@ describe('RouteManager', function() {
 		var router;
 		
 		beforeEach(function() {
-			router = new RouteJs.RouteManager([
-				{
-					url: 'hello/world',
-					defaults: { controller: 'Hello', action: 'HelloWorld' }
-				},
-				{
-					url: 'hello/mvc/{message}',
-					defaults: { controller: 'Hello', action: 'HelloWorld2' }
-				},
-			]);
+			router = new RouteJs.RouteManager({
+				routes: [
+					{
+						url: 'hello/world',
+						defaults: { controller: 'Hello', action: 'HelloWorld' }
+					},
+					{
+						url: 'hello/mvc/{message}',
+						defaults: { controller: 'Hello', action: 'HelloWorld2' }
+					}
+				],
+				baseUrl: ''
+			});
 		});
 
 		it('should select the correct route based on controller and action', function() {
@@ -108,6 +111,49 @@ describe('RouteManager', function() {
 		it('should handle routes with parameters', function() {
 			var url = router.action('Hello', 'HelloWorld2', { message: 'foobar' });
 			expect(url).toEqual('hello/mvc/foobar');
+		});
+	});
+	
+	describe('MVC routes with default', function() {
+		var router;
+			
+		beforeEach(function() {
+			router = new RouteJs.RouteManager({
+				routes: [
+					{
+						url: 'hello/world',
+						defaults: { controller: 'Hello', action: 'HelloWorld' }
+					},
+					{
+						url: 'hello/mvc/{message}',
+						defaults: { controller: 'Hello', action: 'HelloWorld2' }
+					},
+					{
+						url: 'hellohome/{action}',
+						defaults: { controller: 'Home', action: 'Index' }
+					},
+					{
+						url: '{controller}/{action}',
+						defaults: { controller: 'Home', action: 'Index' }
+					}
+				],
+				baseUrl: ''
+			});
+		});
+
+		it('should select the correct route if one exists', function() {
+			var url = router.action('Hello', 'HelloWorld2', { message: 'asd' });
+			expect(url).toEqual('hello/mvc/asd');
+		});
+
+		it('should use the {action} merge field', function() {
+			var url = router.action('Home', 'NotInCustom');
+			expect(url).toEqual('hellohome/NotInCustom');
+		});
+		
+		it('should select the default route for unknown actions', function() {
+			var url = router.action('Hello', 'NotInCustom');
+			expect(url).toEqual('Hello/NotInCustom');
 		});
 	});
 });

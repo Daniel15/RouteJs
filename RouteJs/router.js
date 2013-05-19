@@ -53,11 +53,13 @@
 				finalUrl = this.route.url,
 				processedParams = { controller: true, action: true };
 				
-			// Ensure controller and action match
-			if (this.route.defaults.controller && this.route.defaults.controller !== finalValues.controller) {
+			// Ensure controller and action match. These should only be checked if:
+			// 1. It is specified in the defaults
+			// 2. Is is NOT a merge field in the URL
+			if (this.route.defaults.controller && this.route.defaults.controller !== finalValues.controller && finalUrl.indexOf('{controller}') === -1) {
 				return null;
 			}
-			if (this.route.defaults.action && this.route.defaults.action !== finalValues.action) {
+			if (this.route.defaults.action && this.route.defaults.action !== finalValues.action && finalUrl.indexOf('{action}') === -1) {
 				return null;
 			}
 		
