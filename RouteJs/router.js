@@ -51,19 +51,24 @@
 			///<returns type="String">URL, or null when building a URL is not possible</returns>
 			var finalValues = merge(this.route.defaults, routeValues),
 				finalUrl = this.route.url,
-				processedParams = { controller: true, action: true };
+				processedParams = { controller: true, action: true },
+				key;
+
+			// Any values using a non-default value need to have a matching merge field in the URL
+			for (key in this.route.defaults) {
+				if (!this.route.defaults.hasOwnProperty(key)) {
+					continue;
+				}
 				
-			// Ensure controller and action match. These should only be checked if:
-			// 1. It is specified in the defaults
-			// 2. Is is NOT a merge field in the URL
-			if (this.route.defaults.controller && this.route.defaults.controller !== finalValues.controller && finalUrl.indexOf('{controller}') === -1) {
-				return null;
-			}
-			if (this.route.defaults.action && this.route.defaults.action !== finalValues.action && finalUrl.indexOf('{action}') === -1) {
-				return null;
+				if (this.route.defaults[key] !== finalValues[key] && this._params.indexOf(key) === -1) {
+					return null;
+				} else {
+					// Any defaults don't need to be explicitly specified in the querystring
+					processedParams[key] = true;
+				}
 			}
 		
-			// Ensure all parameters are supplied (either in the route values or defaults)
+			// Ensure all URL parameters are supplied (either in the route values or defaults)
 			for (var i = 0, count = this._params.length; i < count; i++) {
 				var paramName = this._params[i];
 				if (finalValues[paramName] === undefined) {

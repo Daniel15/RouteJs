@@ -156,4 +156,34 @@ describe('RouteManager', function() {
 			expect(url).toEqual('Hello/NotInCustom');
 		});
 	});
+
+	describe('MVC routes with multiple overloads', function() {
+		var router;
+		
+		beforeEach(function() {
+			router = new RouteJs.RouteManager({
+				routes: [
+					{
+						url: 'category/{slug}',
+						defaults: { controller: 'Blog', action: 'Category', page: 1 }
+					},
+					{
+						url: 'category/{slug}/page-{page}',
+						defaults: { controller: 'Blog', action: 'Category' }
+					}
+				],
+				baseUrl: ''
+			});
+		});
+
+		it('should use the first overload when page number is 1', function() {
+			var url = router.action('Blog', 'Category', { slug: 'hello-world', page: 1 });
+			expect(url).toEqual('category/hello-world');
+		});
+		
+		it('should use the second overload when page number is 2', function() {
+			var url = router.action('Blog', 'Category', { slug: 'hello-world', page: 2 });
+			expect(url).toEqual('category/hello-world/page-2');
+		});
+	});
 });
