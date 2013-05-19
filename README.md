@@ -22,32 +22,41 @@ Manual Installation
 Once this project is more complete, a NuGet package will be created. For now, the installation is
 manual:
 
- 1. Compile RouteJs in Visual Studio 2010 or higher
- 2. Reference RouteJs.dll in your Web Application project
- 3. Add the module to your Web.config:
+- Compile RouteJs in Visual Studio 2010 or higher or via `msbuild RouteJs\RouteJs.csproj /p:Configuration=Release`
+- Reference RouteJs.dll in your Web Application project
+- Add the module to your Web.config:
 
 ```xml
 <system.web>
+	...
 	<httpHandlers>
 		<add verb="GET" path="routejs.axd" type="RouteJs.RouteJsHandler, RouteJs" />
 	</httpHandlers>
 </system.web>
 
 <system.webServer>
+	...
 	<handlers>
 		<add name="RouteJs" verb="GET" path="routejs.axd" type="RouteJs.RouteJsHandler, RouteJs" />
 	</handlers>
 </system.webServer>
 ```
- 4. Reference the RouteJs handler in your view:
+- Reference the RouteJs handler in your view:
 
 ```html
 <script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
 ```
- 5. See usage example below
+- See usage example below
 
-Example
-=======
+Usage
+=====
+
+The main function is `Router.action`. This accepts three parameters:
+- Name of the controller
+- Name of the action
+- Any additional parameters
+
+Examples:
 
 ```javascript
 var url = Router.action('Controller', 'Action'); 
