@@ -1,9 +1,11 @@
 RouteJs
 =======
 RouteJs allows you to use your ASP.NET MVC or WebForms routes from JavaScript. It does not depend on
-jQuery or any other JavaScript framework, so can be used in any scenario.
+jQuery or any other JavaScript framework, so can be used in any scenario. RouteJs works with your
+existing MVC routes, you do not need to use a different routing syntax or modify any of your 
+existing routes at all.
 
-It is currently under development, and not yet ready for production use.
+It is currently under development. Please feel free to report any bugs you encounter!
 
 Requirements
 ============
@@ -13,6 +15,36 @@ Required:
 
 Optional:
  * ASP.NET MVC 4
+
+Manual Installation
+===================
+
+Once this project is more complete, a NuGet package will be created. For now, the installation is
+manual:
+
+ 1. Compile RouteJs in Visual Studio 2010 or higher
+ 2. Reference RouteJs.dll in your Web Application project
+ 3. Add the module to your Web.config:
+
+```xml
+<system.web>
+	<httpHandlers>
+		<add verb="GET" path="routejs.axd" type="RouteJs.RouteJsHandler, RouteJs" />
+	</httpHandlers>
+</system.web>
+
+<system.webServer>
+	<handlers>
+		<add name="RouteJs" verb="GET" path="routejs.axd" type="RouteJs.RouteJsHandler, RouteJs" />
+	</handlers>
+</system.webServer>
+```
+ 4. Reference the RouteJs handler in your view:
+
+```html
+<script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
+```
+ 5. See usage example below
 
 Example
 =======
@@ -24,7 +56,9 @@ var url = Router.action('Controller', 'Action');
 
 TODO
 ====
+- Add feature to only output certain routes (not all)
 - Support optional ASP.NET MVC URLs (UrlParameter.Optional)
+- Minify in production
 - Create NuGet package
 - Support WebForms routes
 - Support ASP.NET MVC 3
