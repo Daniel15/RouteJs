@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Routing;
 
 namespace RouteJs
@@ -9,14 +10,19 @@ namespace RouteJs
 	public class RouteJs
 	{
 		private readonly RouteCollection _routeCollection;
+		private readonly IConfiguration _configuration;
+		private readonly IEnumerable<IRouteFilter> _routeFilters;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RouteJs" /> class.
 		/// </summary>
 		/// <param name="routeCollection">The route collection.</param>
-		public RouteJs(RouteCollection routeCollection)
+		public RouteJs(RouteCollection routeCollection, IConfiguration configuration, IEnumerable<IRouteFilter> routeFilters)
 		{
 			_routeCollection = routeCollection;
+			_configuration = configuration;
+			// TODO: Clean me up!
+			_routeFilters = routeFilters.Any() ? routeFilters : TinyIoCContainer.Current.ResolveAll<IRouteFilter>();
 		}
 
 		/// <summary>
@@ -27,13 +33,23 @@ namespace RouteJs
 		{
 			var routes = _routeCollection.GetRoutes();
 
-			foreach (var routeBase in routes)
+			foreach (var routeBase in routes.Where(AllowRoute))
 			{
 				if (routeBase is Route)
 				{
 					yield return GetRoute((Route)routeBase);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Check whether this route should be exposed in the JavaScript
+		/// </summary>
+		/// <param name="route">Route to check</param>
+		/// <returns><c>true</c> if the route should be exposed</returns>
+		private bool AllowRoute(RouteBase route)
+		{
+			return _routeFilters.All(filter => filter.AllowRoute(route));
 		}
 
 		/// <summary>

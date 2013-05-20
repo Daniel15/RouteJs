@@ -142,6 +142,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RouteJs.Mvc4\RouteJs.Mvc4.csproj">
+      <Project>{071DC743-8F40-475F-BF54-253C61B2C683}</Project>
+      <Name>RouteJs.Mvc4</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RouteJs\RouteJs.csproj">
       <Project>{C8FAAE56-4623-4055-85DB-16CE600212AA}</Project>
       <Name>RouteJs</Name>

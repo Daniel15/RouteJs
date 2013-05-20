@@ -16,13 +16,13 @@ namespace RouteJs.Samples.Mvc4
 			routes.MapRoute(
 				name: "Hello",
 				url: "hello/world",
-				defaults: new { controller = "Hello", action = "HelloWorld" }
+				defaults: new { controller = "Home", action = "HelloWorld" }
 			);
 
 			routes.MapRoute(
 				name: "Hello2",
 				url: "hello/mvc/{message}",
-				defaults: new { controller = "Hello", action = "HelloWorld2" }
+				defaults: new { controller = "Home", action = "HelloWorld2" }
 			);
 
 			routes.MapPageRoute("TestPageRoute", "hello/webforms", "~/HelloWebForms.aspx");

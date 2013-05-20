@@ -24,9 +24,13 @@ manual:
 
 - Compile RouteJs in Visual Studio 2010 or higher or via `msbuild RouteJs\RouteJs.csproj /p:Configuration=Release`
 - Reference RouteJs.dll in your Web Application project
-- Add the module to your Web.config:
+- Add the configuration to your Web.config:
 
 ```xml
+<configSections>
+	...
+	<section name="routeJs" type="RouteJs.RouteJsConfigurationSection, RouteJs" />
+</configSections>
 <system.web>
 	...
 	<httpHandlers>
@@ -40,6 +44,14 @@ manual:
 		<add name="RouteJs" verb="GET" path="routejs.axd" type="RouteJs.RouteJsHandler, RouteJs" />
 	</handlers>
 </system.webServer>
+
+<!--
+	Sets whether to expose all routes to the site. 
+	If true, all routes will be exposed unless explicitly hidden using the [HideRoutesInJavaScript] 
+	attribute on the controller. If false, all routes will be hidden unless explicitly exposed 
+	using the [ExposeRoutesInJavaScript] attribute.
+-->
+<routeJs exposeAllRoutes="true" />
 ```
 - Reference the RouteJs handler in your view:
 
