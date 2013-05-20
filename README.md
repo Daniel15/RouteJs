@@ -74,16 +74,6 @@ Examples:
 var url = Router.action('Controller', 'Action'); 
 // url will be '/Controller/Action' with the default route
 ```
-
-TODO
-====
-- Add feature to only output certain routes (not all)
-- Support optional ASP.NET MVC URLs (UrlParameter.Optional)
-- Minify in production
-- Create NuGet package
-- Support WebForms routes
-- Support ASP.NET MVC 3
-- Test in Mono
  
 Licence
 =======
