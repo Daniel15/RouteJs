@@ -10,19 +10,17 @@ namespace RouteJs
 	public class RouteJs
 	{
 		private readonly RouteCollection _routeCollection;
-		private readonly IConfiguration _configuration;
 		private readonly IEnumerable<IRouteFilter> _routeFilters;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RouteJs" /> class.
 		/// </summary>
 		/// <param name="routeCollection">The route collection.</param>
-		public RouteJs(RouteCollection routeCollection, IConfiguration configuration, IEnumerable<IRouteFilter> routeFilters)
+		/// <param name="routeFilters">Any filters to apply to the routes</param>
+		public RouteJs(RouteCollection routeCollection, IEnumerable<IRouteFilter> routeFilters)
 		{
 			_routeCollection = routeCollection;
-			_configuration = configuration;
-			// TODO: Clean me up!
-			_routeFilters = routeFilters.Any() ? routeFilters : TinyIoCContainer.Current.ResolveAll<IRouteFilter>();
+			_routeFilters = routeFilters;
 		}
 
 		/// <summary>

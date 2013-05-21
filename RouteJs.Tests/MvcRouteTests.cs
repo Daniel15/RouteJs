@@ -17,7 +17,7 @@ namespace RouteJs.Tests
 				url: "hello/world",
 				defaults: new { controller = "Hello", action = "HelloWorld" }
 			);
-			var routeJs = new RouteJs(routes, null, Enumerable.Empty<IRouteFilter>());
+			var routeJs = new RouteJs(routes, Enumerable.Empty<IRouteFilter>());
 
 			var result = routeJs.GetRoutes().ToList();
 
