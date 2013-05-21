@@ -96,6 +96,57 @@ describe('Route', function() {
 			expect(url).toBeNull();
 		});
 	});
+
+	describe('Optional parameters', function() {
+		describe('One optional parameter', function() {
+			var route;
+
+			beforeEach(function() {
+				route = new RouteJs.Route({
+					url: 'hello/world/{id}',
+					defaults: { controller: 'Hello', action: 'Index' },
+					optional: ['id']
+				});
+			});
+
+			it('should replace the parameter if provided', function() {
+				var url = route.build({ controller: 'Hello', action: 'Index', id: 123 });
+				expect(url).toBe('hello/world/123');
+			});
+
+			it('should remove the parameter if not provided', function() {
+				var url = route.build({ controller: 'Hello', action: 'Index' });
+				expect(url).toBe('hello/world');
+			});
+		});
+		
+		describe('Two optional parameter', function() {
+			var route;
+
+			beforeEach(function() {
+				route = new RouteJs.Route({
+					url: 'hello/world/{first}/{second}',
+					defaults: { controller: 'Hello', action: 'Index' },
+					optional: ['first', 'second']
+				});
+			});
+
+			it('should replace both parameters if provided', function() {
+				var url = route.build({ controller: 'Hello', action: 'Index', first: 123, second: 456 });
+				expect(url).toBe('hello/world/123/456');
+			});
+			
+			it('should replace just the first parameter if one provided', function() {
+				var url = route.build({ controller: 'Hello', action: 'Index', first: 123 });
+				expect(url).toBe('hello/world/123');
+			});
+			
+			it('should remove both parameters if neither provided', function() {
+				var url = route.build({ controller: 'Hello', action: 'Index' });
+				expect(url).toBe('hello/world');
+			});
+		});
+	});
 });
 
 describe('RouteManager', function() {

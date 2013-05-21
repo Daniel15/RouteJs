@@ -12,6 +12,7 @@
 		public void Register(TinyIoCContainer container)
 		{
 			container.Register<IRouteFilter, MvcRouteFilter>("MvcRouteFilter");
+			container.Register<IDefaultsProcessor, DefaultsProcessor>("MvcDefaultsProcessor");
 		}
 	}
 }

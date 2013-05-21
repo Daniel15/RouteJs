@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentRegistration.cs" />
+    <Compile Include="DefaultsProcessor.cs" />
     <Compile Include="MvcRouteFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

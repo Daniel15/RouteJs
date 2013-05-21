@@ -32,6 +32,10 @@
 		var paramRegex = /\{(\w+)\}/g,
 			matches;
 			
+		if (!route.optional) {
+			route.optional = [];
+		}
+		
 		this.route = route;
 		this._params = [];
 		
@@ -52,6 +56,7 @@
 			var finalValues = merge(this.route.defaults, routeValues),
 				finalUrl = this.route.url,
 				processedParams = { controller: true, action: true },
+			    ignoredParams = [],
 				key;
 			
 			// Ensure constraints match
@@ -75,15 +80,34 @@
 		
 			// Ensure all URL parameters are supplied (either in the route values or defaults)
 			for (var i = 0, count = this._params.length; i < count; i++) {
-				var paramName = this._params[i];
-				if (finalValues[paramName] === undefined) {
+				var paramName = this._params[i],
+				    isProvided = finalValues[paramName] !== undefined,
+					isOptional = this.route.optional.indexOf(paramName) > -1;
+				
+				if (!isProvided && !isOptional) {
 					return null;				
 				}
 				
-				finalUrl = finalUrl.replace('{' + paramName + '}', encodeURIComponent(finalValues[paramName]));
+				if (isProvided) {
+					finalUrl = finalUrl.replace('{' + paramName + '}', encodeURIComponent(finalValues[paramName]));	
+				} else {
+					ignoredParams.push(paramName);
+				}
+				
 				processedParams[paramName] = true;
 			}
 			
+			// Remove all the segments that have optional parameters which were not provided
+			// Loop backwards to make deleting easier
+			var urlPieces = finalUrl.split('/');
+			for (var i = urlPieces.length - 1; i >= 0; i--) {
+				// If it has a parameter, assume it's an ignored one (otherwise it would have been merged above)
+				if (urlPieces[i].indexOf('{') > -1) {
+					urlPieces.splice(i, 1);
+				}
+			}
+			finalUrl = urlPieces.join('/');
+
 			// Add all other parameters to the querystring
 			for (var key in routeValues) {
 				if (!processedParams[key]) {
@@ -125,7 +149,6 @@
 			
 			for (var key in this.route.constraints) {
 				if (this.route.constraints.hasOwnProperty(key)) {
-					console.log(this.route.constraints[key]);
 					parsedConstraints[key] = new RegExp('^(' + this.route.constraints[key].replace(/\\/g, '\\') + ')');
 				}
 			}

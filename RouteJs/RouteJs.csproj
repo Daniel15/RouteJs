@@ -52,6 +52,7 @@
     <Compile Include="HideRoutesInJavaScriptAttribute.cs" />
     <Compile Include="IComponentRegistration.cs" />
     <Compile Include="IConfiguration.cs" />
+    <Compile Include="IDefaultsProcessor.cs" />
     <Compile Include="IRouteFilter.cs" />
     <Compile Include="RouteCollectionUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

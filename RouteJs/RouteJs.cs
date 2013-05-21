@@ -11,16 +11,19 @@ namespace RouteJs
 	{
 		private readonly RouteCollection _routeCollection;
 		private readonly IEnumerable<IRouteFilter> _routeFilters;
+		private readonly IEnumerable<IDefaultsProcessor> _defaultsProcessors;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RouteJs" /> class.
 		/// </summary>
 		/// <param name="routeCollection">The route collection.</param>
 		/// <param name="routeFilters">Any filters to apply to the routes</param>
-		public RouteJs(RouteCollection routeCollection, IEnumerable<IRouteFilter> routeFilters)
+		/// <param name="defaultsProcessors">Handler to handle processing of default values</param>
+		public RouteJs(RouteCollection routeCollection, IEnumerable<IRouteFilter> routeFilters, IEnumerable<IDefaultsProcessor> defaultsProcessors)
 		{
 			_routeCollection = routeCollection;
 			_routeFilters = routeFilters;
+			_defaultsProcessors = defaultsProcessors;
 		}
 
 		/// <summary>
@@ -60,9 +63,13 @@ namespace RouteJs
 			var routeInfo = new RouteInfo
 			{
 				Url = route.Url,
-				Defaults = route.Defaults ?? new RouteValueDictionary(),
 				Constraints = route.Constraints ?? new RouteValueDictionary()
 			};
+
+			foreach (var processor in _defaultsProcessors)
+			{
+				processor.ProcessDefaults(route, routeInfo);
+			}
 
 			return routeInfo;
 		}

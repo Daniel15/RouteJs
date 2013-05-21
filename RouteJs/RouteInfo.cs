@@ -1,4 +1,5 @@
-﻿using System.Web.Routing;
+﻿using System.Collections.Generic;
+using System.Web.Routing;
 
 namespace RouteJs
 {
@@ -19,5 +20,9 @@ namespace RouteJs
 		/// Constraints imposed on the route
 		/// </summary>
 		public RouteValueDictionary Constraints { get; set; }
+		/// <summary>
+		/// Any optional parameters in the URL
+		/// </summary>
+		public IList<string> Optional { get; set; }
 	}
 }
