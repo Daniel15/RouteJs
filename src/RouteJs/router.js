@@ -22,6 +22,24 @@
 		
 		return result;
 	}
+
+	var arrayIndexOf;
+	
+	// Check for native Array.indexOf support
+	if (Array.prototype.indexOf) {
+		arrayIndexOf = function (array, searchElement) {
+			return array.indexOf(searchElement);
+		};
+	} else {
+		arrayIndexOf = function (array, searchElement) {
+			for (var i = 0, count = array.length; i < count; i++) {
+				if (array[i] === searchElement) {
+					return i;
+				}
+			}
+			return -1;
+		};		
+	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -70,7 +88,7 @@
 					continue;
 				}
 				
-				if (this.route.defaults[key] !== finalValues[key] && this._params.indexOf(key) === -1) {
+				if (this.route.defaults[key] !== finalValues[key] && arrayIndexOf(this._params, key) === -1) {
 					return null;
 				} else {
 					// Any defaults don't need to be explicitly specified in the querystring
@@ -82,7 +100,7 @@
 			for (var i = 0, count = this._params.length; i < count; i++) {
 				var paramName = this._params[i],
 				    isProvided = finalValues[paramName] !== undefined,
-					isOptional = this.route.optional.indexOf(paramName) > -1;
+					isOptional = arrayIndexOf(this.route.optional, paramName) > -1;
 				
 				if (!isProvided && !isOptional) {
 					return null;				
