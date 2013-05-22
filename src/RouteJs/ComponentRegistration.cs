@@ -18,6 +18,8 @@ namespace RouteJs
 		{
 			container.Register<IConfiguration>((c, o) => (RouteJsConfigurationSection)ConfigurationManager.GetSection("routeJs"));
 			container.Register<RouteCollection>((c, o) => RouteTable.Routes);
+
+			container.Register<IRouteFilter, IgnoreUnsupportedRoutesFilter>("IgnoreUnsupportedFilter");
 		}
 
 		/// <summary>
