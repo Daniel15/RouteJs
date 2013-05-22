@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<Major>1</Major>
+		<Minor>0</Minor>
+		<Build>0</Build>
+		<Revision>123</Revision>
+		<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\tools\MSBuildTasks</MSBuildCommunityTasksPath>
+	</PropertyGroup>
+	<Import Project="$(MSBuildProjectDirectory)\tools\MSBuildTasks\MSBuild.Community.Tasks.Targets" />
+
+	<Target Name="UpdateVersion">
+		<GitVersion LocalPath="$(MSBuildProjectDirectory)">
+			<Output TaskParameter="CommitHash" PropertyName="Revision" />
+		</GitVersion>
+		<AssemblyInfo
+			CodeLanguage="CS"
+			OutputFile="src\SharedAssemblyVersionInfo.cs"
+			AssemblyVersion="$(Major).$(Minor).$(Build)"
+			AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)"
+			AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision)"
+			/>
+	</Target>
+
+	<Target Name="Build" DependsOnTargets="UpdateVersion">
+		<MSBuild Projects="src\RouteJs.sln" Targets="Rebuild" Properties="Configuration=Release;Platform=Any CPU" />
+	</Target>
+</Project>
