@@ -1,4 +1,9 @@
-﻿(function (window) {
+﻿/*!
+ * RouteJs by Daniel Lo Nigro (Daniel15) - http://dan.cx/
+ * Version 1.0.0
+ * Released under the BSD license.
+ */
+(function (window) {
 	// Helper methods
 	function merge (first, second) {
 		///<summary>
@@ -221,5 +226,4 @@
 		Route: Route,
 		RouteManager: RouteManager
 	};
-	//{ROUTES}
 }(window));

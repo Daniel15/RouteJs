@@ -78,16 +78,17 @@ namespace RouteJs
 		/// <returns>JavaScript for the routes</returns>
 		private static string GetJavaScript(RouteCollection routeCollection)
 		{
+			var resourceName = HttpContext.Current.IsDebuggingEnabled ? "RouteJs.router.js" : "RouteJs.router.min.js";
 			var jsonRoutes = GetJsonData(routeCollection);
 			string content;
 
-			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("RouteJs.router.js"))
+			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
 			using (var reader = new StreamReader(stream))
 			{
 				content = reader.ReadToEnd();
 			}
 
-			return content.Replace("//{ROUTES}", "window.Router = new RouteManager(" + jsonRoutes + ");");
+			return content + "window.Router = new RouteJs.RouteManager(" + jsonRoutes + ");";
 		}
 
 		/// <summary>

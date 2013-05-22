@@ -40,11 +40,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs">
@@ -74,8 +70,18 @@
   <ItemGroup>
     <EmbeddedResource Include="router.js" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="router.min.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- JS minification -->
+  <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="..\..\tools\YUICompressor\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
+  <Target Name="Minify">
+    <JavaScriptCompressorTask SourceFiles="router.js" OutputFile="router.min.js" />
+  </Target>
+  <Target Name="BeforeBuild" DependsOnTargets="Minify">
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
