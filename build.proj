@@ -18,11 +18,18 @@
 			OutputFile="src\SharedAssemblyVersionInfo.cs"
 			AssemblyVersion="$(Major).$(Minor).$(Build)"
 			AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)"
-			AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision)"
+			AssemblyInformationalVersion="$(Major).$(Minor).$(Build)"
 			/>
 	</Target>
 
 	<Target Name="Build" DependsOnTargets="UpdateVersion">
+		<!-- Build -->
 		<MSBuild Projects="src\RouteJs.sln" Targets="Rebuild" Properties="Configuration=Release;Platform=Any CPU" />
+
+		<!-- Create NuGet package -->
+		<Exec
+			WorkingDirectory="$(MSBuildProjectDirectory)"
+			Command="NuGet.exe pack src\RouteJs.Mvc4\RouteJs.Mvc4.csproj -IncludeReferencedProjects -Prop Configuration=Release"
+			/>
 	</Target>
 </Project>

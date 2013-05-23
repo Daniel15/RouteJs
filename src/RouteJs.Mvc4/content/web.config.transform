@@ -1,0 +1,26 @@
+<configuration>
+	<configSections>
+		<section name="routeJs" type="RouteJs.RouteJsConfigurationSection, RouteJs" />
+	</configSections>
+	
+	<system.web>
+		<httpHandlers>
+			<add verb="GET" path="routejs.axd" type="RouteJs.RouteJsHandler, RouteJs" />
+		</httpHandlers>
+	</system.web>
+
+	<system.webServer>
+		<handlers>
+			<remove name="RouteJs" />
+			<add name="RouteJs" verb="GET" path="routejs.axd" type="RouteJs.RouteJsHandler, RouteJs" />
+		</handlers>
+	</system.webServer>
+
+	<!--
+		Sets whether to expose all routes to the site. 
+		If true, all routes will be exposed unless explicitly hidden using the [HideRoutesInJavaScript] 
+		attribute on the controller. If false, all routes will be hidden unless explicitly exposed 
+		using the [ExposeRoutesInJavaScript] attribute.
+	-->
+	<routeJs exposeAllRoutes="true" />
+</configuration>

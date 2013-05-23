@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>RouteJs (MVC 4)</title>
+    <authors>Daniel Lo Nigro</authors>
+    <owners>Daniel Lo Nigro</owners>
+    <licenseUrl>https://github.com/Daniel15/RouteJs#licence</licenseUrl>
+    <projectUrl>http://github.com/Daniel15/RouteJs</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>JavaScript URL routing for ASP.NET MVC. Allows you to use your ASP.NET MVC routes from JavaScript. Please refer to project site (https://github.com/Daniel15/RouteJs) for more details, usage examples and sample code.</description>
+    <releaseNotes>Initial release. Please refer to project site (https://github.com/Daniel15/RouteJs) for more details, usage examples and sample code.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>asp.net mvc asp routing route url ajax jquery javascript js</tags>
+  </metadata>
+
+	<files>
+		<file src="readme.txt" target="" />
+		<file src="content\*.*" target="content" />
+	</files>
+</package>
