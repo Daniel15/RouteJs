@@ -5,25 +5,30 @@ jQuery or any other JavaScript framework, so can be used in any scenario. RouteJ
 existing MVC routes, you do not need to use a different routing syntax or modify any of your 
 existing routes at all.
 
-It is currently under development. Please feel free to report any bugs you encounter!
+Bug reports and feature requests are welcome!
 
 Requirements
 ============
 Required:
  * ASP.NET 4.0 or higher
  * [Json.NET](http://james.newtonking.com/projects/json-net.aspx)
+ * ASP.NET MVC 4 (although RouteJs doesn't require MVC, it's pretty useless without it!)
 
-Optional:
- * ASP.NET MVC 4
+Installation
+============
+
+Via [NuGet Package](https://nuget.org/packages/RouteJs.Mvc4)
+-----------------
+```
+Install-Package RouteJs.Mvc4
+```
+Now skip down to the [usage section](#usage)
 
 Manual Installation
-===================
+-------------------
 
-Once this project is more complete, a NuGet package will be created. For now, the installation is
-manual:
-
-- Compile RouteJs in Visual Studio 2010 or higher or via `msbuild RouteJs\RouteJs.csproj /p:Configuration=Release`
-- Reference RouteJs.dll in your Web Application project
+- Compile RouteJs by running `build.bat`
+- Reference RouteJs.dll and RouteJs.Mvc4.dll (if using MVC 4) in your Web Application project
 - Add the configuration to your Web.config:
 
 ```xml
@@ -55,13 +60,17 @@ manual:
 ```
 - Reference the RouteJs handler in your view:
 
-```html
-<script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
-```
+
 - See usage example below
 
 Usage
 =====
+
+Firstly, you need to reference the RouteJs handler in your view. This serves the JavaScript
+and route information:
+```html
+<script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
+```
 
 The main function is `Router.action`. This accepts three parameters:
 - Name of the controller
@@ -71,9 +80,25 @@ The main function is `Router.action`. This accepts three parameters:
 Examples:
 
 ```javascript
-var url = Router.action('Controller', 'Action'); 
-// url will be '/Controller/Action' with the default route
+// Using the default route
+var url = Router.action('Controller', 'Action'); // eg. /Controller/Action
+
+// Handling optional parameters
+var url = Router.action('Foo', 'Bar', { id: 123 }); // eg. /Foo/Bar/123
+
+// Appending querystring parameters
+var url = Router.action('Foo', 'Bar', { hello: 'world' }); // eg. /Foo/Bar?hello=world
 ```
+
+The routes that are exposed are controlled by the web.config "exposeAllRoutes" setting:
+```xml
+<routeJs exposeAllRoutes="true" />
+```
+
+If set to "true", all of your ASP.NET MVC routes will be exposed to JavaScript, unless you 
+explicitly hide them via the `HideRoutesInJavaScript` attribute on a controller. If set to "false", 
+all routes will be hidden unless you explicitly use the `ExposeRoutesInJavaScript` attribute on the
+controller. These two attributes currently affect all routes for the controller.
  
 Licence
 =======
