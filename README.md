@@ -99,6 +99,17 @@ If set to "true", all of your ASP.NET MVC routes will be exposed to JavaScript, 
 explicitly hide them via the `HideRoutesInJavaScript` attribute on a controller. If set to "false", 
 all routes will be hidden unless you explicitly use the `ExposeRoutesInJavaScript` attribute on the
 controller. These two attributes currently affect all routes for the controller.
+
+Changelog
+=========
+
+1.0.1 - 4th June 2013
+---------------------
+ - Fixed issue with routes in areas not working correctly
+
+1.0 - 23rd May 2013
+-------------------
+ - Initial release
  
 Licence
 =======

@@ -3,8 +3,8 @@
 	<PropertyGroup>
 		<Major>1</Major>
 		<Minor>0</Minor>
-		<Build>0</Build>
-		<Revision>123</Revision>
+		<Build>1</Build>
+		<Revision>0</Revision>
 		<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\tools\MSBuildTasks</MSBuildCommunityTasksPath>
 	</PropertyGroup>
 	<Import Project="$(MSBuildProjectDirectory)\tools\MSBuildTasks\MSBuild.Community.Tasks.Targets" />

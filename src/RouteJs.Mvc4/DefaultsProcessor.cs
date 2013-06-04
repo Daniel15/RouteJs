@@ -10,6 +10,11 @@ namespace RouteJs.Mvc4
 	public class DefaultsProcessor : IDefaultsProcessor
 	{
 		/// <summary>
+		/// Name of the data token used to store area
+		/// </summary>
+		private const string AREA_TOKEN = "area";
+
+		/// <summary>
 		/// Process the defaults of the specified route
 		/// </summary>
 		/// <param name="route">Route to process</param>
@@ -32,6 +37,12 @@ namespace RouteJs.Mvc4
 				{
 					routeInfo.Defaults.Add(kvp.Key, kvp.Value);
 				}
+			}
+
+			// Add area if it's specified in the route
+			if (route.DataTokens.ContainsKey(AREA_TOKEN))
+			{
+				routeInfo.Defaults.Add("area", route.DataTokens[AREA_TOKEN]);
 			}
 		}
 	}

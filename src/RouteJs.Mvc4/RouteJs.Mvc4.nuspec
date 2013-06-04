@@ -10,7 +10,14 @@
     <projectUrl>http://github.com/Daniel15/RouteJs</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>JavaScript URL routing for ASP.NET MVC. Allows you to use your ASP.NET MVC routes from JavaScript. Please refer to project site (https://github.com/Daniel15/RouteJs) for more details, usage examples and sample code.</description>
-    <releaseNotes>Initial release. Please refer to project site (https://github.com/Daniel15/RouteJs) for more details, usage examples and sample code.</releaseNotes>
+    <releaseNotes>	
+1.0.1
+ - Fixed issue with routes in areas not working correctly
+ 
+1.0
+ - Initial release
+ 
+Please refer to project site (https://github.com/Daniel15/RouteJs) for more details, usage examples and sample code.</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>asp.net mvc asp routing route url ajax jquery javascript js</tags>
   </metadata>
