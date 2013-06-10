@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace RouteJs.Tests
 {
 	[TestFixture]
-	public class MvcRouteTests
+	public class MvcRouteTests : MvcTestBase
 	{
 		[Test]
 		public void HandlesSimpleMvcRoute()
@@ -17,7 +17,7 @@ namespace RouteJs.Tests
 				url: "hello/world",
 				defaults: new { controller = "Hello", action = "HelloWorld" }
 			);
-			var routeJs = new RouteJs(routes, Enumerable.Empty<IRouteFilter>(), Enumerable.Empty<IDefaultsProcessor>());
+			var routeJs = CreateRouteJs(routes);
 
 			var result = routeJs.GetRoutes().ToList();
 

@@ -14,6 +14,8 @@ namespace RouteJs.Mvc4
 		/// </summary>
 		private const string AREA_TOKEN = "area";
 
+		private const string ROUTE_VALUE_DICTIONARY_KEY = "RouteValueDictionary";
+
 		/// <summary>
 		/// Process the defaults of the specified route
 		/// </summary>
@@ -33,7 +35,7 @@ namespace RouteJs.Mvc4
 				{
 					routeInfo.Optional.Add(kvp.Key);
 				}
-				else
+				else if (ShouldAddDefault(kvp.Key))
 				{
 					routeInfo.Defaults.Add(kvp.Key, kvp.Value);
 				}
@@ -44,6 +46,18 @@ namespace RouteJs.Mvc4
 			{
 				routeInfo.Defaults.Add("area", route.DataTokens[AREA_TOKEN]);
 			}
+		}
+
+		/// <summary>
+		/// Determines whether the specified default value should be added to the output
+		/// </summary>
+		/// <param name="key">Key of the default value</param>
+		/// <returns><c>true</c> if the default value should be used, or <c>false</c> if it should
+		/// be ignored.</returns>
+		private bool ShouldAddDefault(string key)
+		{
+			// T4MVC adds RouteValueDictionary to defaults, but we don't need it.
+			return key != ROUTE_VALUE_DICTIONARY_KEY;
 		}
 	}
 }
