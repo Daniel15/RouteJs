@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -7,6 +8,7 @@ using System.Web;
 using System.Web.Routing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Linq;
 
 namespace RouteJs
 {
@@ -46,9 +48,29 @@ namespace RouteJs
 		/// <param name="context">An <see cref="T:System.Web.HttpContext" /> object that provides references to the intrinsic server objects (for example, Request, Response, Session, and Server) used to service HTTP requests.</param>
 		public void ProcessRequest(HttpContext context)
 		{
-			var javascript = GetJavaScript();
+			ProcessRequest(new HttpContextWrapper(context));
+		}
 
-			if (!string.IsNullOrWhiteSpace(context.Request.Url.Query.TrimStart('?')))
+		/// <summary>
+		/// Handle a HTTP request
+		/// </summary>
+		/// <param name="context">An <see cref="T:System.Web.HttpContext" /> object that provides references to the intrinsic server objects (for example, Request, Response, Session, and Server) used to service HTTP requests.</param>
+		public void ProcessRequest(HttpContextBase context)
+		{
+			bool sendCacheHeaders;
+			bool sendFileNotFound;
+			var debugMode = CheckDebugMode(context.Request, out sendCacheHeaders, out sendFileNotFound);
+
+			if (sendFileNotFound)
+			{
+				context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+				context.Response.End();
+				return;
+			}
+
+			var javascript = GetJavaScript(debugMode);
+
+			if (sendCacheHeaders)
 			{
 				SendCachingHeaders(context, javascript);
 			}
@@ -58,11 +80,50 @@ namespace RouteJs
 		}
 
 		/// <summary>
+		/// Checks whether the specified request is a debug mode request (unminified JavaScript) or 
+		/// release mode (minified JavaScript)
+		/// </summary>
+		/// <param name="request">HTTP request</param>
+		/// <param name="sendCacheHeaders">Whether to send caching headers</param>
+		/// <param name="sendFileNotFound">Whether to send a file not found error</param>
+		/// <returns><c>true</c> if the specified request is a debug mode request</returns>
+		private bool CheckDebugMode(HttpRequestBase request, out bool sendCacheHeaders, out bool sendFileNotFound)
+		{
+			sendFileNotFound = false;
+			sendCacheHeaders = false;
+
+			// Check if any path info was provided
+			var pathInfo = request.PathInfo.Split('/');
+			if (pathInfo.Length < 2)
+			{
+				// Not enough path info for a full path - User could be hitting routejs.axd directly with no params
+				// In this case, just serve debug version of the JavaScript
+				return true;
+			}
+
+			switch (pathInfo.Last())
+			{
+				case "router.min.js":
+					sendCacheHeaders = true;
+					return false;
+
+				case "router.js":
+					sendCacheHeaders = true;
+					return true;
+
+				default:
+					// Send a 404, invalid file name
+					sendFileNotFound = true;
+					return true;
+			}
+		}
+
+		/// <summary>
 		/// Send headers to cache the RouteJs response
 		/// </summary>
 		/// <param name="context">HTTP context</param>
 		/// <param name="output">Output of the handler</param>
-		private void SendCachingHeaders(HttpContext context, string output)
+		private void SendCachingHeaders(HttpContextBase context, string output)
 		{
 			context.Response.Cache.SetETag(Hash(output));
 			context.Response.Cache.SetCacheability(HttpCacheability.ServerAndPrivate);
@@ -75,9 +136,9 @@ namespace RouteJs
 		/// Gets the JavaScript routes
 		/// </summary>
 		/// <returns>JavaScript for the routes</returns>
-		private static string GetJavaScript()
+		private static string GetJavaScript(bool debugMode)
 		{
-			var resourceName = HttpContext.Current.IsDebuggingEnabled ? "RouteJs.router.js" : "RouteJs.router.min.js";
+			var resourceName = debugMode ? "RouteJs.router.js" : "RouteJs.router.min.js";
 			var jsonRoutes = GetJsonData();
 			string content;
 
@@ -150,8 +211,15 @@ namespace RouteJs
 		/// <returns>URL to the handler</returns>
 		private static string GetHandlerUrl()
 		{
-			var javascript = GetJavaScript();
-			return VirtualPathUtility.ToAbsolute("~/routejs.axd") + "?" + Hash(javascript);
+			var debugMode = HttpContext.Current.IsDebuggingEnabled;
+			// Hash the file contents so the URL can change whenever a route or the routing JS changes
+			var javascript = GetJavaScript(debugMode);
+			var hash = Hash(javascript);
+
+			// Serve minified JavaScript when running in release mode
+			var filename = debugMode ? "router.js" : "router.min.js";
+
+			return string.Join("/", VirtualPathUtility.ToAbsolute("~/routejs.axd"), hash, filename);
 		}
 		#endregion
 	}
