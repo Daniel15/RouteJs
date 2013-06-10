@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteJs.Tests", "RouteJs.Te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{5CE41205-373E-4F48-8F2C-3837AEAFB5E9}"
 	ProjectSection(SolutionItems) = preProject
+		..\build.bat = ..\build.bat
+		..\build.proj = ..\build.proj
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -27,6 +29,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteJs.Tests.Mvc4", "RouteJs.Tests.Mvc4\RouteJs.Tests.Mvc4.csproj", "{07F49344-DA3B-4D91-ADCE-5E0E0B6B370A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteJs.Tests.Mvc3", "RouteJs.Tests.Mvc3\RouteJs.Tests.Mvc3.csproj", "{F2F43C34-4174-4945-90E5-31F4DFD4AE54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteJs.Mvc2", "RouteJs.Mvc2\RouteJs.Mvc2.csproj", "{9170F76B-D09E-4B38-A7C9-A22C5D79F6AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteJs.Tests.Mvc2", "RouteJs.Tests.Mvc2\RouteJs.Tests.Mvc2.csproj", "{98458A6B-0850-4DC5-ADCD-33F140449751}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +68,14 @@ Global
 		{F2F43C34-4174-4945-90E5-31F4DFD4AE54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2F43C34-4174-4945-90E5-31F4DFD4AE54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2F43C34-4174-4945-90E5-31F4DFD4AE54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9170F76B-D09E-4B38-A7C9-A22C5D79F6AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9170F76B-D09E-4B38-A7C9-A22C5D79F6AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9170F76B-D09E-4B38-A7C9-A22C5D79F6AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9170F76B-D09E-4B38-A7C9-A22C5D79F6AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98458A6B-0850-4DC5-ADCD-33F140449751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98458A6B-0850-4DC5-ADCD-33F140449751}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98458A6B-0850-4DC5-ADCD-33F140449751}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98458A6B-0850-4DC5-ADCD-33F140449751}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -66,14 +66,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\RouteJs.Mvc4\readme.txt">
-      <Link>readme.txt</Link>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\RouteJs.Mvc4\content\web.config.transform">
-      <Link>content\web.config.transform</Link>
-    </None>
+    <None Include="RouteJs.Mvc3.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

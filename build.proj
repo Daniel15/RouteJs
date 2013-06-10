@@ -2,8 +2,8 @@
 <Project ToolsVersion="4.0" DefaultTargets="Package" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
 		<Major>1</Major>
-		<Minor>0</Minor>
-		<Build>1</Build>
+		<Minor>1</Minor>
+		<Build>0</Build>
 		<Revision>0</Revision>
 		<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\tools\MSBuildTasks</MSBuildCommunityTasksPath>
 	</PropertyGroup>
@@ -29,7 +29,7 @@
 		<!-- Run tests -->
 		<NUnit 
 			ToolPath="src\packages\NUnit.Runners.2.6.1\tools" 
-			Assemblies="bin\Release\RouteJs.Tests.dll" 
+			Assemblies="bin\Release\RouteJs.Tests.dll; bin\Release\RouteJs.Tests.Mvc4.dll; bin\Release\RouteJs.Tests.Mvc3.dll; bin\Release\RouteJs.Tests.Mvc2.dll" 
 		/>
 	</Target>
 
@@ -38,6 +38,14 @@
 		<Exec
 			WorkingDirectory="$(MSBuildProjectDirectory)"
 			Command="NuGet.exe pack src\RouteJs.Mvc4\RouteJs.Mvc4.csproj -IncludeReferencedProjects -Prop Configuration=Release"
+			/>
+		<Exec
+			WorkingDirectory="$(MSBuildProjectDirectory)"
+			Command="NuGet.exe pack src\RouteJs.Mvc3\RouteJs.Mvc3.csproj -IncludeReferencedProjects -Prop Configuration=Release"
+			/>
+		<Exec
+			WorkingDirectory="$(MSBuildProjectDirectory)"
+			Command="NuGet.exe pack src\RouteJs.Mvc2\RouteJs.Mvc2.csproj -IncludeReferencedProjects -Prop Configuration=Release"
 			/>
 	</Target>
 </Project>

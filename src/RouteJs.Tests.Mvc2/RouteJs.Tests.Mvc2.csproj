@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F2F43C34-4174-4945-90E5-31F4DFD4AE54}</ProjectGuid>
+    <ProjectGuid>{98458A6B-0850-4DC5-ADCD-33F140449751}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RouteJs.Tests.Mvc</RootNamespace>
-    <AssemblyName>RouteJs.Tests.Mvc3</AssemblyName>
+    <AssemblyName>RouteJs.Tests.Mvc2</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -42,7 +42,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -78,9 +78,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RouteJs.Mvc3\RouteJs.Mvc3.csproj">
-      <Project>{8C9563A9-03AD-4427-BEA0-D8513247BE99}</Project>
-      <Name>RouteJs.Mvc3</Name>
+    <ProjectReference Include="..\RouteJs.Mvc2\RouteJs.Mvc2.csproj">
+      <Project>{9170F76B-D09E-4B38-A7C9-A22C5D79F6AF}</Project>
+      <Name>RouteJs.Mvc2</Name>
     </ProjectReference>
     <ProjectReference Include="..\RouteJs.Tests\RouteJs.Tests.csproj">
       <Project>{A39C65D1-0720-438C-A2A9-59333FFA5CB3}</Project>
