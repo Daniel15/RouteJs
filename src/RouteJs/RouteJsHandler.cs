@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
-using System.Web.Routing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Linq;
@@ -126,6 +126,7 @@ namespace RouteJs
 		private void SendCachingHeaders(HttpContextBase context, string output)
 		{
 			context.Response.Cache.SetETag(Hash(output));
+			// Cache on both the server- and client-side
 			context.Response.Cache.SetCacheability(HttpCacheability.ServerAndPrivate);
 			context.Response.Cache.SetExpires(DateTime.Now + _cacheFor);
 			context.Response.Cache.SetMaxAge(_cacheFor);
@@ -148,7 +149,24 @@ namespace RouteJs
 				content = reader.ReadToEnd();
 			}
 
+			// Replace version number in content
+			content = content.Replace("{VERSION}", GetVersionNumber());
+
 			return content + "window.Router = new RouteJs.RouteManager(" + jsonRoutes + ");";
+		}
+
+		/// <summary>
+		/// Gets the RouteJs version number
+		/// </summary>
+		/// <returns>The RouteJs version number</returns>
+		public static string GetVersionNumber()
+		{
+			var assembly = Assembly.GetExecutingAssembly();
+			var rawVersion = FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion;
+			var lastDot = rawVersion.LastIndexOf('.');
+			var version = rawVersion.Substring(0, lastDot);
+			var build = rawVersion.Substring(lastDot + 1);
+			return string.Format("{0} (build {1})", version, build);
 		}
 
 		/// <summary>

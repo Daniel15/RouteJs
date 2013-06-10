@@ -1,6 +1,6 @@
 ﻿/*!
- * RouteJs by Daniel Lo Nigro (Daniel15) - http://dan.cx/
- * Version 1.0.0
+ * RouteJs by Daniel Lo Nigro (Daniel15) - http://dl.vc/routejs
+ * Version {VERSION}
  * Released under the BSD license.
  */
 (function (window) {
@@ -223,6 +223,7 @@
 
 	// Public API
 	window.RouteJs = {
+		version: '{VERSION}',
 		Route: Route,
 		RouteManager: RouteManager
 	};
