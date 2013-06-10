@@ -28,8 +28,8 @@
 		
 		<!-- Run tests -->
 		<NUnit 
-			ToolPath="src\packages\NUnit.Runners.2.6.2\tools" 
-			Assemblies="src\RouteJs.Tests\bin\Release\RouteJs.Tests.dll" 
+			ToolPath="src\packages\NUnit.Runners.2.6.1\tools" 
+			Assemblies="bin\Release\RouteJs.Tests.dll" 
 		/>
 	</Target>
 
