@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{071DC743-8F40-475F-BF54-253C61B2C683}</ProjectGuid>
+    <ProjectGuid>{F2F43C34-4174-4945-90E5-31F4DFD4AE54}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RouteJs.Mvc</RootNamespace>
-    <AssemblyName>RouteJs.Mvc4</AssemblyName>
+    <RootNamespace>RouteJs.Tests.Mvc</RootNamespace>
+    <AssemblyName>RouteJs.Tests.Mvc4</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,52 +27,72 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\RouteJs.Tests.Mvc4\Controllers\Controllers.cs">
+      <Link>Controllers\Controllers.cs</Link>
+    </Compile>
+    <Compile Include="..\RouteJs.Tests.Mvc4\MvcDefaultsProcessorTests.cs">
+      <Link>MvcDefaultsProcessorTests.cs</Link>
+    </Compile>
+    <Compile Include="..\RouteJs.Tests.Mvc4\MvcRouteFilterTests.cs">
+      <Link>MvcRouteFilterTests.cs</Link>
+    </Compile>
+    <Compile Include="..\RouteJs.Tests.Mvc4\MvcRouteTests.cs">
+      <Link>MvcRouteTests.cs</Link>
+    </Compile>
+    <Compile Include="..\RouteJs.Tests.Mvc4\MvcTestBase.cs">
+      <Link>MvcTestBase.cs</Link>
+    </Compile>
+    <Compile Include="..\RouteJs.Tests.Mvc4\RouteCollectionUtilsTests.cs">
+      <Link>RouteCollectionUtilsTests.cs</Link>
+    </Compile>
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="..\SharedAssemblyVersionInfo.cs">
       <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
     </Compile>
-    <Compile Include="ComponentRegistration.cs" />
-    <Compile Include="DefaultsProcessor.cs" />
-    <Compile Include="MvcRouteFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="content\web.config.transform" />
-    <None Include="packages.config" />
-    <None Include="RouteJs.Mvc4.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\RouteJs.Mvc3\RouteJs.Mvc3.csproj">
+      <Project>{8C9563A9-03AD-4427-BEA0-D8513247BE99}</Project>
+      <Name>RouteJs.Mvc3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RouteJs.Tests\RouteJs.Tests.csproj">
+      <Project>{A39C65D1-0720-438C-A2A9-59333FFA5CB3}</Project>
+      <Name>RouteJs.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RouteJs\RouteJs.csproj">
       <Project>{C8FAAE56-4623-4055-85DB-16CE600212AA}</Project>
       <Name>RouteJs</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="readme.txt" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

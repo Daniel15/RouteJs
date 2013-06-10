@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Linq;
 
-namespace RouteJs.Mvc4
+namespace RouteJs.Mvc
 {
 	/// <summary>
 	/// Filters the rendered routes based on the <see cref="ExposeRoutesInJavaScriptAttribute"/> and 

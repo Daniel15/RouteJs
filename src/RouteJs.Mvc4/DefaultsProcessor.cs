@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace RouteJs.Mvc4
+namespace RouteJs.Mvc
 {
 	/// <summary>
 	/// Handles parsing of optional parameters from the defaults in MVC routes

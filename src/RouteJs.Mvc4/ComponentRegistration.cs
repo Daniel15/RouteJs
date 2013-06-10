@@ -1,4 +1,4 @@
-﻿namespace RouteJs.Mvc4
+﻿namespace RouteJs.Mvc
 {
 	/// <summary>
 	/// Register all RouteJs components that are coupled with ASP.NET MVC

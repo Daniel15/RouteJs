@@ -149,3 +149,4 @@ $RECYCLE.BIN/
 src/SharedAssemblyVersionInfo.cs
 src/RouteJs/router.min.js
 RouteJs*.nupkg
+TestResult.xml
