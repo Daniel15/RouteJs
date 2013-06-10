@@ -20,15 +20,15 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace RouteJs.Tests.Controllers
+namespace RouteJs.Tests.Mvc.Controllers
 {
-    public partial class HelloExposedController
+    public partial class HelloController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HelloExposedController() { }
+        public HelloController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected HelloExposedController(Dummy d) { }
+        protected HelloController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -46,13 +46,13 @@ namespace RouteJs.Tests.Controllers
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HelloExposedController Actions { get { return MVC.HelloExposed; } }
+        public HelloController Actions { get { return MVC.Hello; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "HelloExposed";
+        public readonly string Name = "Hello";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "HelloExposed";
+        public const string NameConst = "Hello";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -60,11 +60,13 @@ namespace RouteJs.Tests.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
+            public readonly string HelloWorld = "HelloWorld";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
+            public const string HelloWorld = "HelloWorld";
         }
 
 
@@ -83,9 +85,18 @@ namespace RouteJs.Tests.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_HelloExposedController : Tests.Controllers.HelloExposedController
+    public partial class T4MVC_HelloController : Tests.Mvc.Controllers.HelloController
     {
-        public T4MVC_HelloExposedController() : base(Dummy.Instance) { }
+        public T4MVC_HelloController() : base(Dummy.Instance) { }
+
+        partial void HelloWorldOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult HelloWorld()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HelloWorld);
+            HelloWorldOverride(callInfo);
+            return callInfo;
+        }
 
     }
 }

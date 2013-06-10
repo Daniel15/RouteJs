@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace RouteJs.Tests.Controllers
+namespace RouteJs.Tests.Mvc.Controllers
 {
 	[ExposeRoutesInJavaScript]
 	public partial class HelloExposedController : Controller

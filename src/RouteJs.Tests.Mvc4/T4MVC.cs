@@ -24,9 +24,9 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static class MVC
 {
-    public static RouteJs.Tests.Controllers.HelloExposedController HelloExposed = new RouteJs.Tests.Controllers.T4MVC_HelloExposedController();
-    public static RouteJs.Tests.Controllers.HelloHiddenController HelloHidden = new RouteJs.Tests.Controllers.T4MVC_HelloHiddenController();
-    public static RouteJs.Tests.Controllers.HelloController Hello = new RouteJs.Tests.Controllers.T4MVC_HelloController();
+    public static RouteJs.Tests.Mvc.Controllers.HelloExposedController HelloExposed = new RouteJs.Tests.Mvc.Controllers.T4MVC_HelloExposedController();
+    public static RouteJs.Tests.Mvc.Controllers.HelloHiddenController HelloHidden = new RouteJs.Tests.Mvc.Controllers.T4MVC_HelloHiddenController();
+    public static RouteJs.Tests.Mvc.Controllers.HelloController Hello = new RouteJs.Tests.Mvc.Controllers.T4MVC_HelloController();
 }
 
 namespace T4MVC

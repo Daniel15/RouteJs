@@ -20,7 +20,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace RouteJs.Tests.Controllers
+namespace RouteJs.Tests.Mvc.Controllers
 {
     public partial class HelloHiddenController
     {
@@ -83,7 +83,7 @@ namespace RouteJs.Tests.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_HelloHiddenController : Tests.Controllers.HelloHiddenController
+    public partial class T4MVC_HelloHiddenController : Tests.Mvc.Controllers.HelloHiddenController
     {
         public T4MVC_HelloHiddenController() : base(Dummy.Instance) { }
 

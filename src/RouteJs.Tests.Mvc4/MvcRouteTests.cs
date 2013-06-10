@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using NUnit.Framework;
 
-namespace RouteJs.Tests
+namespace RouteJs.Tests.Mvc
 {
 	[TestFixture]
 	public class MvcRouteTests : MvcTestBase

@@ -1,8 +1,8 @@
 ﻿using System.Web.Routing;
 using Moq;
-using RouteJs.Mvc4;
+using RouteJs.Mvc;
 
-namespace RouteJs.Tests
+namespace RouteJs.Tests.Mvc
 {
 	/// <summary>
 	/// Base class for all ASP.NET MVC-based RouteJs tests

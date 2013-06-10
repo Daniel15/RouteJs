@@ -2,9 +2,9 @@
 using System.Web.Routing;
 using Moq;
 using NUnit.Framework;
-using RouteJs.Mvc4;
+using RouteJs.Mvc;
 
-namespace RouteJs.Tests
+namespace RouteJs.Tests.Mvc
 {
 	[TestFixture]
 	public class MvcRouteFilterTests

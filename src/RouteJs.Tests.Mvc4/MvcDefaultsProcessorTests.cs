@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using NUnit.Framework;
-using RouteJs.Mvc4;
+using RouteJs.Mvc;
 
-namespace RouteJs.Tests
+namespace RouteJs.Tests.Mvc
 {
 	[TestFixture]
 	public class MvcDefaultsProcessorTests
