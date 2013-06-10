@@ -46,7 +46,7 @@ namespace RouteJs
 		/// <param name="context">An <see cref="T:System.Web.HttpContext" /> object that provides references to the intrinsic server objects (for example, Request, Response, Session, and Server) used to service HTTP requests.</param>
 		public void ProcessRequest(HttpContext context)
 		{
-			var javascript = GetJavaScript(RouteTable.Routes);
+			var javascript = GetJavaScript();
 
 			if (!string.IsNullOrWhiteSpace(context.Request.Url.Query.TrimStart('?')))
 			{
@@ -74,12 +74,11 @@ namespace RouteJs
 		/// <summary>
 		/// Gets the JavaScript routes
 		/// </summary>
-		/// <param name="routeCollection">The routes to render</param>
 		/// <returns>JavaScript for the routes</returns>
-		private static string GetJavaScript(RouteCollection routeCollection)
+		private static string GetJavaScript()
 		{
 			var resourceName = HttpContext.Current.IsDebuggingEnabled ? "RouteJs.router.js" : "RouteJs.router.min.js";
-			var jsonRoutes = GetJsonData(routeCollection);
+			var jsonRoutes = GetJsonData();
 			string content;
 
 			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
@@ -94,9 +93,8 @@ namespace RouteJs
 		/// <summary>
 		/// Gets the JSON data representing the routes
 		/// </summary>
-		/// <param name="routeCollection">The routes to render</param>
 		/// <returns>JavaScript for the routes</returns>
-		private static string GetJsonData(RouteCollection routeCollection)
+		private static string GetJsonData()
 		{
 			var router = Container.Resolve<RouteJs>();
 			var routes = router.GetRoutes();
@@ -152,7 +150,7 @@ namespace RouteJs
 		/// <returns>URL to the handler</returns>
 		private static string GetHandlerUrl()
 		{
-			var javascript = GetJavaScript(RouteTable.Routes);
+			var javascript = GetJavaScript();
 			return VirtualPathUtility.ToAbsolute("~/routejs.axd") + "?" + Hash(javascript);
 		}
 		#endregion
