@@ -12,7 +12,7 @@
 	<system.webServer>
 		<handlers>
 			<remove name="RouteJs" />
-			<add name="RouteJs" verb="GET" path="routejs.axd" type="RouteJs.RouteJsHandler, RouteJs" />
+			<add name="RouteJs" verb="GET" path="routejs.axd" type="RouteJs.RouteJsHandler, RouteJs" preCondition="integratedMode" />
 		</handlers>
 	</system.webServer>
 
