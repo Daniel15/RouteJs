@@ -12,7 +12,7 @@ Requirements
 Required:
  * ASP.NET 4.0 or higher
  * [Json.NET](http://james.newtonking.com/projects/json-net.aspx)
- * ASP.NET MVC 4 (although RouteJs doesn't require MVC, it's pretty useless without it!)
+ * ASP.NET MVC 2, 3 or 4 (while RouteJs doesn't explicitly require MVC, it's pretty useless without it!)
 
 Installation
 ============
@@ -99,6 +99,11 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+1.1.0 - 10th June 2013
+----------------------
+ - Added support for ASP.NET MVC 2 and 3
+ - Bug fixes around T4MVC routes
+ - Changed cachebusting hash from querystring parameter to URL path parameter
 
 1.0.1 - 4th June 2013
 ---------------------
