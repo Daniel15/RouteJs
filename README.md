@@ -58,9 +58,6 @@ Manual Installation
 -->
 <routeJs exposeAllRoutes="true" />
 ```
-- Reference the RouteJs handler in your view:
-
-
 - See usage example below
 
 Usage
