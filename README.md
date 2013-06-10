@@ -17,11 +17,13 @@ Required:
 Installation
 ============
 
-Via [NuGet Package](https://nuget.org/packages/RouteJs.Mvc4)
+Via [NuGet Package](https://nuget.org/packages?q=RouteJs)
 -----------------
 ```
 Install-Package RouteJs.Mvc4
 ```
+(replace `RouteJs.Mvc4` with `RouteJs.Mvc3` for ASP.NET MVC 3 or `RouteJs.Mvc2` for ASP.NET MVC 2)
+
 Now skip down to the [usage section](#usage)
 
 Manual Installation
