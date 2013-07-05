@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<Major>1</Major>
 		<Minor>1</Minor>
-		<Build>0</Build>
+		<Build>1-alpha</Build>
 		<Revision>0</Revision>
 		<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\tools\MSBuildTasks</MSBuildCommunityTasksPath>
 	</PropertyGroup>
@@ -24,12 +24,12 @@
 
 	<Target Name="Build" DependsOnTargets="UpdateVersion">
 		<!-- Build -->
-		<MSBuild Projects="src\RouteJs.sln" Targets="Rebuild" Properties="Configuration=Release;Platform=Any CPU" />
+		<MSBuild Projects="src\RouteJs.sln" Targets="Rebuild" Properties="Configuration=Release;Platform=Any CPU;NoWarn=1607" />
 		
 		<!-- Run tests -->
 		<NUnit 
 			ToolPath="src\packages\NUnit.Runners.2.6.1\tools" 
-			Assemblies="bin\Release\RouteJs.Tests.dll; bin\Release\RouteJs.Tests.Mvc4.dll; bin\Release\RouteJs.Tests.Mvc3.dll; bin\Release\RouteJs.Tests.Mvc2.dll" 
+			Assemblies="bin\ReleaseTests\RouteJs\RouteJs.Tests.dll; bin\ReleaseTests\RouteJs.Mvc4\RouteJs.Tests.Mvc4.dll; bin\ReleaseTests\RouteJs.Mvc3\RouteJs.Tests.Mvc3.dll; bin\ReleaseTests\RouteJs.Mvc2\RouteJs.Tests.Mvc2.dll" 
 		/>
 	</Target>
 
@@ -37,15 +37,15 @@
 	<Target Name="Package" DependsOnTargets="Build">
 		<Exec
 			WorkingDirectory="$(MSBuildProjectDirectory)"
-			Command="NuGet.exe pack src\RouteJs.Mvc4\RouteJs.Mvc4.csproj -IncludeReferencedProjects -Prop Configuration=Release"
+			Command="src\.nuget\NuGet.exe pack src\RouteJs.Mvc4\RouteJs.Mvc4.csproj -IncludeReferencedProjects -Prop Configuration=Release"
 			/>
 		<Exec
 			WorkingDirectory="$(MSBuildProjectDirectory)"
-			Command="NuGet.exe pack src\RouteJs.Mvc3\RouteJs.Mvc3.csproj -IncludeReferencedProjects -Prop Configuration=Release"
+			Command="src\.nuget\NuGet.exe pack src\RouteJs.Mvc3\RouteJs.Mvc3.csproj -IncludeReferencedProjects -Prop Configuration=Release"
 			/>
 		<Exec
 			WorkingDirectory="$(MSBuildProjectDirectory)"
-			Command="NuGet.exe pack src\RouteJs.Mvc2\RouteJs.Mvc2.csproj -IncludeReferencedProjects -Prop Configuration=Release"
+			Command="src\.nuget\NuGet.exe pack src\RouteJs.Mvc2\RouteJs.Mvc2.csproj -IncludeReferencedProjects -Prop Configuration=Release"
 			/>
 	</Target>
 </Project>
