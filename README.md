@@ -1,4 +1,4 @@
-RouteJs ![Build status](http://teamcity.codebetter.com/app/rest/builds/buildType:\(id:bt1035\)/statusIcon)
+RouteJs [![Build status](http://teamcity.codebetter.com/app/rest/builds/buildType:\(id:bt1035\)/statusIcon)](http://teamcity.codebetter.com/viewType.html?buildTypeId=bt1035&guest=1)
 =======
 RouteJs allows you to use your ASP.NET MVC or WebForms routes from JavaScript. It does not depend on
 jQuery or any other JavaScript framework, so can be used in any scenario. RouteJs works with your
@@ -17,12 +17,18 @@ Required:
 Installation
 ============
 
-Via [NuGet Package](https://nuget.org/packages?q=RouteJs)
------------------
+Via released [NuGet Package](https://nuget.org/packages?q=RouteJs)
+----------------------------
 ```
 Install-Package RouteJs.Mvc4
 ```
 (replace `RouteJs.Mvc4` with `RouteJs.Mvc3` for ASP.NET MVC 3 or `RouteJs.Mvc2` for ASP.NET MVC 2)
+
+Now skip down to the [usage section](#usage)
+
+Via latest development build
+----------------------------
+Get the latest builds from the [build server](http://teamcity.codebetter.com/viewType.html?buildTypeId=bt1035&guest=1)
 
 Now skip down to the [usage section](#usage)
 
