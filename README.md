@@ -1,4 +1,4 @@
-RouteJs
+RouteJs ![Build status](http://teamcity.codebetter.com/app/rest/builds/buildType:\(id:bt1035\)/statusIcon)
 =======
 RouteJs allows you to use your ASP.NET MVC or WebForms routes from JavaScript. It does not depend on
 jQuery or any other JavaScript framework, so can be used in any scenario. RouteJs works with your
