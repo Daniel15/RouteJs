@@ -57,7 +57,7 @@
 #endif
 
 #endregion
-namespace RouteJs
+namespace RouteJs.TinyIoc
 {
     using System;
     using System.Collections.Generic;

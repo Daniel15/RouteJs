@@ -1,4 +1,6 @@
-﻿namespace RouteJs.Mvc
+﻿using RouteJs.TinyIoc;
+
+namespace RouteJs.Mvc
 {
 	/// <summary>
 	/// Register all RouteJs components that are coupled with ASP.NET MVC

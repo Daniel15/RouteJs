@@ -1,4 +1,6 @@
-﻿namespace RouteJs
+﻿using RouteJs.TinyIoc;
+
+namespace RouteJs
 {
 	/// <summary>
 	/// IoC component registration. Used to register components in the RouteJs IoC container. Every
