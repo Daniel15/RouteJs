@@ -56,6 +56,9 @@
     <Compile Include="..\RouteJs.Tests.Mvc4\Controllers\Controllers.cs">
       <Link>Controllers\Controllers.cs</Link>
     </Compile>
+    <Compile Include="..\RouteJs.Tests.Mvc4\DefaultsProcessorTests.cs">
+      <Link>DefaultsProcessorTests.cs</Link>
+    </Compile>
     <Compile Include="..\RouteJs.Tests.Mvc4\MvcDefaultsProcessorTests.cs">
       <Link>MvcDefaultsProcessorTests.cs</Link>
     </Compile>

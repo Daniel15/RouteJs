@@ -88,7 +88,7 @@ namespace RouteJs
 		/// <param name="sendCacheHeaders">Whether to send caching headers</param>
 		/// <param name="sendFileNotFound">Whether to send a file not found error</param>
 		/// <returns><c>true</c> if the specified request is a debug mode request</returns>
-		private bool CheckDebugMode(HttpRequestBase request, out bool sendCacheHeaders, out bool sendFileNotFound)
+		public static bool CheckDebugMode(HttpRequestBase request, out bool sendCacheHeaders, out bool sendFileNotFound)
 		{
 			sendFileNotFound = false;
 			sendCacheHeaders = false;
@@ -124,7 +124,7 @@ namespace RouteJs
 		/// </summary>
 		/// <param name="context">HTTP context</param>
 		/// <param name="output">Output of the handler</param>
-		private void SendCachingHeaders(HttpContextBase context, string output)
+		private static void SendCachingHeaders(HttpContextBase context, string output)
 		{
 			context.Response.Cache.SetETag(Hash(output));
 			// Cache on both the server- and client-side
