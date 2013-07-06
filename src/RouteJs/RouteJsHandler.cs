@@ -25,7 +25,7 @@ namespace RouteJs
 		/// <summary>
 		/// How long to cache the JavaScript output for. Only used when a unique hash is present in the URL.
 		/// </summary>
-		private static readonly TimeSpan _cacheFor = new TimeSpan(24, 0, 0);
+		private static readonly TimeSpan _cacheFor = new TimeSpan(365, 0, 0, 0);
 
 		/// <summary>
 		/// IoC container
