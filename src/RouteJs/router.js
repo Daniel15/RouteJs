@@ -77,39 +77,65 @@
 			///<param name="routeValues">Route values</param>
 			///<returns type="String">URL, or null when building a URL is not possible</returns>
 			var finalValues = merge(this.route.defaults, routeValues),
-				finalUrl = this.route.url,
 				processedParams = { controller: true, action: true },
-			    ignoredParams = [],
-				key;
+				finalUrl;
 			
 			// Ensure area matches, if provided
 			if (this.route.defaults.area && this.route.defaults.area !== routeValues.area) {
 				return null;
 			}
 			
-			// Ensure constraints match
-			if (!this._checkConstraints(finalValues)) {
+			if (!this._checkConstraints(finalValues) || !this._checkNonDefaultValues(finalValues, processedParams)) {
 				return null;
 			}
-
-			// Any values using a non-default value need to have a matching merge field in the URL
-			for (key in this.route.defaults) {
+		
+			// Try to merge all URL parameters
+			// If null, this means a required parameters was not specified.
+			finalUrl = this._merge(finalValues, processedParams);
+			if (!finalUrl) {
+				return null;
+			}
+			
+			finalUrl = this._trimOptional(finalUrl) + this._extraParams(routeValues, processedParams, finalUrl.indexOf('?') > -1);
+			return finalUrl;
+		},
+		
+		_checkNonDefaultValues: function (finalValues, processedParams) {
+			///<summary>Checks that any values using a non-default value have a matching merge field in the URL.</summary>
+			///<param name="finalValues">Route values merged with defaults</param>
+			///<param name="processedParams">Array of parameters that have already been processed</param>
+			///<returns type="Boolean">true if all non-default parameters have a matching merge field, otherwise false.</returns>
+			
+			for (var key in this.route.defaults) {
 				if (!this.route.defaults.hasOwnProperty(key)) {
 					continue;
 				}
 				
 				if (this.route.defaults[key] !== finalValues[key] && arrayIndexOf(this._params, key) === -1) {
-					return null;
+					return false;
 				} else {
 					// Any defaults don't need to be explicitly specified in the querystring
 					processedParams[key] = true;
 				}
 			}
+
+			return true;
+		},
 		
-			// Ensure all URL parameters are supplied (either in the route values or defaults)
+		_merge: function (finalValues, processedParams) {
+			///<summary>
+			/// Merges parameters into the URL, keeping track of which parameters have been added and
+			/// ensuring that all required parameters are specified.
+			///</summary>
+			///<param name="finalValues">Route values merged with defaults</param>
+			///<param name="processedParams">Array of parameters that have already been processed</param>
+			///<returns type="String">URL with parameters merged in, or null if not all parameters were specified</returns>
+			
+			var finalUrl = this.route.url;
+			
 			for (var i = 0, count = this._params.length; i < count; i++) {
 				var paramName = this._params[i],
-				    isProvided = finalValues[paramName] !== undefined,
+					isProvided = finalValues[paramName] !== undefined,
 					isOptional = arrayIndexOf(this.route.optional, paramName) > -1;
 				
 				if (!isProvided && !isOptional) {
@@ -118,15 +144,18 @@
 				
 				if (isProvided) {
 					finalUrl = finalUrl.replace('{' + paramName + '}', encodeURIComponent(finalValues[paramName]));	
-				} else {
-					ignoredParams.push(paramName);
 				}
 				
 				processedParams[paramName] = true;
 			}
-			
-			// Remove all the segments that have optional parameters which were not provided
-			// Loop backwards to make deleting easier
+
+			return finalUrl;
+		},
+		
+		_trimOptional: function (finalUrl) {
+			///<summary>Trims any unused optional parameter segments from the end of the URL</summary>
+			///<param name="finalUrl">URL with used parameters merged in</param>
+			///<returns type="String">URL with unused optional parameters removed</returns>
 			var urlPieces = finalUrl.split('/');
 			for (var i = urlPieces.length - 1; i >= 0; i--) {
 				// If it has a parameter, assume it's an ignored one (otherwise it would have been merged above)
@@ -134,16 +163,26 @@
 					urlPieces.splice(i, 1);
 				}
 			}
-			finalUrl = urlPieces.join('/');
-
+			return urlPieces.join('/');
+		},
+		
+		_extraParams: function (routeValues, processedParams, alreadyHasParams) {
+			///<summary>Add any additional parameters not specified in the URL as querystring parameters</summary>
+			///<param name="routeValues">Route values</param>
+			///<param name="processedParams">Array of parameters that have already been processed</param>
+			///<returns type="String">URL encoded querystring parameters</returns>
+			
+			var params = '';
+			
 			// Add all other parameters to the querystring
 			for (var key in routeValues) {
 				if (!processedParams[key]) {
-					finalUrl += (finalUrl.indexOf('?') > -1 ? '&' : '?') + encodeURIComponent(key) + '=' + encodeURIComponent(routeValues[key]);
+					params += (alreadyHasParams ? '&' : '?') + encodeURIComponent(key) + '=' + encodeURIComponent(routeValues[key]);
+					alreadyHasParams = true;
 				}
 			}
-			
-			return finalUrl;
+
+			return params;
 		},
 		
 		_checkConstraints: function (routeValues) {
