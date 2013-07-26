@@ -107,6 +107,11 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+1.1.1 - 26th July 2013
+----------------------
+ - #14 - Cache JavaScript for one year
+ - #17 - Ensure area route isn't used if area is not specified in `Router.action` call
+
 1.1.0 - 10th June 2013
 ----------------------
  - Added support for ASP.NET MVC 2 and 3
