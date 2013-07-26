@@ -4,6 +4,8 @@
  * Released under the BSD license.
  */
 (function (window) {
+	'use strict';
+	
 	// Helper methods
 	function merge (first, second) {
 		///<summary>
@@ -261,7 +263,7 @@
 				}
 			}
 
-			throw Error('No route could be matched to route values: ' + routeValues);
+			throw new Error('No route could be matched to route values: ' + routeValues);
 		}
 	};
 
