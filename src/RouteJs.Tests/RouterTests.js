@@ -147,6 +147,29 @@ describe('Route', function() {
 			});
 		});
 	});
+
+	describe('Areas', function() {
+		describe('Route with area', function() {
+			var route;
+
+			beforeEach(function() {
+				route = new RouteJs.Route({
+					url: 'area/hello/world',
+					defaults: { area: 'MyArea', controller: 'Hello', action: 'Index' }
+				});
+			});
+
+			it('should match when the area is provided', function() {
+				var url = route.build({ area: 'MyArea', controller: 'Hello', action: 'Index', });
+				expect(url).toBe('area/hello/world');
+			});
+			
+			it('should not match when the area is not provided', function() {
+				var url = route.build({ controller: 'Hello', action: 'Index', });
+				expect(url).toBeNull();
+			});
+		});
+	});
 });
 
 describe('RouteManager', function() {
@@ -257,6 +280,36 @@ describe('RouteManager', function() {
 		it('should use the second overload when page number is 2', function() {
 			var url = router.action('Blog', 'Category', { slug: 'hello-world', page: 2 });
 			expect(url).toEqual('category/hello-world/page-2');
+		});
+	});
+
+	describe('MVC routes with areas', function() {
+		var router;
+
+		beforeEach(function() {
+			router = new RouteJs.RouteManager({
+				routes: [
+					{
+						url: 'area/hello/world',
+						defaults: { area: 'MyArea', controller: 'Hello', action: 'Index' }
+					},
+					{
+						url: 'hello/world',
+						defaults: { controller: 'Hello', action: 'Index' }
+					}
+				],
+				baseUrl: ''
+			});
+		});
+
+		it('should use the area route when area is specified', function() {
+			var url = router.action('Hello', 'Index', { area: 'MyArea' });
+			expect(url).toBe('area/hello/world');
+		});
+		
+		it('should use the stanard route when area is not specified', function() {
+			var url = router.action('Hello', 'Index');
+			expect(url).toBe('hello/world');
 		});
 	});
 });

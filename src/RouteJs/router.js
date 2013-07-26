@@ -82,6 +82,11 @@
 			    ignoredParams = [],
 				key;
 			
+			// Ensure area matches, if provided
+			if (this.route.defaults.area && this.route.defaults.area !== routeValues.area) {
+				return null;
+			}
+			
 			// Ensure constraints match
 			if (!this._checkConstraints(finalValues)) {
 				return null;
