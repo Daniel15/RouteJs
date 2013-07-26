@@ -160,12 +160,12 @@ describe('Route', function() {
 			});
 
 			it('should match when the area is provided', function() {
-				var url = route.build({ area: 'MyArea', controller: 'Hello', action: 'Index', });
+				var url = route.build({ area: 'MyArea', controller: 'Hello', action: 'Index' });
 				expect(url).toBe('area/hello/world');
 			});
 			
 			it('should not match when the area is not provided', function() {
-				var url = route.build({ controller: 'Hello', action: 'Index', });
+				var url = route.build({ controller: 'Hello', action: 'Index' });
 				expect(url).toBeNull();
 			});
 		});
