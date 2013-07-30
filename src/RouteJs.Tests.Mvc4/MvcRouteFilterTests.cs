@@ -10,8 +10,9 @@ namespace RouteJs.Tests.Mvc
 	public class MvcRouteFilterTests
 	{
 		private RouteCollection _routes;
+        private AreaRegistrationContext _testAreaContext;
 
-		[SetUp]
+	    [SetUp]
 		public void BeforeEach()
 		{
 			_routes = new RouteCollection();
@@ -30,6 +31,9 @@ namespace RouteJs.Tests.Mvc
 				url: "hello/hidden",
 				defaults: new { controller = "HelloHidden", action = "Index" }
 			);
+
+		    _testAreaContext = new AreaRegistrationContext("TestArea", _routes);
+            _testAreaContext.MapRoute("Test_default","Test/{controller}/{action}/{id}",new { action = "Index", id = UrlParameter.Optional });
 		}
 
 		[Test]
@@ -84,6 +88,17 @@ namespace RouteJs.Tests.Mvc
 			var result = routeFilter.AllowRoute(_routes["Hello"]);
 			Assert.IsFalse(result);
 		}
+
+        [Test]
+        public void AreaRoutesCanBeHiddenByDefault()
+        {
+            var config = new Mock<IConfiguration>();
+            config.Setup(x => x.ExposeAllRoutes).Returns(false);
+            var routeFilter = new MvcRouteFilter(config.Object);
+
+            var result = routeFilter.AllowRoute(_routes["Test_default"]);
+            Assert.IsFalse(result);
+        }
 
 		[Test]
 		public void ExposedControllersAreExposedWhenRoutesAreHiddenByDefault()
