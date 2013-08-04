@@ -21,7 +21,7 @@ namespace RouteJs.Tests.Mvc
 			config.Setup(x => x.ExposeAllRoutes).Returns(true);
 
 			return new RouteJs(routes,
-				routeFilters: new[] { new MvcRouteFilter(config.Object) }, 
+				routeFilters: new[] { new MvcRouteFilter(config.Object, routes) }, 
 				defaultsProcessors: new[] { new DefaultsProcessor() });
 		}
 	}

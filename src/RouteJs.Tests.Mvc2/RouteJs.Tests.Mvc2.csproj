@@ -62,8 +62,14 @@
     <Compile Include="..\RouteJs.Tests.Mvc4\MvcDefaultsProcessorTests.cs">
       <Link>MvcDefaultsProcessorTests.cs</Link>
     </Compile>
+    <Compile Include="..\RouteJs.Tests.Mvc4\MvcRouteFilterAreaTests.cs">
+      <Link>MvcRouteFilterAreaTests.cs</Link>
+    </Compile>
     <Compile Include="..\RouteJs.Tests.Mvc4\MvcRouteFilterTests.cs">
       <Link>MvcRouteFilterTests.cs</Link>
+    </Compile>
+    <Compile Include="..\RouteJs.Tests.Mvc4\MvcRouteTestHelper.cs">
+      <Link>MvcRouteTestHelper.cs</Link>
     </Compile>
     <Compile Include="..\RouteJs.Tests.Mvc4\MvcRouteTests.cs">
       <Link>MvcRouteTests.cs</Link>

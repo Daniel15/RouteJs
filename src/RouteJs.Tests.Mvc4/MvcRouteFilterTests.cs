@@ -14,29 +14,14 @@ namespace RouteJs.Tests.Mvc
 		[SetUp]
 		public void BeforeEach()
 		{
-			_routes = new RouteCollection();
-			_routes.MapRoute(
-				name: "Hello",
-				url: "hello/world",
-				defaults: new { controller = "Hello", action = "Index" }
-			);
-			_routes.MapRoute(
-				name: "HelloExposed",
-				url: "hello/exposed",
-				defaults: new { controller = "HelloExposed", action = "Index" }
-			);
-			_routes.MapRoute(
-				name: "HelloHidden",
-				url: "hello/hidden",
-				defaults: new { controller = "HelloHidden", action = "Index" }
-			);
+			_routes = MvcRouteTestHelper.RegisterTestRoutes();
 		}
 
 		[Test]
 		public void ControllersCanBeHiddenViaAttribute()
 		{
 			var config = new Mock<IConfiguration>();
-			var routeFilter = new MvcRouteFilter(config.Object);
+			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
 			var result = routeFilter.AllowRoute(_routes["HelloHidden"]);
 			Assert.IsFalse(result);
@@ -46,7 +31,7 @@ namespace RouteJs.Tests.Mvc
 		public void ControllersCanBeExposedViaAttribute()
 		{
 			var config = new Mock<IConfiguration>();
-			var routeFilter = new MvcRouteFilter(config.Object);
+			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
 			var result = routeFilter.AllowRoute(_routes["HelloExposed"]);
 			Assert.IsTrue(result);
@@ -57,7 +42,7 @@ namespace RouteJs.Tests.Mvc
 		{
 			var config = new Mock<IConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(true);
-			var routeFilter = new MvcRouteFilter(config.Object);
+			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
 			var result = routeFilter.AllowRoute(_routes["Hello"]);
 			Assert.IsTrue(result);
@@ -68,7 +53,7 @@ namespace RouteJs.Tests.Mvc
 		{
 			var config = new Mock<IConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(true);
-			var routeFilter = new MvcRouteFilter(config.Object);
+			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
 			var result = routeFilter.AllowRoute(_routes["HelloHidden"]);
 			Assert.IsFalse(result);
@@ -79,7 +64,7 @@ namespace RouteJs.Tests.Mvc
 		{
 			var config = new Mock<IConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(false);
-			var routeFilter = new MvcRouteFilter(config.Object);
+			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
 			var result = routeFilter.AllowRoute(_routes["Hello"]);
 			Assert.IsFalse(result);
@@ -90,7 +75,7 @@ namespace RouteJs.Tests.Mvc
 		{
 			var config = new Mock<IConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(false);
-			var routeFilter = new MvcRouteFilter(config.Object);
+			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
 			var result = routeFilter.AllowRoute(_routes["HelloExposed"]);
 			Assert.IsTrue(result);

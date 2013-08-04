@@ -118,7 +118,9 @@
     </Compile>
     <Compile Include="IgnoreUnsupportedRoutesFilterTests.cs" />
     <Compile Include="MvcDefaultsProcessorTests.cs" />
+    <Compile Include="MvcRouteFilterAreaTests.cs" />
     <Compile Include="MvcRouteFilterTests.cs" />
+    <Compile Include="MvcRouteTestHelper.cs" />
     <Compile Include="MvcRouteTests.cs" />
     <Compile Include="MvcTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

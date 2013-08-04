@@ -17,21 +17,40 @@ namespace RouteJs.Mvc
 		/// </summary>
 		private readonly IConfiguration _configuration;
 		/// <summary>
+		/// ASP.NET routes
+		/// </summary>
+		private readonly RouteCollection _routeCollection;
+
+		/// <summary>
 		/// Whitelist of controllers whose routes are always rendered
 		/// </summary>
-		private HashSet<string> _controllerWhitelist;
+		private Dictionary<string, Type> _controllerWhitelist;
 		/// <summary>
 		/// Blacklist of controllers whose routes are never rendered
 		/// </summary>
-		private HashSet<string> _controllerBlacklist;
+		private Dictionary<string, Type> _controllerBlacklist;
+
+		/// <summary>
+		/// A mapping of namespace prefix to area name
+		/// </summary>
+		private readonly IDictionary<string, string> _areaNamespaceMapping;
+		/// <summary>
+		/// Whitelist of areas whose default routes are always rendered. Areas as whitelisted if at
+		/// least one controller in the area is whitelisted.
+		/// </summary>
+		private HashSet<string> _areaWhitelist; 
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MvcRouteFilter" /> class.
 		/// </summary>
 		/// <param name="configuration">The RouteJs configuration.</param>
-		public MvcRouteFilter(IConfiguration configuration)
+		/// <param name="routeCollection">The ASP.NET routes</param>
+		public MvcRouteFilter(IConfiguration configuration, RouteCollection routeCollection)
 		{
 			_configuration = configuration;
+			_routeCollection = routeCollection;
+
+			_areaNamespaceMapping = GetAreaNamespaceMap();
 			BuildLists();
 		}
 
@@ -49,8 +68,46 @@ namespace RouteJs.Mvc
 			// Check which ones implement the attributes
 			_controllerWhitelist = ControllersImplementingAttribute(controllers, typeof(ExposeRoutesInJavaScriptAttribute));
 			_controllerBlacklist = ControllersImplementingAttribute(controllers, typeof(HideRoutesInJavaScriptAttribute));
+
+			// Check for exposed controllers in areas - If any controller in the area is exposed, any 
+			// default routes in the area need to be exposed as well.
+			_areaWhitelist = new HashSet<string>();
+			foreach (var controller in _controllerWhitelist)
+			{
+				var areaKey = _areaNamespaceMapping.Keys.FirstOrDefault(areaNs => controller.Value.Namespace.StartsWith(areaNs));
+				if (areaKey != null)
+				{
+					_areaWhitelist.Add(_areaNamespaceMapping[areaKey]);
+				}
+			}
 		}
 
+		/// <summary>
+		/// Gets a mapping of  namespace prefix to area name
+		/// </summary>
+		/// <returns></returns>
+		private IDictionary<string, string> GetAreaNamespaceMap()
+		{
+			var mapping = new Dictionary<string, string>();
+			
+			foreach (var route in _routeCollection.GetRoutes().OfType<Route>())
+			{
+				// Skip routes with no area or namespace
+				if (route.DataTokens["area"] == null || route.DataTokens["Namespaces"] == null)
+					continue;
+
+				var area = (string)route.DataTokens["area"];
+				var namespaces = (IList<string>)route.DataTokens["Namespaces"];
+				foreach (var ns in namespaces)
+				{
+					// MVC adds namespaces in the format "Daniel15.Areas.Blah.*", but we don't 
+					// care about the asterisk.
+					mapping[ns.TrimEnd('*')] = area;
+				}
+			}
+
+			return mapping;
+		}
 
 		/// <summary>
 		/// Returns all the controllers that implement the specified attribute
@@ -58,13 +115,12 @@ namespace RouteJs.Mvc
 		/// <param name="types">The controller types.</param>
 		/// <param name="attributeType">Type of the attribute to check for.</param>
 		/// <returns>All the types that implement the specified attribute</returns>
-		private HashSet<string> ControllersImplementingAttribute(IEnumerable<Type> types, Type attributeType)
+		private Dictionary<string, Type> ControllersImplementingAttribute(IEnumerable<Type> types, Type attributeType)
 		{
-			return new HashSet<string>(types
+			return types
 				.Where(c => c.IsDefined(attributeType, true))
 				// Remove "Controller" from the class name as it's not used when referencing the controller
-				.Select(c => c.Name.Replace("Controller", string.Empty))
-			);
+				.ToDictionary(c =>  c.Name.Replace("Controller", string.Empty), c => c);
 		}
 
 		/// <summary>
@@ -81,18 +137,32 @@ namespace RouteJs.Mvc
 			if (route == null)
 				return true;
 
-			// Allow if there's no controller specified
-			if (route.Defaults == null || !route.Defaults.ContainsKey("controller"))
+			if (route.Defaults == null)
 				return true;
+
+			// If there's no controller specified, we need to check if it's in an area
+			if (!route.Defaults.ContainsKey("controller"))
+			{
+				// Not an area, so it's a "regular" default route
+				if (!route.DataTokens.ContainsKey("area"))
+					return true;
+
+				// Exposing all routes, or an area that's explicitly whitelisted
+				if (_configuration.ExposeAllRoutes || _areaWhitelist.Contains(route.DataTokens["area"]))
+					return true;
+
+				// In an area that's not exposed, so this route shouldn't be exposed.
+				return false;
+			}
 
 			var controller = route.Defaults["controller"].ToString();
 
 			// If explicitly blacklisted, always deny
-			if (_controllerBlacklist.Contains(controller))
+			if (_controllerBlacklist.Keys.Contains(controller))
 				return false;
 
 			// If explicitly whitelisted, always allow
-			if (_controllerWhitelist.Contains(controller))
+			if (_controllerWhitelist.Keys.Contains(controller))
 				return true;
 
 			// Otherwise, allow based on configuration
