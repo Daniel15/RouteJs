@@ -93,7 +93,7 @@ namespace RouteJs.Mvc
 			foreach (var route in _routeCollection.GetRoutes().OfType<Route>())
 			{
 				// Skip routes with no area or namespace
-				if (route.DataTokens["area"] == null || route.DataTokens["Namespaces"] == null)
+				if (route.DataTokens == null || route.DataTokens["area"] == null || route.DataTokens["Namespaces"] == null)
 					continue;
 
 				var area = (string)route.DataTokens["area"];
