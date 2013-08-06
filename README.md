@@ -107,6 +107,10 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+1.1.2 - 6th August 2013
+-----------------------
+ - #18 - Only expose a route's default area if at least one controller in that route is exposed
+
 1.1.1 - 26th July 2013
 ----------------------
  - #14 - Cache JavaScript for one year
