@@ -109,12 +109,15 @@ Changelog
 =========
 1.1.2 - 6th August 2013
 -----------------------
- - #18 - Only expose a route's default area if at least one controller in that route is exposed
+ - [#18](https://github.com/Daniel15/RouteJs/issues/18) - Only expose a route's default area if at 
+   least one controller in that route is exposed
+ - Small JavaScript cleanup (split huge route method into several smaller methods)
 
 1.1.1 - 26th July 2013
 ----------------------
- - #14 - Cache JavaScript for one year
- - #17 - Ensure area route isn't used if area is not specified in `Router.action` call
+ - [#14](https://github.com/Daniel15/RouteJs/issues/14) - Cache JavaScript for one year
+ - [#17](https://github.com/Daniel15/RouteJs/issues/17) - Ensure area route isn't used if area is 
+   not specified in `Router.action` call
 
 1.1.0 - 10th June 2013
 ----------------------
