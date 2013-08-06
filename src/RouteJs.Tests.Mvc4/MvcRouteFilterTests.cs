@@ -80,5 +80,16 @@ namespace RouteJs.Tests.Mvc
 			var result = routeFilter.AllowRoute(_routes["HelloExposed"]);
 			Assert.IsTrue(result);
 		}
+
+		[Test(Description = "Bug #21")]
+		public void IgnoredRoutesDoNotThrowAnException()
+		{
+			var config = new Mock<IConfiguration>();
+
+			var routeCollection = new RouteCollection();
+			routeCollection.Ignore("IgnoreMe");
+			var routeFilter = new MvcRouteFilter(config.Object, routeCollection);
+			Assert.DoesNotThrow(() => routeFilter.AllowRoute(routeCollection[0]));
+		}
 	}
 }
