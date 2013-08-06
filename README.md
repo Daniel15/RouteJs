@@ -107,6 +107,11 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+1.1.3 - 7th August 2013
+-----------------------
+ - [#21](https://github.com/Daniel15/RouteJs/issues/21) - NullReferenceException thrown on ignored
+   routes.
+
 1.1.2 - 6th August 2013
 -----------------------
  - [#18](https://github.com/Daniel15/RouteJs/issues/18) - Only expose a route's default area if at 
