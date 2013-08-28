@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Linq;
+using System.Reflection;
 
 namespace RouteJs.Mvc
 {
@@ -61,7 +62,7 @@ namespace RouteJs.Mvc
 		{
 			// Get all the controllers from all loaded assemblies
 			var controllers = AppDomain.CurrentDomain.GetAssemblies()
-				.SelectMany(assembly => assembly.GetTypes())
+				.SelectMany(GetTypesFromAssembly)
 				.Where(type => type.IsSubclassOf(typeof(Controller)))
 				.ToList();
 
@@ -79,6 +80,18 @@ namespace RouteJs.Mvc
 				{
 					_areaWhitelist.Add(_areaNamespaceMapping[areaKey]);
 				}
+			}
+		}
+		
+		private IEnumerable<Type> GetTypesFromAssembly(Assembly assembly)
+		{
+			try
+			{
+				return assembly.GetTypes();
+			}
+			catch (ReflectionTypeLoadException)
+			{
+				return new Type[] { };
 			}
 		}
 
