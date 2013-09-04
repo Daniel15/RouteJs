@@ -83,15 +83,22 @@ namespace RouteJs.Mvc
 			}
 		}
 		
+		/// <summary>
+		/// Retrieve all the types exposed by the specified assembly
+		/// </summary>
+		/// <param name="assembly">Assembly to scan</param>
+		/// <returns>All the types exposed by the assembly</returns>
 		private IEnumerable<Type> GetTypesFromAssembly(Assembly assembly)
 		{
 			try
 			{
 				return assembly.GetTypes();
 			}
-			catch (ReflectionTypeLoadException)
+			catch (ReflectionTypeLoadException ex)
 			{
-				return new Type[] { };
+				// If there was an error loading a type from the assembly, only return the types 
+				// that were actually loaded successfully
+				return ex.Types.Where(type => type != null);
 			}
 		}
 
