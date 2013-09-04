@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<Major>1</Major>
 		<Minor>1</Minor>
-		<Build>3</Build>
+		<Build>4-dev</Build>
 		<Revision>0</Revision>
 		<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\tools\MSBuildTasks</MSBuildCommunityTasksPath>
 	</PropertyGroup>
