@@ -107,6 +107,11 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+1.1.4 - 10th September 2013
+---------------------------
+ - [#22](https://github.com/Daniel15/RouteJs/pull/22) and [#24](https://github.com/Daniel15/RouteJs/issues/24) -
+   Handle error when loading types from referenced assemblies.
+
 1.1.3 - 7th August 2013
 -----------------------
  - [#21](https://github.com/Daniel15/RouteJs/issues/21) - NullReferenceException thrown on ignored
