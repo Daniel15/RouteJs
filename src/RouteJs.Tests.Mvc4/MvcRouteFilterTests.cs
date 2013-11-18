@@ -91,5 +91,22 @@ namespace RouteJs.Tests.Mvc
 			var routeFilter = new MvcRouteFilter(config.Object, routeCollection);
 			Assert.DoesNotThrow(() => routeFilter.AllowRoute(routeCollection[0]));
 		}
+
+		[Test(Description = "Bug #27")]
+		public void RoutesWithNoDataTokensDoNotThrowAnException()
+		{
+			var config = new Mock<IConfiguration>();
+
+			var routeCollection = new RouteCollection
+			{
+				new Route("foo", null)
+				{
+					Defaults = new RouteValueDictionary(),
+					DataTokens = null
+				}
+			};
+			var routeFilter = new MvcRouteFilter(config.Object, routeCollection);
+			Assert.DoesNotThrow(() => routeFilter.AllowRoute(routeCollection[0]));
+		}
 	}
 }

@@ -164,7 +164,7 @@ namespace RouteJs.Mvc
 			if (!route.Defaults.ContainsKey("controller"))
 			{
 				// Not an area, so it's a "regular" default route
-				if (!route.DataTokens.ContainsKey("area"))
+				if (route.DataTokens == null || !route.DataTokens.ContainsKey("area"))
 					return true;
 
 				// Exposing all routes, or an area that's explicitly whitelisted
