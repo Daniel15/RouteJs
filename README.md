@@ -13,7 +13,7 @@ Required:
 
  * ASP.NET 4.0 or higher
  * [Json.NET](http://james.newtonking.com/projects/json-net.aspx)
- * ASP.NET MVC 2, 3 or 4 (while RouteJs doesn't explicitly require MVC, it's pretty useless without it!)
+ * Any version of ASP.NET MVC from 2 onwards
 
 Installation
 ============

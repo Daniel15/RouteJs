@@ -29,12 +29,21 @@
 	<Target Name="Test" DependsOnTargets="Build">
 		<NUnit
 			ToolPath="src\packages\NUnit.Runners.2.6.1\tools"
-			Assemblies="bin\ReleaseTests\RouteJs\RouteJs.Tests.dll; bin\ReleaseTests\RouteJs.Mvc4\RouteJs.Tests.Mvc4.dll; bin\ReleaseTests\RouteJs.Mvc3\RouteJs.Tests.Mvc3.dll; bin\ReleaseTests\RouteJs.Mvc2\RouteJs.Tests.Mvc2.dll"
+			Assemblies="
+				bin\ReleaseTests\RouteJs\RouteJs.Tests.dll;
+				bin\ReleaseTests\RouteJs.Mvc5\RouteJs.Tests.Mvc5.dll;
+				bin\ReleaseTests\RouteJs.Mvc4\RouteJs.Tests.Mvc4.dll;
+				bin\ReleaseTests\RouteJs.Mvc3\RouteJs.Tests.Mvc3.dll;
+				bin\ReleaseTests\RouteJs.Mvc2\RouteJs.Tests.Mvc2.dll"
 		/>
 	</Target>
 
 	<!-- Create NuGet package -->
 	<Target Name="Package" DependsOnTargets="Build">
+		<Exec
+			WorkingDirectory="$(MSBuildProjectDirectory)"
+			Command="src\.nuget\NuGet.exe pack src\RouteJs.Mvc5\RouteJs.Mvc5.csproj -IncludeReferencedProjects -Prop Configuration=Release"
+			/>
 		<Exec
 			WorkingDirectory="$(MSBuildProjectDirectory)"
 			Command="src\.nuget\NuGet.exe pack src\RouteJs.Mvc4\RouteJs.Mvc4.csproj -IncludeReferencedProjects -Prop Configuration=Release"

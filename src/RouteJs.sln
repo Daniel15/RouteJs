@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteJs", "RouteJs\RouteJs.csproj", "{C8FAAE56-4623-4055-85DB-16CE600212AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteJs.Samples.Mvc4", "RouteJs.Samples.Mvc4\RouteJs.Samples.Mvc4.csproj", "{097BB265-A0B0-4D4C-A5ED-B00873F93951}"
@@ -33,6 +35,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteJs.Mvc2", "RouteJs.Mvc2\RouteJs.Mvc2.csproj", "{9170F76B-D09E-4B38-A7C9-A22C5D79F6AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteJs.Tests.Mvc2", "RouteJs.Tests.Mvc2\RouteJs.Tests.Mvc2.csproj", "{98458A6B-0850-4DC5-ADCD-33F140449751}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteJs.Mvc5", "RouteJs.Mvc5\RouteJs.Mvc5.csproj", "{03021DFF-327A-4704-B61B-C4EFDAB093A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteJs.Tests.Mvc5", "RouteJs.Tests.Mvc5\RouteJs.Tests.Mvc5.csproj", "{4ADD30D9-DB17-4610-B453-B853C7F00BC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +82,14 @@ Global
 		{98458A6B-0850-4DC5-ADCD-33F140449751}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98458A6B-0850-4DC5-ADCD-33F140449751}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98458A6B-0850-4DC5-ADCD-33F140449751}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03021DFF-327A-4704-B61B-C4EFDAB093A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03021DFF-327A-4704-B61B-C4EFDAB093A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03021DFF-327A-4704-B61B-C4EFDAB093A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03021DFF-327A-4704-B61B-C4EFDAB093A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ADD30D9-DB17-4610-B453-B853C7F00BC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ADD30D9-DB17-4610-B453-B853C7F00BC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ADD30D9-DB17-4610-B453-B853C7F00BC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ADD30D9-DB17-4610-B453-B853C7F00BC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
