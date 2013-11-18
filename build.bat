@@ -1,3 +1,3 @@
 @echo off
-c:\windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe build.proj
+"%ProgramFiles(x86)%\MSBuild\12.0\Bin\MSBuild.exe" build.proj
 pause
