@@ -6,4 +6,4 @@ For Razor (typically in _Layout.cshtml):
 For Web Forms:
 <script src="<%: RouteJs.RouteJsHandler.HandlerUrl %>"></script>
 
-Please refer to the RouteJs site for more information, or to report bugs: https://github.com/Daniel15/RouteJs
+Please refer to the RouteJs site and GitHub project for more information, or to report bugs: http://dan.cx/projects/routejs
