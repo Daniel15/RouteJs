@@ -108,6 +108,12 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+1.1.5 - 17th November 2013
+--------------------------
+ - [#27](https://github.com/Daniel15/RouteJs/issues/27) - NullReferenceException for routes without
+   DataTokens.
+ - Added package for ASP.NET MVC 5
+
 1.1.4 - 10th September 2013
 ---------------------------
  - [#22](https://github.com/Daniel15/RouteJs/pull/22) and [#24](https://github.com/Daniel15/RouteJs/issues/24) -
