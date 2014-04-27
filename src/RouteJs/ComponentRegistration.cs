@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web.Routing;
 using RouteJs.TinyIoc;
 
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(RouteJs.ComponentRegistration), "Initialise")]
+
 namespace RouteJs
 {
 	/// <summary>
@@ -11,6 +13,13 @@ namespace RouteJs
 	/// </summary>
 	public class ComponentRegistration : IComponentRegistration
 	{
+		/// <summary>
+		/// The IoC container. Direct calls to Container should be done as infrequently as 
+		/// possible. Container.Resolve should only be called for root components, everything
+		/// else should be injected via constructor injection.
+		/// </summary>
+		public static TinyIoCContainer Container { get; set; }
+
 		/// <summary>
 		/// Registers components in the RouteJs IoC container
 		/// </summary>
@@ -21,6 +30,16 @@ namespace RouteJs
 			container.Register<RouteCollection>((c, o) => RouteTable.Routes);
 
 			container.Register<IRouteFilter, IgnoreUnsupportedRoutesFilter>("IgnoreUnsupportedFilter");
+		}
+
+		/// <summary>
+		/// Initialises the IoC container.
+		/// </summary>
+		/// <returns>The IoC container</returns>
+		public static void Initialise()
+		{
+			Container = TinyIoCContainer.Current;
+			RegisterAll(Container);
 		}
 
 		/// <summary>

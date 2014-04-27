@@ -108,6 +108,11 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+1.1.6 - 27th April 2014
+-----------------------
+ - [#31](https://github.com/Daniel15/RouteJs/issues/31) - Defaults and optional parameters are 
+   sometimes serialised as null
+
 1.1.5 - 17th November 2013
 --------------------------
  - [#27](https://github.com/Daniel15/RouteJs/issues/27) - NullReferenceException for routes without

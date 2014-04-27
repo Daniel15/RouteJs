@@ -19,29 +19,9 @@ namespace RouteJs
 	public class RouteJsHandler : IHttpHandler
 	{
 		/// <summary>
-		/// Lazy initialiser for IoC container
-		/// </summary>
-		private static readonly Lazy<TinyIoCContainer> _container = new Lazy<TinyIoCContainer>(InitialiseIoC);
-		/// <summary>
 		/// How long to cache the JavaScript output for. Only used when a unique hash is present in the URL.
 		/// </summary>
 		private static readonly TimeSpan _cacheFor = new TimeSpan(365, 0, 0, 0);
-
-		/// <summary>
-		/// IoC container
-		/// </summary>
-		private static TinyIoCContainer Container { get { return _container.Value; } }
-
-		/// <summary>
-		/// Initialises the IoC container.
-		/// </summary>
-		/// <returns>The IoC container</returns>
-		private static TinyIoCContainer InitialiseIoC()
-		{
-			var container = TinyIoCContainer.Current;
-			ComponentRegistration.RegisterAll(container);
-			return container;
-		}
 
 		/// <summary>
 		/// Handle a HTTP request
@@ -176,7 +156,7 @@ namespace RouteJs
 		/// <returns>JavaScript for the routes</returns>
 		private static string GetJsonData()
 		{
-			var router = Container.Resolve<RouteJs>();
+			var router = ComponentRegistration.Container.Resolve<RouteJs>();
 			var routes = router.GetRoutes();
 			var settings = new
 			{
@@ -232,8 +212,9 @@ namespace RouteJs
 		{
 			var debugMode = HttpContext.Current.IsDebuggingEnabled;
 			// Hash the file contents so the URL can change whenever a route or the routing JS changes
+			// Include version in hash so upgrades invalidate client-side cache
 			var javascript = GetJavaScript(debugMode);
-			var hash = Hash(javascript);
+			var hash = Hash(GetVersionNumber() + javascript);
 
 			// Serve minified JavaScript when running in release mode
 			var filename = debugMode ? "router.js" : "router.min.js";
