@@ -3,10 +3,16 @@
 	<PropertyGroup>
 		<Major>1</Major>
 		<Minor>1</Minor>
-		<Build>6-dev</Build>
+		<Build>6</Build>
 		<Revision>0</Revision>
 		<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\tools\MSBuildTasks</MSBuildCommunityTasksPath>
 	</PropertyGroup>
+	<ItemGroup>
+		<PackageAssemblies Include="RouteJs.Mvc5" />
+		<PackageAssemblies Include="RouteJs.Mvc4" />
+		<PackageAssemblies Include="RouteJs.Mvc3" />
+		<PackageAssemblies Include="RouteJs.Mvc2" />
+	</ItemGroup>
 	<Import Project="$(MSBuildProjectDirectory)\tools\MSBuildTasks\MSBuild.Community.Tasks.Targets" />
 
 	<Target Name="UpdateVersion">
@@ -42,19 +48,17 @@
 	<Target Name="Package" DependsOnTargets="Build">
 		<Exec
 			WorkingDirectory="$(MSBuildProjectDirectory)"
-			Command="src\.nuget\NuGet.exe pack src\RouteJs.Mvc5\RouteJs.Mvc5.csproj -IncludeReferencedProjects -Prop Configuration=Release"
-			/>
+			Command="src\.nuget\NuGet.exe pack src\%(PackageAssemblies.Identity)\%(PackageAssemblies.Identity).csproj -IncludeReferencedProjects -Symbols -Prop Configuration=Release"
+		/>
+	</Target>
+
+	<Target Name="Push">
+		<ItemGroup>
+			<PackageFiles Include="*.nupkg" Exclude="*.symbols.nupkg" />
+		</ItemGroup>
 		<Exec
 			WorkingDirectory="$(MSBuildProjectDirectory)"
-			Command="src\.nuget\NuGet.exe pack src\RouteJs.Mvc4\RouteJs.Mvc4.csproj -IncludeReferencedProjects -Prop Configuration=Release"
-			/>
-		<Exec
-			WorkingDirectory="$(MSBuildProjectDirectory)"
-			Command="src\.nuget\NuGet.exe pack src\RouteJs.Mvc3\RouteJs.Mvc3.csproj -IncludeReferencedProjects -Prop Configuration=Release"
-			/>
-		<Exec
-			WorkingDirectory="$(MSBuildProjectDirectory)"
-			Command="src\.nuget\NuGet.exe pack src\RouteJs.Mvc2\RouteJs.Mvc2.csproj -IncludeReferencedProjects -Prop Configuration=Release"
-			/>
+			Command="src\.nuget\NuGet.exe push %(PackageFiles.Identity) -NonInteractive"
+		/>
 	</Target>
 </Project>

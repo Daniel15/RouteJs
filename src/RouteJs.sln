@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteJs", "RouteJs\RouteJs.csproj", "{C8FAAE56-4623-4055-85DB-16CE600212AA}"
 EndProject
@@ -21,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{5CE41205-3
 	ProjectSection(SolutionItems) = preProject
 		..\build.bat = ..\build.bat
 		..\build.proj = ..\build.proj
+		..\push.bat = ..\push.bat
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
