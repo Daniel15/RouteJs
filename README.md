@@ -108,6 +108,11 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+1.1.7 - 6th July 2014
+---------------------
+ - [#32](https://github.com/Daniel15/RouteJs/issues/32) - Only include string (regular expression)
+   constraints, ignore custom constraints as they can't be evaluated client-side.
+
 1.1.6 - 27th April 2014
 -----------------------
  - [#31](https://github.com/Daniel15/RouteJs/issues/31) - Defaults and optional parameters are 

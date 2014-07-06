@@ -57,10 +57,12 @@
       <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
     </Compile>
     <Compile Include="ComponentRegistration.cs" />
+    <Compile Include="ConstraintsProcessor.cs" />
     <Compile Include="ExposeRoutesInJavaScriptAttribute.cs" />
     <Compile Include="HideRoutesInJavaScriptAttribute.cs" />
     <Compile Include="IComponentRegistration.cs" />
     <Compile Include="IConfiguration.cs" />
+    <Compile Include="IConstraintsProcessor.cs" />
     <Compile Include="IDefaultsProcessor.cs" />
     <Compile Include="IgnoreUnsupportedRoutesFilter.cs" />
     <Compile Include="IRouteFilter.cs" />

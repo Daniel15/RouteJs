@@ -30,6 +30,7 @@ namespace RouteJs
 			container.Register<RouteCollection>((c, o) => RouteTable.Routes);
 
 			container.Register<IRouteFilter, IgnoreUnsupportedRoutesFilter>("IgnoreUnsupportedFilter");
+			container.Register<IConstraintsProcessor, ConstraintsProcessor>("ConstraintsProcessor");
 		}
 
 		/// <summary>

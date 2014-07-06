@@ -22,7 +22,8 @@ namespace RouteJs.Tests.Mvc
 
 			return new RouteJs(routes,
 				routeFilters: new[] { new MvcRouteFilter(config.Object, routes) }, 
-				defaultsProcessors: new[] { new DefaultsProcessor() });
+				defaultsProcessors: new[] { new DefaultsProcessor() },
+				constraintsProcessors: new IConstraintsProcessor[] { });
 		}
 	}
 }

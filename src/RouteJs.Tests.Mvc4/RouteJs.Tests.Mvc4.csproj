@@ -105,6 +105,7 @@
     <Compile Include="..\SharedAssemblyVersionInfo.cs">
       <Link>Properties\SharedAssemblyVersionInfo.cs</Link>
     </Compile>
+    <Compile Include="ConstraintsProcessorTests.cs" />
     <Compile Include="Controllers\Controllers.cs" />
     <Compile Include="DefaultsProcessorTests.cs" />
     <Compile Include="HelloController.generated.cs">
