@@ -113,6 +113,11 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+1.1.8 - 26th October 2014
+-------------------------
+ - [#34](https://github.com/Daniel15/RouteJs/issues/34) - Ignore case of controller, action, area, 
+   and keys of parameters.
+
 1.1.7 - 6th July 2014
 ---------------------
  - [#32](https://github.com/Daniel15/RouteJs/issues/32) - Only include string (regular expression)
