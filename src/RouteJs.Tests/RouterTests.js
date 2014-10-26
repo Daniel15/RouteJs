@@ -17,7 +17,12 @@ describe('Route', function() {
 			expect(url).toEqual('hello/world');
 		});
 
-		it('should return null when the controller doesn\'t match', function() {
+		it('should treat the controller and action as case insensitive', function () {
+			var url = route.build({ controller: 'HELLO', action: 'HeLlOwORlD' });
+			expect(url).toEqual('hello/world');
+		});
+
+		it('should return null when the controller doesn\'t match', function () {
 			var url = route.build({ controller: 'Oops', action: 'HelloWorld' });
 			expect(url).toBeNull();
 		});
@@ -30,6 +35,11 @@ describe('Route', function() {
 		it('should add additional parameters to the query string', function() {
 			var url = route.build({ controller: 'Hello', action: 'HelloWorld', extra: 'param' });
 			expect(url).toEqual('hello/world?extra=param');
+		});
+
+		it('should add additional parameters to the query string using original case', function () {
+			var url = route.build({ controller: 'Hello', action: 'HelloWorld', extraParam: 'yeah' });
+			expect(url).toEqual('hello/world?extraParam=yeah');
 		});
 	});
 
@@ -45,6 +55,11 @@ describe('Route', function() {
 
 		it('should insert the parameter', function() {
 			var url = route.build({ controller: 'Hello', action: 'HelloWorld2', message: 'Foobar' });
+			expect(url).toEqual('hello/mvc/Foobar');
+		});
+
+		it('should handle parameter name in different case', function () {
+			var url = route.build({ controller: 'Hello', action: 'HelloWorld2', MessAGE: 'Foobar' });
 			expect(url).toEqual('hello/mvc/Foobar');
 		});
 
@@ -160,6 +175,11 @@ describe('Route', function() {
 			});
 
 			it('should match when the area is provided', function() {
+				var url = route.build({ area: 'MyArea', controller: 'Hello', action: 'Index' });
+				expect(url).toBe('area/hello/world');
+			});
+
+			it('should treat the area name as case insensitive', function () {
 				var url = route.build({ area: 'MyArea', controller: 'Hello', action: 'Index' });
 				expect(url).toBe('area/hello/world');
 			});

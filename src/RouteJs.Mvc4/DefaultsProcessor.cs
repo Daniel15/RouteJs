@@ -33,11 +33,11 @@ namespace RouteJs.Mvc
 			{
 				if (kvp.Value == UrlParameter.Optional)
 				{
-					routeInfo.Optional.Add(kvp.Key);
+					routeInfo.Optional.Add(kvp.Key.ToLowerInvariant());
 				}
 				else if (ShouldAddDefault(kvp.Key))
 				{
-					routeInfo.Defaults.Add(kvp.Key, kvp.Value);
+					routeInfo.Defaults.Add(kvp.Key.ToLowerInvariant(), kvp.Value);
 				}
 			}
 

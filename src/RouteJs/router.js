@@ -66,7 +66,7 @@
 		
 		// Grab all the parameters from the URL
 		while ((matches = paramRegex.exec(this.route.url)) !== null) {
-			this._params.push(matches[1]);
+			this._params.push(matches[1].toLowerCase());
 		}
 	};
 
@@ -78,12 +78,26 @@
 			///</summary>
 			///<param name="routeValues">Route values</param>
 			///<returns type="String">URL, or null when building a URL is not possible</returns>
-			var finalValues = merge(this.route.defaults, routeValues),
+
+			// Keys of values are case insensitive and are converted to lowercase server-side.
+			// Convert keys of input to lowercase too.
+			var routeValuesLowercase = {};
+			for (var key in routeValues) {
+				if (routeValues.hasOwnProperty(key)) {
+					routeValuesLowercase[key.toLowerCase()] = routeValues[key];
+				}
+			}
+
+			var finalValues = merge(this.route.defaults, routeValuesLowercase),
 				processedParams = { controller: true, action: true },
 				finalUrl;
 			
+			
 			// Ensure area matches, if provided
-			if (this.route.defaults.area && this.route.defaults.area !== routeValues.area) {
+			if (
+				this.route.defaults.area &&
+				this.route.defaults.area.toLowerCase() !== (routeValuesLowercase.area || '').toLowerCase()
+			) {
 				return null;
 			}
 			
@@ -112,8 +126,11 @@
 				if (!this.route.defaults.hasOwnProperty(key)) {
 					continue;
 				}
-				
-				if (this.route.defaults[key] !== finalValues[key] && arrayIndexOf(this._params, key) === -1) {
+				// We don't care about case when comparing defaults.
+				if (
+					(this.route.defaults[key] + '').toLowerCase() !== (finalValues[key] + '').toLowerCase() &&
+					arrayIndexOf(this._params, key) === -1
+				) {
 					return false;
 				} else {
 					// Any defaults don't need to be explicitly specified in the querystring
@@ -145,7 +162,7 @@
 				}
 				
 				if (isProvided) {
-					finalUrl = finalUrl.replace('{' + paramName + '}', encodeURIComponent(finalValues[paramName]));	
+					finalUrl = finalUrl.replace('{' + paramName + '}', encodeURIComponent(finalValues[paramName]));
 				}
 				
 				processedParams[paramName] = true;
@@ -172,13 +189,14 @@
 			///<summary>Add any additional parameters not specified in the URL as querystring parameters</summary>
 			///<param name="routeValues">Route values</param>
 			///<param name="processedParams">Array of parameters that have already been processed</param>
+			///<param name="alreadyHasParams">Whether this URL already has querystring parameters in it</param>
 			///<returns type="String">URL encoded querystring parameters</returns>
 			
 			var params = '';
 			
 			// Add all other parameters to the querystring
 			for (var key in routeValues) {
-				if (!processedParams[key]) {
+				if (!processedParams[key.toLowerCase()]) {
 					params += (alreadyHasParams ? '&' : '?') + encodeURIComponent(key) + '=' + encodeURIComponent(routeValues[key]);
 					alreadyHasParams = true;
 				}
