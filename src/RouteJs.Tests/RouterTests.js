@@ -110,6 +110,16 @@ describe('Route', function() {
 			var url = route.build({ controller: 'Blog', action: 'Index', page: 'foobar' });
 			expect(url).toBeNull();
 		});
+
+		it('should handle constraints when parameter has uppercase letters', function() {
+			route = new RouteJs.Route({
+				url: 'blog/page-{Page}',
+				defaults: { controller: 'Blog', action: 'Index' },
+				constraints: { Page: '\\d+' }
+			});
+			var url = route.build({ controller: 'Blog', action: 'Index', Page: 2 });
+			expect(url).toEqual('blog/page-2');
+		});
 	});
 
 	describe('Optional parameters', function() {

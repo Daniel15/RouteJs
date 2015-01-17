@@ -47,6 +47,16 @@
 			return -1;
 		};		
 	}
+
+	function escapeRegExp(string) {
+		/// <summary>
+		/// Escapes a string for usage in a regular expression
+		/// </summary>
+		/// <param name="string">Input string</param>
+		/// <returns type="string">String suitable for inserting in a regex</returns>
+
+		return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -162,7 +172,8 @@
 				}
 				
 				if (isProvided) {
-					finalUrl = finalUrl.replace('{' + paramName + '}', encodeURIComponent(finalValues[paramName]));
+					var paramRegex = new RegExp('\{' + escapeRegExp(paramName) + '}', 'i');
+					finalUrl = finalUrl.replace(paramRegex, encodeURIComponent(finalValues[paramName]));
 				}
 				
 				processedParams[paramName] = true;
@@ -236,7 +247,8 @@
 			
 			for (var key in this.route.constraints) {
 				if (this.route.constraints.hasOwnProperty(key)) {
-					parsedConstraints[key] = new RegExp('^(' + this.route.constraints[key].replace(/\\/g, '\\') + ')');
+					parsedConstraints[key.toLowerCase()] =
+						new RegExp('^(' + this.route.constraints[key].replace(/\\/g, '\\') + ')');
 				}
 			}
 
