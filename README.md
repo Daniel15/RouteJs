@@ -7,10 +7,10 @@ existing routes at all.
 
 Bug reports and feature requests are welcome!
 
-[![Build status](http://img.shields.io/teamcity/codebetter/bt1035.svg)]((http://teamcity.codebetter.com/viewType.html?buildTypeId=bt1035&guest=1))&nbsp;
-![NuGet downloads](http://img.shields.io/nuget/dt/RouteJs.Mvc4.svg)&nbsp;
-![NuGet version](http://img.shields.io/nuget/v/RouteJs.Mvc4.svg)&nbsp;
-![Code coverage](http://img.shields.io/teamcity/coverage/bt1035.svg)
+[![Build status](http://img.shields.io/teamcity/codebetter/routejs.svg)](http://teamcity.codebetter.com/viewType.html?buildTypeId=routejs&guest=1)&nbsp;
+[![NuGet downloads](http://img.shields.io/nuget/dt/RouteJs.Mvc4.svg)](https://www.nuget.org/packages/RouteJs.Mvc4/)&nbsp;
+[![NuGet version](http://img.shields.io/nuget/v/RouteJs.Mvc4.svg)](https://www.nuget.org/packages/RouteJs.Mvc4/)&nbsp;
+![Code coverage](http://img.shields.io/teamcity/coverage/routejs.svg)
 
 Requirements
 ============
@@ -34,7 +34,7 @@ Now skip down to the [usage section](#usage)
 
 Via latest development build
 ----------------------------
-Get the latest builds from the [build server](http://teamcity.codebetter.com/viewType.html?buildTypeId=bt1035&guest=1)
+Get the latest builds from the [build server](http://teamcity.codebetter.com/viewType.html?buildTypeId=routejs&guest=1)
 
 Now skip down to the [usage section](#usage)
 
