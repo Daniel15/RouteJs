@@ -113,6 +113,11 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+1.1.9 - 24th January 2015
+-------------------------
+ - [#38](https://github.com/Daniel15/RouteJs/issues/38) - Fix handling of constraints with 
+   case-insensitive URL parameters.
+
 1.1.8 - 26th October 2014
 -------------------------
  - [#34](https://github.com/Daniel15/RouteJs/issues/34) - Ignore case of controller, action, area, 
