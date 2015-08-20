@@ -1,0 +1,27 @@
+﻿{
+  "version": "1.1.10-*",
+  "title": "RouteJs (ASP.NET 5 and MVC 6)",
+  "authors": [ "Daniel Lo Nigro" ],
+  "owners": [ "Daniel Lo Nigro" ],
+  "licenseUrl": "http://dan.cx/projects/routejs#licence",
+  "projectUrl": "http://dan.cx/projects/routejs",
+  "requireLicenseAcceptance": false,
+  "description": "JavaScript URL routing for ASP.NET MVC. Allows you to use your ASP.NET MVC routes from JavaScript. Please refer to project site (http://dan.cx/projects/routejs) for more details, usage examples and sample code.",
+  "releaseNotes": "Please refer to project site (http://dan.cx/projects/routejs) for more details, release notes, usage examples and sample code.",
+  "tags": [ "asp.net", "mvc", "asp", "routing", "route", "url", "ajax", "jquery", "javascript", "js", "vnext" ],
+
+  "dependencies": {
+    "Microsoft.AspNet.Http.Abstractions": "1.0.0-beta6",
+    "Microsoft.AspNet.Mvc": "6.0.0-beta6",
+    "Microsoft.AspNet.Routing": "1.0.0-beta6"
+  },
+
+  "frameworks": {
+    "dnx451": { },
+    "dnxcore50": { }
+  },
+
+  "shared": [
+    "../SharedAssemblyVersionInfo.cs"
+  ]
+}

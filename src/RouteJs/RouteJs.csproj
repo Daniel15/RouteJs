@@ -50,6 +50,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\RouteJs.AspNet\ExposeRoutesInJavaScriptAttribute.cs">
+      <Link>ExposeRoutesInJavaScriptAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\RouteJs.AspNet\HideRoutesInJavaScriptAttribute.cs">
+      <Link>HideRoutesInJavaScriptAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\RouteJs.AspNet\IConfiguration.cs">
+      <Link>IConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\RouteJs.AspNet\RouteInfo.cs">
+      <Link>RouteInfo.cs</Link>
+    </Compile>
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
@@ -58,17 +70,13 @@
     </Compile>
     <Compile Include="ComponentRegistration.cs" />
     <Compile Include="ConstraintsProcessor.cs" />
-    <Compile Include="ExposeRoutesInJavaScriptAttribute.cs" />
-    <Compile Include="HideRoutesInJavaScriptAttribute.cs" />
     <Compile Include="IComponentRegistration.cs" />
-    <Compile Include="IConfiguration.cs" />
     <Compile Include="IConstraintsProcessor.cs" />
     <Compile Include="IDefaultsProcessor.cs" />
     <Compile Include="IgnoreUnsupportedRoutesFilter.cs" />
     <Compile Include="IRouteFilter.cs" />
     <Compile Include="RouteCollectionUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RouteInfo.cs" />
     <Compile Include="RouteJs.cs" />
     <Compile Include="RouteJsConfigurationSection.cs" />
     <Compile Include="RouteJsHandler.cs" />

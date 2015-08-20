@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Web.Routing;
 
 namespace RouteJs
 {
@@ -15,11 +14,11 @@ namespace RouteJs
 		/// <summary>
 		/// Default values for the route
 		/// </summary>
-		public RouteValueDictionary Defaults { get; set; }
+		public IDictionary<string, object> Defaults { get; set; }
 		/// <summary>
 		/// Constraints imposed on the route
 		/// </summary>
-		public RouteValueDictionary Constraints { get; set; }
+		public IDictionary<string, object> Constraints { get; set; }
 		/// <summary>
 		/// Any optional parameters in the URL
 		/// </summary>
