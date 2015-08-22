@@ -19,6 +19,10 @@ namespace RouteJs
 	public class RouteJsHandler : IHttpHandler
 	{
 		/// <summary>
+		/// Reference to the RouteJs assembly
+		/// </summary>
+		private static readonly Assembly _assembly = typeof (RouteJsHandler).Assembly;
+		/// <summary>
 		/// How long to cache the JavaScript output for. Only used when a unique hash is present in the URL.
 		/// </summary>
 		private static readonly TimeSpan _cacheFor = new TimeSpan(365, 0, 0, 0);
@@ -122,16 +126,7 @@ namespace RouteJs
 		{
 			var resourceName = debugMode ? "RouteJs.router.js" : "RouteJs.router.min.js";
 			var jsonRoutes = GetJsonData();
-			string content;
-
-			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
-			using (var reader = new StreamReader(stream))
-			{
-				content = reader.ReadToEnd();
-			}
-
-			// Replace version number in content
-			content = content.Replace("{VERSION}", GetVersionNumber());
+			var content = _assembly.GetResourceScript(resourceName);
 
 			return content + "window.Router = new RouteJs.RouteManager(" + jsonRoutes + ");";
 		}

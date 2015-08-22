@@ -118,7 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RouteJs.Mvc5\RouteJs.Mvc5.csproj">
-      <Project>{8C9563A9-03AD-4427-BEA0-D8513247BE99}</Project>
+      <Project>{03021dff-327a-4704-b61b-c4efdab093a0}</Project>
       <Name>RouteJs.Mvc5</Name>
     </ProjectReference>
     <ProjectReference Include="..\RouteJs.Tests\RouteJs.Tests.csproj">

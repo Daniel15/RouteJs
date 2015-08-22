@@ -147,9 +147,11 @@ $RECYCLE.BIN/
 .DS_Store
 
 src/SharedAssemblyVersionInfo.cs
-src/RouteJs/router.min.js
 RouteJs*.nupkg
 TestResult.xml
 src/*.DotSettings
 project.lock.json
 .vs
+node_modules
+src/RouteJs.AspNet/compiler/resources/router.js
+src/RouteJs.AspNet/compiler/resources/router.min.js
