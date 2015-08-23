@@ -11,6 +11,13 @@ namespace RouteJs
 	/// </summary>
     public class TemplateRouteFetcher : IRouteFetcher
     {
+		private readonly IConstraintsProcessor _constraintsProcessor;
+
+		public TemplateRouteFetcher(IConstraintsProcessor constraintsProcessor)
+		{
+			_constraintsProcessor = constraintsProcessor;
+		}
+
 		/// <summary>
 		/// Gets the route information
 		/// </summary>
@@ -34,14 +41,14 @@ namespace RouteJs
 		/// </summary>
 		/// <param name="route">Template route to get information from</param>
 		/// <returns>Information from the route</returns>
-		private static RouteInfo ProcessTemplateRoute(TemplateRoute route)
+		private RouteInfo ProcessTemplateRoute(TemplateRoute route)
 		{
 			var info = new RouteInfo
 			{
+				Constraints = _constraintsProcessor.ProcessConstraints(route.Constraints),
 				Defaults = route.Defaults.ToDictionary(x => x.Key, x => x.Value),
 				Optional = new List<string>(),
 			};
-			// TODO Constraints = route.Constraints,
 
 			var parsedTemplate = TemplateParser.Parse(route.RouteTemplate);
 			var builder = new StringBuilder();
@@ -65,7 +72,7 @@ namespace RouteJs
 					builder.Append('{');
 					builder.Append(part.Name);
 					builder.Append('}');
-					// TODO part.InlineConstraints
+
 					// TODO part.IsOptionalSeperator
 					// TODO part.IsCatchAll
 				}

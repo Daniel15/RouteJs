@@ -248,7 +248,7 @@
 			for (var key in this.route.constraints) {
 				if (this.route.constraints.hasOwnProperty(key)) {
 					parsedConstraints[key.toLowerCase()] =
-						new RegExp('^(' + this.route.constraints[key].replace(/\\/g, '\\') + ')');
+						new RegExp('^(' + this.route.constraints[key].replace(/\\/g, '\\') + ')$', 'i');
 				}
 			}
 

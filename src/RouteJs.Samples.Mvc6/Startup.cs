@@ -24,14 +24,20 @@ namespace RouteJs.Samples.Mvc6
 				);
 
 				routes.MapRoute(
-					name: "Hello2",
-					template: "hello/mvc/{message}",
+					name: "HelloBool",
+					template: "bool/{message:bool}",
 					defaults: new { controller = "Home", action = "HelloWorld2" }
 				);
 
 				routes.MapRoute(
 					name: "RegexConstraints",
 					template: "regex/{message:regex(^\\d+$)}",
+					defaults: new { controller = "Home", action = "HelloWorld2" }
+				);
+
+				routes.MapRoute(
+					name: "Hello2",
+					template: "hello/mvc/{message}",
 					defaults: new { controller = "Home", action = "HelloWorld2" }
 				);
 

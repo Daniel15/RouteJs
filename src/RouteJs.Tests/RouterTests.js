@@ -120,6 +120,16 @@ describe('Route', function() {
 			var url = route.build({ controller: 'Blog', action: 'Index', Page: 2 });
 			expect(url).toEqual('blog/page-2');
 		});
+
+		it('should be case-insensitive', function() {
+			route = new RouteJs.Route({
+				url: 'bool-test/{bool}',
+				defaults: { controller: 'Blog', action: 'Index' },
+				constraints: { bool: '(True|False)' }
+			});
+			var url = route.build({ controller: 'Blog', action: 'Index', bool: 'tRuE' });
+			expect(url).toEqual('bool-test/tRuE');
+		});
 	});
 
 	describe('Optional parameters', function() {
