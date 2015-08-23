@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Net.Http.Headers;
 
 namespace RouteJs
 {
@@ -36,15 +35,12 @@ namespace RouteJs
 			var shouldCache = hash != null;
 
 			var javascript = _routeJs.GetJavaScript(debugMode);
-			var response = Content(javascript);
-			response.ContentType = MediaTypeHeaderValue.Parse("text/javascript");
-
 			if (shouldCache)
 			{
 				Response.Headers.Set("Expires", (DateTime.Now + _cacheFor).ToString("R"));
 				Response.Headers.Set("Cache-control", "public, max-age=" + _cacheFor.TotalSeconds.ToString(CultureInfo.InvariantCulture));
 			}
-			return response;
+			return Content(javascript, "text/javascript");
 		}
 	}
 }

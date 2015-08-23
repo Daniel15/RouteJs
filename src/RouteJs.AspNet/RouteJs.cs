@@ -48,7 +48,7 @@ namespace RouteJs
 		/// Gets the JSON data representing the routes
 		/// </summary>
 		/// <returns>JavaScript for the routes</returns>
-		private string GetJsonData()
+		public string GetJsonData()
 		{
 			var routes = _routeFetchers.SelectMany(x => x.GetRoutes(_actionContext.RouteData));
 			var settings = new

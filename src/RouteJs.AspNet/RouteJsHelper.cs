@@ -19,7 +19,8 @@ namespace RouteJs
 		/// </summary>
 		public const string MINIFIED_MODE = "min";
 		/// <summary>
-		/// A cached version of the RouteJs script tag
+		/// A cached version of the RouteJs script tag. Ideally this should be in a separate
+		/// cache class somewhere, but this is fine for now.
 		/// </summary>
 		private static HtmlString _scriptTag;
 
@@ -68,7 +69,9 @@ namespace RouteJs
 		/// <returns>A hash of the contents</returns>
 		private string ComputeHash()
 		{
-			var routeJs = ActivatorUtilities.CreateInstance<RouteJs>(_serviceProvider);
+			// The service is loaded here rather than in the constructor so we don't incur the cost of 
+			// creating it when it's not needed.
+			var routeJs = _serviceProvider.GetRequiredService<IRouteJs>();
 			var script = routeJs.GetJavaScript(debugMode: true);
 			using (var sha1 = SHA1.Create())
 			{
@@ -76,6 +79,14 @@ namespace RouteJs
 				var hash = BitConverter.ToString(hashBytes).Replace("-", string.Empty).ToLower();
 				return hash;
 			}
+		}
+
+		/// <summary>
+		/// Clears the cached hash
+		/// </summary>
+		public static void ClearCache()
+		{
+			_scriptTag = null;
 		}
     }
 }
