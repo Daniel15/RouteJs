@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -9,7 +8,6 @@ using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Linq;
-using RouteJs.TinyIoc;
 
 namespace RouteJs
 {

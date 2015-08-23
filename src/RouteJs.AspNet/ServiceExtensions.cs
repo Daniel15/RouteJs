@@ -16,6 +16,8 @@ namespace RouteJs
 	    {
 		    services.AddSingleton<IRouteFetcher, TemplateRouteFetcher>();
 		    services.AddSingleton<IRouteFetcher, AttributeRouteFetcher>();
+			services.AddScoped<IRouteJsHelper, RouteJsHelper>();
+			services.AddScoped<IRouteJs, RouteJs>();
 		    return services;
 	    }
     }

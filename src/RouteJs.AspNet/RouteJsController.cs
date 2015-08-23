@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System;
+using System.Globalization;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Net.Http.Headers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace RouteJs
 {
@@ -14,63 +11,40 @@ namespace RouteJs
 	public class RouteJsController : Controller
 	{
 		/// <summary>
-		/// Reference to the RouteJs assembly
+		/// How long to cache the JavaScript output for. Only used when a unique hash is present in the URL.
 		/// </summary>
-		private static readonly Assembly _assembly = typeof (RouteJsController).GetTypeInfo().Assembly;
-		/// <summary>
-		/// Route fetchers used to get information about the routes.
-		/// </summary>
-		private readonly IEnumerable<IRouteFetcher> _routeFetchers;
+		private static readonly TimeSpan _cacheFor = new TimeSpan(365, 0, 0, 0);
 
-		public RouteJsController(IEnumerable<IRouteFetcher> routeFetchers)
+		/// <summary>
+		/// Core RouteJs class - Actually does all the work.
+		/// </summary>
+		private readonly IRouteJs _routeJs;
+
+		public RouteJsController(IRouteJs routeJs)
 		{
-			_routeFetchers = routeFetchers;
+			_routeJs = routeJs;
 		}
 
 		/// <summary>
 		/// Renders the RouteJs script file, and the routes for the current site.
 		/// </summary>
 		/// <returns></returns>
-		[Route("/_routejs")]
-		public IActionResult Routes()
+		[Route("/_routejs/{hash?}/{environment:regex(" + RouteJsHelper.MINIFIED_MODE + ")?}")]
+		public IActionResult Routes(string hash, string environment)
 		{
-			// TODO: Hash for long-term caching
-			// TODO: dev vs prod script
+			var debugMode = environment != RouteJsHelper.MINIFIED_MODE;
+			var shouldCache = hash != null;
 
-			var javascript = GetJavaScript();
+			var javascript = _routeJs.GetJavaScript(debugMode);
 			var response = Content(javascript);
-			response.ContentType = MediaTypeHeaderValue.Parse("application/javascript");
+			response.ContentType = MediaTypeHeaderValue.Parse("text/javascript");
+
+			if (shouldCache)
+			{
+				Response.Headers.Set("Expires", (DateTime.Now + _cacheFor).ToString("R"));
+				Response.Headers.Set("Cache-control", "public, max-age=" + _cacheFor.TotalSeconds.ToString(CultureInfo.InvariantCulture));
+			}
 			return response;
-		}
-
-		/// <summary>
-		/// Gets the JavaScript routes
-		/// </summary>
-		/// <returns>JavaScript for the routes</returns>
-		private string GetJavaScript()
-		{
-			var jsonRoutes = GetJsonData();
-			var content = _assembly.GetResourceScript("RouteJs.AspNet.compiler.resources.router.js");
-			return content + "window.Router = new RouteJs.RouteManager(" + jsonRoutes + ");";
-		}
-
-		/// <summary>
-		/// Gets the JSON data representing the routes
-		/// </summary>
-		/// <returns>JavaScript for the routes</returns>
-		private string GetJsonData()
-		{
-			var routes = _routeFetchers.SelectMany(x => x.GetRoutes(RouteData));
-			var settings = new
-			{
-				Routes = routes,
-				BaseUrl = Url.Content("~"),
-			};
-			var jsonRoutes = JsonConvert.SerializeObject(settings, new JsonSerializerSettings
-			{
-				ContractResolver = new CamelCasePropertyNamesContractResolver()
-			});
-			return jsonRoutes;
 		}
 	}
 }
