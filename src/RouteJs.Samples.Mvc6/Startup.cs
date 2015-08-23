@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.Framework.DependencyInjection;
-using RouteJs.AspNet;
 
 namespace RouteJs.Samples.Mvc6
 {

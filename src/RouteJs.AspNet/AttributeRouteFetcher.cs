@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.AspNet.Routing;
 
-namespace RouteJs.AspNet
+namespace RouteJs
 {
 	/// <summary>
 	/// Gets information about the attribute routes in the site

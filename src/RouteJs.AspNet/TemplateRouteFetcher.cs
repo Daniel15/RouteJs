@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.AspNet.Routing;
 using Microsoft.AspNet.Routing.Template;
 
-namespace RouteJs.AspNet
+namespace RouteJs
 {
 	/// <summary>
 	/// Retrieves information on all the standard template routes in the site.

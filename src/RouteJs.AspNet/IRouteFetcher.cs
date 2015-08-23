@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNet.Routing;
 
-namespace RouteJs.AspNet
+namespace RouteJs
 {
 	/// <summary>
 	/// Handles retrieving information about a particular type of route.

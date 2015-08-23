@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Reflection;
 using Microsoft.AspNet.Mvc;
+using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Reflection;
-using Microsoft.Net.Http.Headers;
 
-namespace RouteJs.AspNet
+namespace RouteJs
 {
 	/// <summary>
 	/// ASP.NET MVC controller for RouteJs. Renders JavaScript to handle routing of ASP.NET URLs.

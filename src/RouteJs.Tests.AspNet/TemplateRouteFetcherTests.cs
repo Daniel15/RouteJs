@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Routing;
 using Moq;
-using RouteJs.AspNet;
 using Xunit;
 
 namespace RouteJs.Tests.AspNet

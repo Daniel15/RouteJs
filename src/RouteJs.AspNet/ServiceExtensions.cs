@@ -1,6 +1,6 @@
 ﻿using Microsoft.Framework.DependencyInjection;
 
-namespace RouteJs.AspNet
+namespace RouteJs
 {
 	/// <summary>
 	/// RouteJs extensions to <see cref="IServiceCollection"/>.
