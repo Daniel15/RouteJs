@@ -19,6 +19,7 @@
 		<PackageAssemblies Include="RouteJs.Mvc4" />
 		<PackageAssemblies Include="RouteJs.Mvc3" />
 		<PackageAssemblies Include="RouteJs.Mvc2" />
+		<PackageAssembliesAspNet5 Include="RouteJs.AspNet" />
 		<AspNet5ProjectJson Include="src/RouteJs.AspNet/project.json" />
 	</ItemGroup>
 	<Import Project="src/tasks.proj" />
@@ -63,7 +64,7 @@
 			do it here. See https://github.com/aspnet/XRE/issues/1301 		
 		-->
 		<ItemGroup>
-			<OldAspNet5Packages Include="bin/%(PackageAssembliesAspNet5.Identity)/**/*.nupkg" />
+			<OldAspNet5Packages Include="src/artifacts/bin/%(PackageAssembliesAspNet5.Identity)/**/*.nupkg" />
 		</ItemGroup>
 		<Delete Files="@(OldAspNet5Packages)" />
 	</Target>
@@ -95,7 +96,6 @@
 	<Target Name="Package" DependsOnTargets="Build">
 		<!-- Delete old packages -->
 		<RemoveDir Directories="$(PackageOutputDir)" />
-		<RemoveDir Directories="src/artifacts/bin/%(PackageAssembliesAspNet5.Identity)" Condition="$(BuildAspNet5) == 'true'" />
 		<!-- Create new packages -->
 		<MakeDir Directories="$(PackageOutputDir)" />
 		<Exec
