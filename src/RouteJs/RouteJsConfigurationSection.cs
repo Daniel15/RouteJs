@@ -3,9 +3,9 @@
 namespace RouteJs
 {
 	/// <summary>
-	/// Implementation of <see cref="IConfiguration"/> using an ASP.NET configuration section.
+	/// Implementation of <see cref="IRouteJsConfiguration"/> using an ASP.NET configuration section.
 	/// </summary>
-	public class RouteJsConfigurationSection : ConfigurationSection, IConfiguration
+	public class RouteJsConfigurationSection : ConfigurationSection, IRouteJsConfiguration
 	{
 		/// <summary>
 		/// Gets whether to expose all routes to the site.

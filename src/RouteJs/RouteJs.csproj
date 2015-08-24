@@ -56,8 +56,8 @@
     <Compile Include="..\RouteJs.AspNet\HideRoutesInJavaScriptAttribute.cs">
       <Link>HideRoutesInJavaScriptAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\RouteJs.AspNet\IConfiguration.cs">
-      <Link>IConfiguration.cs</Link>
+    <Compile Include="..\RouteJs.AspNet\IRouteJsConfiguration.cs">
+      <Link>IRouteJsConfiguration.cs</Link>
     </Compile>
     <Compile Include="..\RouteJs.AspNet\ResourceUtils.cs">
       <Link>ResourceUtils.cs</Link>

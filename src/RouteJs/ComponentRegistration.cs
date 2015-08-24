@@ -26,7 +26,7 @@ namespace RouteJs
 		/// <param name="container">Container to register components in</param>
 		public void Register(TinyIoCContainer container)
 		{
-			container.Register<IConfiguration>((c, o) => (RouteJsConfigurationSection)ConfigurationManager.GetSection("routeJs"));
+			container.Register<IRouteJsConfiguration>((c, o) => (RouteJsConfigurationSection)ConfigurationManager.GetSection("routeJs"));
 			container.Register<RouteCollection>((c, o) => RouteTable.Routes);
 
 			container.Register<IRouteFilter, IgnoreUnsupportedRoutesFilter>("IgnoreUnsupportedFilter");

@@ -3,9 +3,9 @@
 	/// <summary>
 	/// RouteJs configuration
 	/// </summary>
-	public class Configuration : IConfiguration
+	public class RouteJsConfiguration : IRouteJsConfiguration
     {
-		public Configuration()
+		public RouteJsConfiguration()
 		{
 			ExposeAllRoutes = true;
 		}

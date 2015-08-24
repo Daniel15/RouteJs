@@ -3,7 +3,7 @@ namespace RouteJs
 	/// <summary>
 	/// RouteJs configuration
 	/// </summary>
-	public interface IConfiguration
+	public interface IRouteJsConfiguration
 	{
 		/// <summary>
 		/// Gets whether to expose all routes to the site. 

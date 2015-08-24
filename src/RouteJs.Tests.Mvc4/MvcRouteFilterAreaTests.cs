@@ -22,7 +22,7 @@ namespace RouteJs.Tests.Mvc.MvcRouteFilterAreaTests
 		[Test]
 		public void RouteCanBeExposedByDefault()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(true);
 			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
@@ -33,7 +33,7 @@ namespace RouteJs.Tests.Mvc.MvcRouteFilterAreaTests
 		[Test]
 		public void RouteCanBeHiddenByDefault()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(false);
 			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
@@ -44,7 +44,7 @@ namespace RouteJs.Tests.Mvc.MvcRouteFilterAreaTests
 		[Test]
 		public void DefaultRouteIsExposedIfControllerIsExposedByDefault()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(true);
 			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
@@ -55,7 +55,7 @@ namespace RouteJs.Tests.Mvc.MvcRouteFilterAreaTests
 		[Test]
 		public void DefaultRouteIsHiddenIfControllerIsHiddenByDefault()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(false);
 			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
@@ -70,7 +70,7 @@ namespace RouteJs.Tests.Mvc.MvcRouteFilterAreaTests
 		[Test]
 		public void RouteInAreaCanBeExposed()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
 			var areaResult = routeFilter.AllowRoute(_routes["ExposedArea_Hello"]);
@@ -83,7 +83,7 @@ namespace RouteJs.Tests.Mvc.MvcRouteFilterAreaTests
 		[Test]
 		public void ExposedAreaIsExposedWhenRoutesAreHiddenByDefault()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(false);
 			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
@@ -102,7 +102,7 @@ namespace RouteJs.Tests.Mvc.MvcRouteFilterAreaTests
 		[Test]
 		public void RouteInAreaCanBeHidden()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
 			var areaResult = routeFilter.AllowRoute(_routes["HiddenArea_Hello"]);

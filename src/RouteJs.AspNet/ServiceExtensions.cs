@@ -16,7 +16,7 @@ namespace RouteJs
 		/// <returns>The service collection</returns>
 	    public static IServiceCollection AddRouteJs(this IServiceCollection services)
 	    {
-			services.AddSingleton<IConfiguration>(provider => provider.GetRequiredService<IOptions<Configuration>>().Options);
+			services.AddSingleton<IRouteJsConfiguration>(provider => provider.GetRequiredService<IOptions<RouteJsConfiguration>>().Options);
 			services.AddSingleton<IRouteFetcher, TemplateRouteFetcher>();
 		    services.AddSingleton<IRouteFetcher, AttributeRouteFetcher>();
 			services.AddSingleton<IConstraintsProcessor, ConstraintsProcessor>();
@@ -34,7 +34,7 @@ namespace RouteJs
 		/// <param name="services"></param>
 		/// <param name="configure"></param>
 		/// <returns></returns>
-		public static IServiceCollection ConfigureRouteJs(this IServiceCollection services, Action<Configuration> configure)
+		public static IServiceCollection ConfigureRouteJs(this IServiceCollection services, Action<RouteJsConfiguration> configure)
 		{
 			return services.Configure(configure);
 		}

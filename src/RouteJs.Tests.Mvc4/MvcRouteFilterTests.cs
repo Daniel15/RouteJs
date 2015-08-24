@@ -19,7 +19,7 @@ namespace RouteJs.Tests.Mvc
 		[Test]
 		public void ControllersCanBeHiddenViaAttribute()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
 			var result = routeFilter.AllowRoute(_routes["HelloHidden"]);
@@ -29,7 +29,7 @@ namespace RouteJs.Tests.Mvc
 		[Test]
 		public void ControllersCanBeExposedViaAttribute()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
 			var result = routeFilter.AllowRoute(_routes["HelloExposed"]);
@@ -39,7 +39,7 @@ namespace RouteJs.Tests.Mvc
 		[Test]
 		public void RoutesCanBeExposedByDefault()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(true);
 			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
@@ -50,7 +50,7 @@ namespace RouteJs.Tests.Mvc
 		[Test]
 		public void HiddenControllersAreHiddenWhenRoutesAreExposedByDefault()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(true);
 			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
@@ -61,7 +61,7 @@ namespace RouteJs.Tests.Mvc
 		[Test]
 		public void RoutesCanBeHiddenByDefault()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(false);
 			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
@@ -72,7 +72,7 @@ namespace RouteJs.Tests.Mvc
 		[Test]
 		public void ExposedControllersAreExposedWhenRoutesAreHiddenByDefault()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(false);
 			var routeFilter = new MvcRouteFilter(config.Object, _routes);
 
@@ -83,7 +83,7 @@ namespace RouteJs.Tests.Mvc
 		[Test(Description = "Bug #21")]
 		public void IgnoredRoutesDoNotThrowAnException()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 
 			var routeCollection = new RouteCollection();
 			routeCollection.Ignore("IgnoreMe");
@@ -94,7 +94,7 @@ namespace RouteJs.Tests.Mvc
 		[Test(Description = "Bug #27")]
 		public void RoutesWithNoDataTokensDoNotThrowAnException()
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 
 			var routeCollection = new RouteCollection
 			{

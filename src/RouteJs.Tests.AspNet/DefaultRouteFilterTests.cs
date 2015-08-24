@@ -23,7 +23,7 @@ namespace RouteJs.Tests.AspNet
 		public void VisiblityCanBeChangedViaAttribute(Type controllerType, bool exposeAllRoutes, bool expected)
 		{
 			var controllerName = controllerType.Name.Replace("Controller", string.Empty);
-			var config = new Configuration { ExposeAllRoutes = exposeAllRoutes };
+			var config = new RouteJsConfiguration { ExposeAllRoutes = exposeAllRoutes };
 
 			var descriptor = new ControllerActionDescriptor
 			{

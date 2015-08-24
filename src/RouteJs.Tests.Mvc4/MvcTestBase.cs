@@ -17,7 +17,7 @@ namespace RouteJs.Tests.Mvc
 		/// <returns>RouteJs object</returns>
 		protected static RouteJs CreateRouteJs(RouteCollection routes)
 		{
-			var config = new Mock<IConfiguration>();
+			var config = new Mock<IRouteJsConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(true);
 
 			return new RouteJs(routes,

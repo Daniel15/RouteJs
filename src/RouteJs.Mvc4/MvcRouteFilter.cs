@@ -16,7 +16,7 @@ namespace RouteJs.Mvc
 		/// <summary>
 		/// RouteJs configuration
 		/// </summary>
-		private readonly IConfiguration _configuration;
+		private readonly IRouteJsConfiguration _configuration;
 		/// <summary>
 		/// ASP.NET routes
 		/// </summary>
@@ -46,7 +46,7 @@ namespace RouteJs.Mvc
 		/// </summary>
 		/// <param name="configuration">The RouteJs configuration.</param>
 		/// <param name="routeCollection">The ASP.NET routes</param>
-		public MvcRouteFilter(IConfiguration configuration, RouteCollection routeCollection)
+		public MvcRouteFilter(IRouteJsConfiguration configuration, RouteCollection routeCollection)
 		{
 			_configuration = configuration;
 			_routeCollection = routeCollection;

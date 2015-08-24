@@ -9,7 +9,7 @@ namespace RouteJs
 		/// <summary>
 		/// RouteJs configuration
 		/// </summary>
-		private readonly IConfiguration _configuration;
+		private readonly IRouteJsConfiguration _configuration;
 		/// <summary>
 		/// Action descriptors collection, containing information about all actions.
 		/// </summary>
@@ -24,7 +24,7 @@ namespace RouteJs
 		/// </summary>
 		private readonly ISet<string> _controllerBlacklist = new HashSet<string>();
 
-	    public DefaultRouteFilter(IConfiguration configuration, IActionDescriptorsCollectionProvider actionDescriptorsCollectionProvider)
+	    public DefaultRouteFilter(IRouteJsConfiguration configuration, IActionDescriptorsCollectionProvider actionDescriptorsCollectionProvider)
 	    {
 		    _configuration = configuration;
 		    _actionDescriptorsCollectionProvider = actionDescriptorsCollectionProvider;
