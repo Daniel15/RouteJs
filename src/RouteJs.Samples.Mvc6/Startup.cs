@@ -9,7 +9,10 @@ namespace RouteJs.Samples.Mvc6
         {
 			services.AddMvc();
 
-			services.AddRouteJs();
+			services.AddRouteJs().ConfigureRouteJs(config =>
+			{
+				config.ExposeAllRoutes = true;
+			});
 		}
 
         public void Configure(IApplicationBuilder app)
@@ -39,6 +42,12 @@ namespace RouteJs.Samples.Mvc6
 					name: "Hello2",
 					template: "hello/mvc/{message}",
 					defaults: new { controller = "Home", action = "HelloWorld2" }
+				);
+
+				routes.MapRoute(
+					name: "Hidden",
+					template: "hidden/three",
+					defaults: new { controller = "Hidden", action = "Index" }
 				);
 
 				routes.MapRoute(

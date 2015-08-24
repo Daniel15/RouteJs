@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Routing;
@@ -44,7 +45,7 @@ namespace RouteJs.Tests.AspNet
 				}
 			};
 
-			var routeJs = new RouteJs(new[] { routeFetcher.Object }, actionContext);
+			var routeJs = new RouteJs(new[] { routeFetcher.Object }, actionContext, Enumerable.Empty<IRouteFilter>());
 			var result = routeJs.GetJsonData();
 			const string expected = @"{""routes"":[{""url"":""foo/bar"",""defaults"":{""controller"":""Foo"",""action"":""Bar""},""constraints"":{""constr"":""aint""},""optional"":[""id""]}],""baseUrl"":""/base""}";
 			Assert.Equal(expected, result);

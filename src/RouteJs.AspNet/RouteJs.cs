@@ -21,13 +21,23 @@ namespace RouteJs
 		/// </summary>
 		private readonly IEnumerable<IRouteFetcher> _routeFetchers;
 		/// <summary>
+		/// Router filters used to determine which routes should not be visible in JavaScript.
+		/// </summary>
+		private readonly IEnumerable<IRouteFilter> _routeFilters;
+
+		/// <summary>
 		/// Context object for the current request.
 		/// </summary>
 		private readonly ActionContext _actionContext;
 
-		public RouteJs(IEnumerable<IRouteFetcher> routeFetchers, IScopedInstance<ActionContext> actionContextAccessor)
+		public RouteJs(
+			IEnumerable<IRouteFetcher> routeFetchers, 
+			IScopedInstance<ActionContext> actionContextAccessor,
+			IEnumerable<IRouteFilter> routeFilters
+		)
 		{
 			_routeFetchers = routeFetchers;
+			_routeFilters = routeFilters;
 			_actionContext = actionContextAccessor.Value;
 		}
 
@@ -51,9 +61,12 @@ namespace RouteJs
 		public string GetJsonData()
 		{
 			var routes = _routeFetchers
-				.OrderBy(x => x.Order)
-				.SelectMany(x => x.GetRoutes(_actionContext.RouteData))
-				.Where(x => x != null);
+				.OrderBy(fetcher => fetcher.Order)
+				.SelectMany(fetcher => fetcher.GetRoutes(_actionContext.RouteData))
+				// Filter out any routes the fetcher couldn't handle correctly
+				.Where(route => route != null)
+				// Every filter must pass in order to use this route
+				.Where(route => _routeFilters.All(filter => filter.AllowRoute(route)));
 
 			var settings = new
 			{

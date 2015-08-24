@@ -1,4 +1,6 @@
-﻿using Microsoft.Framework.DependencyInjection;
+﻿using System;
+using Microsoft.Framework.DependencyInjection;
+using Microsoft.Framework.OptionsModel;
 
 namespace RouteJs
 {
@@ -8,19 +10,33 @@ namespace RouteJs
     public static class ServiceExtensions
     {
 		/// <summary>
-		/// Configurees RouteJs for this website.
+		/// Installs RouteJs services for this website.
 		/// </summary>
 		/// <param name="services">Service collection to register routes in</param>
 		/// <returns>The service collection</returns>
 	    public static IServiceCollection AddRouteJs(this IServiceCollection services)
 	    {
-		    services.AddSingleton<IRouteFetcher, TemplateRouteFetcher>();
+			services.AddSingleton<IConfiguration>(provider => provider.GetRequiredService<IOptions<Configuration>>().Options);
+			services.AddSingleton<IRouteFetcher, TemplateRouteFetcher>();
 		    services.AddSingleton<IRouteFetcher, AttributeRouteFetcher>();
 			services.AddSingleton<IConstraintsProcessor, ConstraintsProcessor>();
 			services.AddSingleton<IRouteTemplateParser, RouteTemplateParser>();
+			services.AddSingleton<IRouteFilter, DefaultRouteFilter>();
 			services.AddScoped<IRouteJsHelper, RouteJsHelper>();
 			services.AddScoped<IRouteJs, RouteJs>();
+			
 		    return services;
 	    }
+
+		/// <summary>
+		/// Configures RouteJs for this site.
+		/// </summary>
+		/// <param name="services"></param>
+		/// <param name="configure"></param>
+		/// <returns></returns>
+		public static IServiceCollection ConfigureRouteJs(this IServiceCollection services, Action<Configuration> configure)
+		{
+			return services.Configure(configure);
+		}
     }
 }
