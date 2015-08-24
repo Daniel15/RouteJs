@@ -23,65 +23,45 @@ Required:
 Installation
 ============
 
-Via released [NuGet Package](https://nuget.org/packages?q=RouteJs)
-----------------------------
+For ASP.NET MVC 5 and older
+---------------------------
 ```
 Install-Package RouteJs.Mvc4
 ```
 (replace `RouteJs.Mvc4` with `RouteJs.Mvc3` for ASP.NET MVC 3 or `RouteJs.Mvc2` for ASP.NET MVC 2)
 
-Now skip down to the [usage section](#usage)
+Alternatively, you can get the latest development build from the
+[build server](http://teamcity.codebetter.com/viewType.html?buildTypeId=routejs&guest=1).
 
-Via latest development build
-----------------------------
-Get the latest builds from the [build server](http://teamcity.codebetter.com/viewType.html?buildTypeId=routejs&guest=1)
-
-Now skip down to the [usage section](#usage)
-
-Manual Installation
--------------------
-
-- Compile RouteJs by running `build.bat`
-- Reference RouteJs.dll and RouteJs.Mvc4.dll (if using MVC 4) in your Web Application project
-- Add the configuration to your Web.config:
-
-```xml
-<configSections>
-	...
-	<section name="routeJs" type="RouteJs.RouteJsConfigurationSection, RouteJs" />
-</configSections>
-<system.web>
-	...
-	<httpHandlers>
-		<add verb="GET" path="routejs.axd" type="RouteJs.RouteJsHandler, RouteJs" />
-	</httpHandlers>
-</system.web>
-
-<system.webServer>
-	...
-	<handlers>
-		<add name="RouteJs" verb="GET" path="routejs.axd" type="RouteJs.RouteJsHandler, RouteJs" />
-	</handlers>
-</system.webServer>
-
-<!--
-	Sets whether to expose all routes to the site. 
-	If true, all routes will be exposed unless explicitly hidden using the [HideRoutesInJavaScript] 
-	attribute on the controller. If false, all routes will be hidden unless explicitly exposed 
-	using the [ExposeRoutesInJavaScript] attribute.
--->
-<routeJs exposeAllRoutes="true" />
-```
-- See usage example below
-
-Usage
-=====
-
-Firstly, you need to reference the RouteJs handler in your view. This serves the JavaScript
+Once installed, you need to reference the RouteJs handler in your view. This serves the JavaScript
 and route information:
 ```html
 <script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
 ```
+
+For ASP.NET 5 and MVC 6 Beta
+----------------------------
+
+```
+Install-Package RouteJs.AspNet
+```
+Once installed, you need to add RouteJs to your `Startup.cs` file:
+
+```csharp
+services.AddRouteJs();
+
+```
+
+The RouteJs handler also needs to be referenced in your view (generally `_Layout.cshtml` is a 
+good place for this). This serves the JavaScript and route information:
+
+```csharp
+@inject RouteJs.IRouteJsHelper RouteJs
+@RouteJs.Render()
+```
+
+Usage
+=====
 
 The main function is `Router.action`. This accepts three parameters:
 - Name of the controller
@@ -101,9 +81,16 @@ var url = Router.action('Foo', 'Bar', { id: 123 }); // eg. /Foo/Bar/123
 var url = Router.action('Foo', 'Bar', { hello: 'world' }); // eg. /Foo/Bar?hello=world
 ```
 
-The routes that are exposed are controlled by the web.config "exposeAllRoutes" setting:
+The routes that are exposed are controlled by the web.config "exposeAllRoutes" setting for ASP.NET MVC 5 and below:
 ```xml
 <routeJs exposeAllRoutes="true" />
+```
+
+And via `Startup.cs` for ASP.NET MVC 6:
+```csharp
+services.AddRouteJs().ConfigureRouteJs(config => {
+	config.ExposeAllRoutes = true;
+});
 ```
 
 If set to "true", all of your ASP.NET MVC routes will be exposed to JavaScript, unless you 
@@ -113,6 +100,10 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+2.0 - 23th August 2015
+----------------------
+ - Added support for ASP.NET 5 and MVC 6
+
 1.1.9 - 24th January 2015
 -------------------------
  - [#38](https://github.com/Daniel15/RouteJs/issues/38) - Fix handling of constraints with 
