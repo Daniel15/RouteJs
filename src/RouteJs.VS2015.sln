@@ -15,10 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{5CE41205-3
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
 		..\.gitignore = ..\.gitignore
-		..\build.bat = ..\build.bat
 		..\build.proj = ..\build.proj
+		..\dev-build.bat = ..\dev-build.bat
 		..\push.bat = ..\push.bat
 		..\README.md = ..\README.md
+		..\release-build.bat = ..\release-build.bat
+		..\release-push.bat = ..\release-push.bat
+		tasks.proj = tasks.proj
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteJs", "RouteJs\RouteJs.csproj", "{C8FAAE56-4623-4055-85DB-16CE600212AA}"
