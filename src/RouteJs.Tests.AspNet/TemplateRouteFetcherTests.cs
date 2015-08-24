@@ -99,7 +99,7 @@ namespace RouteJs.Tests.AspNet
 			var routeData = new RouteData();
 			routeData.Routers.Add(router);
 
-			var fetcher = new TemplateRouteFetcher(new Mock<IConstraintsProcessor>().Object);
+			var fetcher = new TemplateRouteFetcher(new Mock<IConstraintsProcessor>().Object, new RouteTemplateParser());
 			return fetcher.GetRoutes(routeData).ToList();
 		}
     }

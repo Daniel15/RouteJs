@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.AspNet.Routing;
 using Microsoft.AspNet.Routing.Template;
 
@@ -12,11 +11,19 @@ namespace RouteJs
     public class TemplateRouteFetcher : IRouteFetcher
     {
 		private readonly IConstraintsProcessor _constraintsProcessor;
+		private readonly IRouteTemplateParser _parser;
 
-		public TemplateRouteFetcher(IConstraintsProcessor constraintsProcessor)
+		public TemplateRouteFetcher(IConstraintsProcessor constraintsProcessor, IRouteTemplateParser parser)
 		{
 			_constraintsProcessor = constraintsProcessor;
+			_parser = parser;
 		}
+
+		/// <summary>
+		/// Gets the order of this route fetch relative to others. Fetches with smaller numbers
+		/// will have their routes listed earlier in the overall route list.
+		/// </summary>
+		public int Order => 99;
 
 		/// <summary>
 		/// Gets the route information
@@ -46,39 +53,11 @@ namespace RouteJs
 			var info = new RouteInfo
 			{
 				Constraints = _constraintsProcessor.ProcessConstraints(route.Constraints),
-				Defaults = route.Defaults.ToDictionary(x => x.Key, x => x.Value),
+				Defaults = route.Defaults.ToDictionary(x => x.Key.ToLowerInvariant(), x => x.Value),
 				Optional = new List<string>(),
 			};
-
-			var parsedTemplate = TemplateParser.Parse(route.RouteTemplate);
-			var builder = new StringBuilder();
-			foreach (var segment in parsedTemplate.Segments)
-			{
-				foreach (var part in segment.Parts)
-				{
-					if (part.IsLiteral)
-					{
-						builder.Append(part.Text);
-						continue;
-					}
-					if (part.DefaultValue != null)
-					{
-						info.Defaults[part.Name] = part.DefaultValue;
-					}
-					if (part.IsOptional)
-					{
-						info.Optional.Add(part.Name);
-					}
-					builder.Append('{');
-					builder.Append(part.Name);
-					builder.Append('}');
-
-					// TODO part.IsOptionalSeperator
-					// TODO part.IsCatchAll
-				}
-				builder.Append('/');
-			}
-			info.Url = builder.ToString().TrimEnd('/');
+			var template = TemplateParser.Parse(route.RouteTemplate);
+			_parser.Parse(template, info);
 
 			return info;
 		}

@@ -17,6 +17,7 @@ namespace RouteJs
 		    services.AddSingleton<IRouteFetcher, TemplateRouteFetcher>();
 		    services.AddSingleton<IRouteFetcher, AttributeRouteFetcher>();
 			services.AddSingleton<IConstraintsProcessor, ConstraintsProcessor>();
+			services.AddSingleton<IRouteTemplateParser, RouteTemplateParser>();
 			services.AddScoped<IRouteJsHelper, RouteJsHelper>();
 			services.AddScoped<IRouteJs, RouteJs>();
 		    return services;

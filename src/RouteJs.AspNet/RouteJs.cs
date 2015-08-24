@@ -50,7 +50,11 @@ namespace RouteJs
 		/// <returns>JavaScript for the routes</returns>
 		public string GetJsonData()
 		{
-			var routes = _routeFetchers.SelectMany(x => x.GetRoutes(_actionContext.RouteData));
+			var routes = _routeFetchers
+				.OrderBy(x => x.Order)
+				.SelectMany(x => x.GetRoutes(_actionContext.RouteData))
+				.Where(x => x != null);
+
 			var settings = new
 			{
 				Routes = routes,

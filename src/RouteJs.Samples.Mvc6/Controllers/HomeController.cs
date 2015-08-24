@@ -21,6 +21,7 @@ namespace RouteJs.Samples.Mvc6.Controllers
 
 		[Route("hello/from/attribute/{message}")]
 		[HttpGet("hello/from/getattr/{message}")]
+		[Route("bool/attribute/{message:bool}")]
 		public IActionResult HelloFromAttribute(string message)
 		{
 			return Content("Hello from attribute!");
