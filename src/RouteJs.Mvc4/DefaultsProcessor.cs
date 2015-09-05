@@ -44,7 +44,7 @@ namespace RouteJs.Mvc
 			// Add area if it's specified in the route
 			if (route.DataTokens != null && route.DataTokens.ContainsKey(AREA_TOKEN))
 			{
-				routeInfo.Defaults.Add("area", route.DataTokens[AREA_TOKEN]);
+				routeInfo.Defaults["area"] = route.DataTokens[AREA_TOKEN];
 			}
 		}
 
