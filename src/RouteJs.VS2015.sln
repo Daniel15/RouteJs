@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{5CE41205-3
 		..\.gitignore = ..\.gitignore
 		..\build.proj = ..\build.proj
 		..\dev-build.bat = ..\dev-build.bat
+		global.json = global.json
 		..\push.bat = ..\push.bat
 		..\README.md = ..\README.md
 		..\release-build.bat = ..\release-build.bat
