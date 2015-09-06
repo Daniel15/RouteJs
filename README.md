@@ -7,10 +7,10 @@ existing routes at all.
 
 Bug reports and feature requests are welcome!
 
-[![Build status](http://img.shields.io/teamcity/codebetter/routejs.svg)](http://teamcity.codebetter.com/viewType.html?buildTypeId=routejs&guest=1)&nbsp;
+[![Build status](https://img.shields.io/appveyor/ci/Daniel15/RouteJs/master.svg)](https://ci.appveyor.com/project/Daniel15/routejs/branch/master)
+&nbsp;
 [![NuGet downloads](http://img.shields.io/nuget/dt/RouteJs.Mvc4.svg)](https://www.nuget.org/packages/RouteJs.Mvc4/)&nbsp;
 [![NuGet version](http://img.shields.io/nuget/v/RouteJs.Mvc4.svg)](https://www.nuget.org/packages/RouteJs.Mvc4/)&nbsp;
-![Code coverage](http://img.shields.io/teamcity/coverage/routejs.svg)
 
 Requirements
 ============
