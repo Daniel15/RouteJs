@@ -3,16 +3,12 @@
 	<PropertyGroup>
 		<Major>2</Major>
 		<Minor>0</Minor>
-		<Build>0</Build>
+		<Build>1</Build>
 		<Revision>0</Revision>
+		<BuildType Condition="'$(BuildType)' == ''">dev</BuildType>
 		<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\tools\MSBuildTasks</MSBuildCommunityTasksPath>
 		<PackageOutputDir>output</PackageOutputDir>
-
-		<!-- Only build ASP.NET 5 projects if on MSBuild 14+ (VS2015+) -->
-		<BuildAspNet5>false</BuildAspNet5>
-		<BuildAspNet5 Condition="$(VisualStudioVersion) == '14.0'">true</BuildAspNet5>
-		<SolutionFile>src\RouteJs.VS2015.sln</SolutionFile>
-		<SolutionFile Condition="$(BuildAspNet5) == 'false'">src\RouteJs.sln</SolutionFile>
+		<SolutionFile>src\RouteJs.sln</SolutionFile>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageAssemblies Include="RouteJs.Mvc5" />
@@ -60,16 +56,31 @@
 
 	<Target Name="Clean" BeforeTargets="Build">
 		<!--
-			ASP.NET 5 projects don't delete generated .nupkg files when cleaned or rebuilt, so we need to		
+			ASP.NET 5 projects don't delete generated files when cleaned or rebuilt, so we need to		
 			do it here. See https://github.com/aspnet/XRE/issues/1301 		
 		-->
-		<ItemGroup>
-			<OldAspNet5Packages Include="src/artifacts/bin/%(PackageAssembliesAspNet5.Identity)/**/*.nupkg" />
-		</ItemGroup>
-		<Delete Files="@(OldAspNet5Packages)" />
+		<DeleteTree Directories="src/artifacts" />
 	</Target>
-	<Target Name="Build" DependsOnTargets="UpdateVersion">
-		<MSBuild Projects="$(SolutionFile)" Targets="Rebuild" Properties="Configuration=Release;Platform=Any CPU;NoWarn=1607" />
+	
+	<Target Name="RestorePackages" DependsOnTargets="Clean">
+		<!-- NuGet packages for ASP.NET 5 projects -->
+		<Exec
+			WorkingDirectory="$(MSBuildProjectDirectory)"
+			Command="dnu restore --quiet --parallel"
+		/>
+		<!-- npm packages -->
+		<Exec
+			WorkingDirectory="src/RouteJs.AspNet"
+			Command="npm install"
+		/>
+	</Target>
+	
+	<Target Name="Build" DependsOnTargets="UpdateVersion; RestorePackages">
+		<Exec
+			WorkingDirectory="src/RouteJs.AspNet"
+			Command="node node_modules\gulp\bin\gulp.js build"
+		/>
+		<MSBuild Projects="$(SolutionFile)" Targets="Rebuild" Properties="Configuration=Release;Platform=Any CPU;NoWarn=1607,7035" />
 	</Target>
 	<Target Name="ResetAspNetVersion" AfterTargets="Build">
 		<!-- Resets the version number in ASP.NET project.json files so we don't commit -dev- version numbers -->
@@ -80,7 +91,10 @@
 	</Target>
 
 	<Target Name="Test" DependsOnTargets="Build">
-		<!-- TODO XUNIT -->
+		<Exec
+			WorkingDirectory="src/RouteJs.Tests.AspNet"
+			Command="dnx . test"
+		/>
 		<NUnit
 			ToolPath="src\packages\NUnit.Runners.2.6.1\tools"
 			Assemblies="
@@ -104,7 +118,7 @@
 		/>
 	</Target>
 
-	<Target Name="CopyAspNetPackages" AfterTargets="Package" Condition="$(BuildAspNet5) == 'true'">
+	<Target Name="CopyAspNetPackages" AfterTargets="Package">
 		<!-- Copy over ASP.NET 5 packages -->
 		<ItemGroup>
 			<AspNet5Packages Include="src/artifacts/bin/%(PackageAssembliesAspNet5.Identity)/Release/*.nupkg" />
