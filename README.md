@@ -99,6 +99,12 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+2.0.1 - 13th September 2015
+---------------------------
+ - Updated ASP.NET 5 support to beta 7
+ - [#41](https://github.com/Daniel15/RouteJs/issues/41) - Correctly handle when 
+   routes in areas have "area" default param
+
 2.0 - 23th August 2015
 ----------------------
  - Added support for ASP.NET 5 and MVC 6
