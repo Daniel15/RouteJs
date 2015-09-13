@@ -31,14 +31,14 @@ namespace RouteJs
 		private readonly ActionContext _actionContext;
 
 		public RouteJs(
-			IEnumerable<IRouteFetcher> routeFetchers, 
-			IScopedInstance<ActionContext> actionContextAccessor,
+			IEnumerable<IRouteFetcher> routeFetchers,
+			IActionContextAccessor actionContextAccessor,
 			IEnumerable<IRouteFilter> routeFilters
 		)
 		{
 			_routeFetchers = routeFetchers;
 			_routeFilters = routeFilters;
-			_actionContext = actionContextAccessor.Value;
+			_actionContext = actionContextAccessor.ActionContext;
 		}
 
 		/// <summary>

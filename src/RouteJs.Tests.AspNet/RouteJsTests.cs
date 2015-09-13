@@ -37,15 +37,13 @@ namespace RouteJs.Tests.AspNet
 			request.Setup(x => x.PathBase).Returns(new PathString("/base"));
 			var httpContext = new Mock<HttpContext>();
 			httpContext.Setup(x => x.Request).Returns(request.Object);
-			var actionContext = new ScopedInstance<ActionContext>()
+			var actionContext = new Mock<IActionContextAccessor>();
+			actionContext.Setup(x => x.ActionContext).Returns(new ActionContext
 			{
-				Value = new ActionContext
-				{
-					HttpContext = httpContext.Object
-				}
-			};
+				HttpContext = httpContext.Object
+			});
 
-			var routeJs = new RouteJs(new[] { routeFetcher.Object }, actionContext, Enumerable.Empty<IRouteFilter>());
+			var routeJs = new RouteJs(new[] { routeFetcher.Object }, actionContext.Object, Enumerable.Empty<IRouteFilter>());
 			var result = routeJs.GetJsonData();
 			const string expected = @"{""routes"":[{""url"":""foo/bar"",""defaults"":{""controller"":""Foo"",""action"":""Bar""},""constraints"":{""constr"":""aint""},""optional"":[""id""]}],""baseUrl"":""/base""}";
 			Assert.Equal(expected, result);

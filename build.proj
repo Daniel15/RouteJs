@@ -93,7 +93,7 @@
 	<Target Name="Test" DependsOnTargets="Build">
 		<Exec
 			WorkingDirectory="src/RouteJs.Tests.AspNet"
-			Command="dnx . test"
+			Command="dnx test"
 		/>
 		<NUnit
 			ToolPath="src\packages\NUnit.Runners.2.6.1\tools"

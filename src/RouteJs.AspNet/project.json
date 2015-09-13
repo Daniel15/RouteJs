@@ -11,9 +11,9 @@
   "tags": [ "asp.net", "mvc", "asp", "routing", "route", "url", "ajax", "jquery", "javascript", "js", "vnext" ],
 
   "dependencies": {
-    "Microsoft.AspNet.Http.Abstractions": "1.0.0-beta6",
-    "Microsoft.AspNet.Mvc": "6.0.0-beta6",
-    "Microsoft.AspNet.Routing": "1.0.0-beta6"
+    "Microsoft.AspNet.Http.Abstractions": "1.0.0-beta7",
+    "Microsoft.AspNet.Mvc": "6.0.0-beta7",
+    "Microsoft.AspNet.Routing": "1.0.0-beta7"
   },
 
   "frameworks": {
