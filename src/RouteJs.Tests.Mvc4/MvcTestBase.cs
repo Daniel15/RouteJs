@@ -15,15 +15,17 @@ namespace RouteJs.Tests.Mvc
 		/// </summary>
 		/// <param name="routes">Routes</param>
 		/// <returns>RouteJs object</returns>
-		protected static RouteJs CreateRouteJs(RouteCollection routes)
+		protected static RouteJs CreateRouteJs(RouteCollection routes, bool lowerCaseUrls = false)
 		{
 			var config = new Mock<IRouteJsConfiguration>();
 			config.Setup(x => x.ExposeAllRoutes).Returns(true);
+			config.Setup(x => x.LowerCaseUrls).Returns(lowerCaseUrls);
 
 			return new RouteJs(routes,
 				routeFilters: new[] { new MvcRouteFilter(config.Object, routes) }, 
 				defaultsProcessors: new[] { new DefaultsProcessor() },
-				constraintsProcessors: new IConstraintsProcessor[] { });
+				constraintsProcessors: new IConstraintsProcessor[] { },
+				routeJsConfiguration: config.Object);
 		}
 	}
 }

@@ -15,6 +15,7 @@ namespace RouteJs
 		private readonly IEnumerable<IRouteFilter> _routeFilters;
 		private readonly IEnumerable<IDefaultsProcessor> _defaultsProcessors;
 		private readonly IEnumerable<IConstraintsProcessor> _constraintsProcessors;
+		private readonly IRouteJsConfiguration _routeJsConfiguration;
 
 		// This matches all words in a url except for those inside parens ("{}") because those
 		// are route values and they shouldn't be converted to lowercase.
@@ -28,32 +29,20 @@ namespace RouteJs
 		/// <param name="routeFilters">Any filters to apply to the routes</param>
 		/// <param name="defaultsProcessors">Handler to handle processing of default values</param>
 		/// <param name="constraintsProcessors">Handler to handle processing of constraints</param>
+		/// <param name="routeJsConfiguration">Configuration object that contains options</param>
 		public RouteJs(
 			RouteCollection routeCollection,
 			IEnumerable<IRouteFilter> routeFilters,
 			IEnumerable<IDefaultsProcessor> defaultsProcessors,
-			IEnumerable<IConstraintsProcessor> constraintsProcessors
+			IEnumerable<IConstraintsProcessor> constraintsProcessors,
+			IRouteJsConfiguration routeJsConfiguration
 		)
 		{
 			_routeCollection = routeCollection;
 			_routeFilters = routeFilters;
 			_defaultsProcessors = defaultsProcessors;
 			_constraintsProcessors = constraintsProcessors;
-		}
-
-		/// <summary>
-		/// Gets or sets whether urls are converted to lowercase.
-		/// </summary>
-		public static bool LowerCaseUrls { get; set; }
-
-		public bool InstanceLowerCaseUrls { get; set; }
-
-		private bool IsLowerCaseUrls
-		{
-			get
-			{
-				return LowerCaseUrls || InstanceLowerCaseUrls;
-			}
+			_routeJsConfiguration = routeJsConfiguration;
 		}
 
 		/// <summary>
@@ -96,7 +85,7 @@ namespace RouteJs
 				Constraints = new RouteValueDictionary(),
 			};
 
-			if (IsLowerCaseUrls)
+			if (_routeJsConfiguration.LowerCaseUrls)
 			{
 				// Convert "controller" and "action" defaults to lowercase.
 				var convertedDefaults = route.Defaults
@@ -133,7 +122,7 @@ namespace RouteJs
 		/// <returns>The converted url if LowerCaseUrls is specified, or the same url otherwise.</returns>
 		private string GetUrl(string url)
 		{
-			if (!IsLowerCaseUrls)
+			if (!_routeJsConfiguration.LowerCaseUrls)
 			{
 				return url;
 			}

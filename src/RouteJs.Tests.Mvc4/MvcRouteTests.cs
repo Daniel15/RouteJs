@@ -80,8 +80,7 @@ namespace RouteJs.Tests.Mvc
 				url: "Hello/World",
 				defaults: new { controller = "Hello", action = "Hello-World" }
 			);
-			var routeJs = CreateRouteJs(routes);
-			routeJs.InstanceLowerCaseUrls = true;
+			var routeJs = CreateRouteJs(routes, lowerCaseUrls: true);
 
 			var result = routeJs.GetRoutes().ToList();
 

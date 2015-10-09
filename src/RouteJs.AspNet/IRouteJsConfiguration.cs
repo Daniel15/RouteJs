@@ -11,5 +11,12 @@ namespace RouteJs
 		/// If <c>false</c>, all routes will be hidden unless explicitly exposed using <see cref="ExposeRoutesInJavaScriptAttribute"/>.
 		/// </summary>
 		bool ExposeAllRoutes { get; }
+
+		/// <summary>
+		/// Gets whether urls should be converted to lowercase.
+		/// If <c>true</c>, urls will be converted to lowercase.
+		/// If <c>false</c>, urls will remain the same.
+		/// </summary>
+		bool LowerCaseUrls { get; }
 	}
 }
