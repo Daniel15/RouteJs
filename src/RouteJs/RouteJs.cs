@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Routing;
 
 namespace RouteJs
@@ -13,6 +15,10 @@ namespace RouteJs
 		private readonly IEnumerable<IRouteFilter> _routeFilters;
 		private readonly IEnumerable<IDefaultsProcessor> _defaultsProcessors;
 		private readonly IEnumerable<IConstraintsProcessor> _constraintsProcessors;
+
+		// This matches all words in a url except for those inside  parens ("{}") because those
+		// are route values and they shouldn't be converted to lower case.
+		private static readonly string s_lowerCasePatternMatcher = @"(\w+\/\w*)";
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RouteJs" /> class.
@@ -33,6 +39,11 @@ namespace RouteJs
 			_defaultsProcessors = defaultsProcessors;
 			_constraintsProcessors = constraintsProcessors;
 		}
+
+		/// <summary>
+		/// Gets or sets whether urls are converted to lower case.
+		/// </summary>
+		public static bool LowerCaseUrls { get; set; }
 
 		/// <summary>
 		/// Gets all the JavaScript-visible routes.
@@ -67,10 +78,10 @@ namespace RouteJs
 		/// <param name="route">The route</param>
 		/// <returns>Route information</returns>
 		private RouteInfo GetRoute(Route route)
-		{			
+		{
 			var routeInfo = new RouteInfo
 			{
-				Url = route.Url,
+				Url = GetUrl(route.Url),
 				Constraints = new RouteValueDictionary(),
 			};
 
@@ -87,6 +98,21 @@ namespace RouteJs
 			}
 
 			return routeInfo;
+		}
+
+		// Example: "Posts/{postKey}/Edit" is converted to "posts/{postKey}/edit"
+		// Words inside parens are not matched.
+		private string GetUrl(string url)
+		{
+			if (!LowerCaseUrls)
+			{
+				return url;
+			}
+
+			return Regex.Replace(url, s_lowerCasePatternMatcher, (m) =>
+			{
+				return m.Value.ToLower();
+			});
 		}
 	}
 }
