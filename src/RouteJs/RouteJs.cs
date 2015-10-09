@@ -85,6 +85,19 @@ namespace RouteJs
 				Constraints = new RouteValueDictionary(),
 			};
 
+			if (IsLowerCaseUrls)
+			{
+				// Convert "controller" and "action" defaults to lowercase.
+				var convertedDefaults = route.Defaults
+					.Where(d => s_defaultKeysToConvert.Any(st => string.Equals(d.Key, st, StringComparison.OrdinalIgnoreCase)))
+					.Select(d => new KeyValuePair<string, object>(d.Key, ((string)d.Value).ToLower()))
+					.ToArray();
+				foreach (var item in convertedDefaults)
+				{
+					route.Defaults[item.Key] = item.Value;
+				}
+			}
+
 			foreach (var processor in _defaultsProcessors)
 			{
 				processor.ProcessDefaults(route, routeInfo);
