@@ -19,6 +19,7 @@ namespace RouteJs
 		// This matches all words in a url except for those inside  parens ("{}") because those
 		// are route values and they shouldn't be converted to lower case.
 		private static readonly string s_lowerCasePatternMatcher = @"(\w+\/\w*)";
+		private static readonly string[] s_defaultKeysToConvert = new[] { "controller", "action" };
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RouteJs" /> class.
@@ -28,7 +29,7 @@ namespace RouteJs
 		/// <param name="defaultsProcessors">Handler to handle processing of default values</param>
 		/// <param name="constraintsProcessors">Handler to handle processing of constraints</param>
 		public RouteJs(
-			RouteCollection routeCollection, 
+			RouteCollection routeCollection,
 			IEnumerable<IRouteFilter> routeFilters,
 			IEnumerable<IDefaultsProcessor> defaultsProcessors,
 			IEnumerable<IConstraintsProcessor> constraintsProcessors
@@ -44,6 +45,16 @@ namespace RouteJs
 		/// Gets or sets whether urls are converted to lower case.
 		/// </summary>
 		public static bool LowerCaseUrls { get; set; }
+
+		public bool InstanceLowerCaseUrls { get; set; }
+
+		private bool IsLowerCaseUrls
+		{
+			get
+			{
+				return LowerCaseUrls || InstanceLowerCaseUrls;
+			}
+		}
 
 		/// <summary>
 		/// Gets all the JavaScript-visible routes.
@@ -117,7 +128,7 @@ namespace RouteJs
 		// Words inside parens are not matched.
 		private string GetUrl(string url)
 		{
-			if (!LowerCaseUrls)
+			if (!IsLowerCaseUrls)
 			{
 				return url;
 			}
