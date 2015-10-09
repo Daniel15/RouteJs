@@ -16,10 +16,10 @@ namespace RouteJs
 		private readonly IEnumerable<IDefaultsProcessor> _defaultsProcessors;
 		private readonly IEnumerable<IConstraintsProcessor> _constraintsProcessors;
 
-		// This matches all words in a url except for those inside  parens ("{}") because those
-		// are route values and they shouldn't be converted to lower case.
-		private static readonly string s_lowerCasePatternMatcher = @"(\w+\/\w*)";
-		private static readonly string[] s_defaultKeysToConvert = new[] { "controller", "action" };
+		// This matches all words in a url except for those inside parens ("{}") because those
+		// are route values and they shouldn't be converted to lowercase.
+		private static readonly string _lowerCasePatternMatcher = @"(\w+\/\w*)";
+		private static readonly string[] _defaultKeysToConvert = new[] { "controller", "action" };
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RouteJs" /> class.
@@ -42,7 +42,7 @@ namespace RouteJs
 		}
 
 		/// <summary>
-		/// Gets or sets whether urls are converted to lower case.
+		/// Gets or sets whether urls are converted to lowercase.
 		/// </summary>
 		public static bool LowerCaseUrls { get; set; }
 
@@ -100,7 +100,7 @@ namespace RouteJs
 			{
 				// Convert "controller" and "action" defaults to lowercase.
 				var convertedDefaults = route.Defaults
-					.Where(d => s_defaultKeysToConvert.Any(st => string.Equals(d.Key, st, StringComparison.OrdinalIgnoreCase)))
+					.Where(d => _defaultKeysToConvert.Any(st => string.Equals(d.Key, st, StringComparison.OrdinalIgnoreCase)))
 					.Select(d => new KeyValuePair<string, object>(d.Key, ((string)d.Value).ToLower()))
 					.ToArray();
 				foreach (var item in convertedDefaults)
@@ -124,8 +124,13 @@ namespace RouteJs
 			return routeInfo;
 		}
 
-		// Example: "Posts/{postKey}/Edit" is converted to "posts/{postKey}/edit"
-		// Words inside parens are not matched.
+		/// <summary>
+		/// Converts to lowercase url only if LowerCaseUrls options is specified.
+		/// Example: "Posts/{postKey}/Edit" is converted to "posts/{postKey}/edit"
+		/// Words inside parens are not matched.
+		/// </summary>
+		/// <param name="url">The url to convert.</param>
+		/// <returns>The converted url if LowerCaseUrls is specified, or the same url otherwise.</returns>
 		private string GetUrl(string url)
 		{
 			if (!IsLowerCaseUrls)
@@ -133,7 +138,7 @@ namespace RouteJs
 				return url;
 			}
 
-			return Regex.Replace(url, s_lowerCasePatternMatcher, (m) =>
+			return Regex.Replace(url, _lowerCasePatternMatcher, (m) =>
 			{
 				return m.Value.ToLower();
 			});
