@@ -87,6 +87,8 @@ namespace RouteJs.Tests.Mvc
 
 			Assert.AreEqual(1, result.Count);
 			Assert.AreEqual("hello/world", result[0].Url);
+			Assert.AreEqual("hello", result[0].Defaults["controller"]);
+			Assert.AreEqual("hello-world", result[0].Defaults["action"]);
 		}
 	}
 }
