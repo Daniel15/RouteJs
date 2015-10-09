@@ -17,10 +17,14 @@
 	</system.webServer>
 
 	<!--
-		Sets whether to expose all routes to the site. 
+		exposeAllRoutes: Sets whether to expose all routes to the site. 
 		If true, all routes will be exposed unless explicitly hidden using the [HideRoutesInJavaScript] 
 		attribute on the controller. If false, all routes will be hidden unless explicitly exposed 
 		using the [ExposeRoutesInJavaScript] attribute.
+
+		lowerCaseUrls: Sets whether urls should be converted to lowercase.
+		If true, urls will be converted to lowercase while preserving route value placeholders.
+		Example: "Posts/{postKey}/Edit" -> "posts/{postKey}/edit"
 	-->
-	<routeJs exposeAllRoutes="true" />
+	<routeJs exposeAllRoutes="true" lowerCaseUrls="false" />
 </configuration>
