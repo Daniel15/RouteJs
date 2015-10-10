@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 
 namespace RouteJs
 {
@@ -17,6 +18,17 @@ namespace RouteJs
 		{
 			get { return (bool) this["exposeAllRoutes"]; }
 			set { this["exposeAllRoutes"] = value; }
+		}
+
+		/// <summary>
+		/// Gets whether urls should be converted to lowercase.
+		/// If <c>true</c>, urls will be converted to lowercase.
+		/// If <c>false</c>, urls will remain the same.
+		/// </summary>
+		public bool LowerCaseUrls
+		{
+			get { return (bool)this["lowerCaseUrls"]; }
+			set { this["lowerCaseUrls"] = value; }
 		}
 	}
 }
