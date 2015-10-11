@@ -11,8 +11,8 @@ namespace RouteJs.Tests.AspNet
 	/// <summary>
 	/// Unit tests for <see cref="RouteJs" />.
 	/// </summary>
-    public class RouteJsTests
-    {
+	public class RouteJsTests
+	{
 		[Fact]
 		public void GetsRoutesFromRouteFetcher()
 		{
@@ -42,11 +42,12 @@ namespace RouteJs.Tests.AspNet
 			{
 				HttpContext = httpContext.Object
 			});
+			var config = new Mock<IRouteJsConfiguration>();
 
-			var routeJs = new RouteJs(new[] { routeFetcher.Object }, actionContext.Object, Enumerable.Empty<IRouteFilter>());
+			var routeJs = new RouteJs(new[] { routeFetcher.Object }, actionContext.Object, Enumerable.Empty<IRouteFilter>(), config.Object);
 			var result = routeJs.GetJsonData();
-			const string expected = @"{""routes"":[{""url"":""foo/bar"",""defaults"":{""controller"":""Foo"",""action"":""Bar""},""constraints"":{""constr"":""aint""},""optional"":[""id""]}],""baseUrl"":""/base""}";
+			const string expected = @"{""routes"":[{""url"":""foo/bar"",""defaults"":{""controller"":""Foo"",""action"":""Bar""},""constraints"":{""constr"":""aint""},""optional"":[""id""]}],""baseUrl"":""/base"",""lowerCaseUrls"":false}";
 			Assert.Equal(expected, result);
 		}
-    }
+	}
 }

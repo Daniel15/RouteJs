@@ -17,11 +17,6 @@ namespace RouteJs
 		private readonly IEnumerable<IConstraintsProcessor> _constraintsProcessors;
 		private readonly IRouteJsConfiguration _routeJsConfiguration;
 
-		// This matches all words in a url except for those inside parens ("{}") because those
-		// are route values and they shouldn't be converted to lowercase.
-		private static readonly string _lowerCasePatternMatcher = @"(\w+\/\w*)";
-		private static readonly string[] _defaultKeysToConvert = new[] { "controller", "action" };
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RouteJs" /> class.
 		/// </summary>
@@ -81,22 +76,9 @@ namespace RouteJs
 		{
 			var routeInfo = new RouteInfo
 			{
-				Url = GetUrl(route.Url),
+				Url = route.Url,
 				Constraints = new RouteValueDictionary(),
 			};
-
-			if (_routeJsConfiguration.LowerCaseUrls)
-			{
-				// Convert "controller" and "action" defaults to lowercase.
-				var convertedDefaults = route.Defaults
-					.Where(d => _defaultKeysToConvert.Any(st => string.Equals(d.Key, st, StringComparison.OrdinalIgnoreCase)))
-					.Select(d => new KeyValuePair<string, object>(d.Key, ((string)d.Value).ToLower()))
-					.ToArray();
-				foreach (var item in convertedDefaults)
-				{
-					route.Defaults[item.Key] = item.Value;
-				}
-			}
 
 			foreach (var processor in _defaultsProcessors)
 			{
@@ -107,30 +89,10 @@ namespace RouteJs
 				foreach (var processor in _constraintsProcessors)
 				{
 					processor.ProcessConstraints(route.Constraints, routeInfo);
-				}	
+				}
 			}
 
 			return routeInfo;
-		}
-
-		/// <summary>
-		/// Converts to lowercase url only if LowerCaseUrls options is specified.
-		/// Example: "Posts/{postKey}/Edit" is converted to "posts/{postKey}/edit"
-		/// Words inside parens are not matched.
-		/// </summary>
-		/// <param name="url">The url to convert.</param>
-		/// <returns>The converted url if LowerCaseUrls is specified, or the same url otherwise.</returns>
-		private string GetUrl(string url)
-		{
-			if (!_routeJsConfiguration.LowerCaseUrls)
-			{
-				return url;
-			}
-
-			return Regex.Replace(url, _lowerCasePatternMatcher, (m) =>
-			{
-				return m.Value.ToLower();
-			});
 		}
 	}
 }

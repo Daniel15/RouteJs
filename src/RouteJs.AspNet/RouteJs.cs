@@ -25,6 +25,8 @@ namespace RouteJs
 		/// </summary>
 		private readonly IEnumerable<IRouteFilter> _routeFilters;
 
+		private readonly IRouteJsConfiguration _routeJsConfiguration;
+
 		/// <summary>
 		/// Context object for the current request.
 		/// </summary>
@@ -33,12 +35,14 @@ namespace RouteJs
 		public RouteJs(
 			IEnumerable<IRouteFetcher> routeFetchers,
 			IActionContextAccessor actionContextAccessor,
-			IEnumerable<IRouteFilter> routeFilters
+			IEnumerable<IRouteFilter> routeFilters,
+			IRouteJsConfiguration routeJsConfiguration
 		)
 		{
 			_routeFetchers = routeFetchers;
 			_routeFilters = routeFilters;
 			_actionContext = actionContextAccessor.ActionContext;
+			_routeJsConfiguration = routeJsConfiguration;
 		}
 
 		/// <summary>
@@ -72,6 +76,7 @@ namespace RouteJs
 			{
 				Routes = routes,
 				BaseUrl = _actionContext.HttpContext.Request.PathBase.Value,
+				LowerCaseUrls = _routeJsConfiguration.LowerCaseUrls,
 			};
 			var jsonRoutes = JsonConvert.SerializeObject(settings, new JsonSerializerSettings
 			{
