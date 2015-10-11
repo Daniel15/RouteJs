@@ -60,7 +60,7 @@
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	var Route = function (route) {
+	var Route = function (route, settings) {
 		///<summary>Handles route processing</summary>
 		///<param name="route">Route information</param>
 		
@@ -71,6 +71,7 @@
 			route.optional = [];
 		}
 		
+		this.settings = merge({ lowerCaseUrls: false }, settings);
 		this.route = route;
 		this._params = [];
 		
@@ -101,7 +102,6 @@
 			var finalValues = merge(this.route.defaults, routeValuesLowercase),
 				processedParams = { controller: true, action: true },
 				finalUrl;
-			
 			
 			// Ensure area matches, if provided
 			if (
@@ -160,7 +160,7 @@
 			///<param name="processedParams">Array of parameters that have already been processed</param>
 			///<returns type="String">URL with parameters merged in, or null if not all parameters were specified</returns>
 			
-			var finalUrl = this.route.url;
+			var finalUrl = this.settings.lowerCaseUrls ? this.route.url.toLowerCase() : this.route.url;
 			
 			for (var i = 0, count = this._params.length; i < count; i++) {
 				var paramName = this._params[i],
@@ -173,7 +173,10 @@
 				
 				if (isProvided) {
 					var paramRegex = new RegExp('\{' + escapeRegExp(paramName) + '}', 'i');
-					finalUrl = finalUrl.replace(paramRegex, encodeURIComponent(finalValues[paramName]));
+					var paramValue = this.settings.lowerCaseUrls && this._shouldConvertParam(paramName)
+						? finalValues[paramName].toLowerCase()
+						: finalValues[paramName];
+					finalUrl = finalUrl.replace(paramRegex, encodeURIComponent(paramValue));
 				}
 				
 				processedParams[paramName] = true;
@@ -253,7 +256,18 @@
 			}
 
 			return parsedConstraints;
-		}
+		},
+
+		_shouldConvertParam: function (param) {
+			///<summary>Gets if we should convert this param.</summary>
+			///<param name="param">The param to check</param>
+
+			return (
+				param === 'controller' ||
+				param === 'action' ||
+				param === 'area'
+				);
+		},
 	};
 
 	var RouteManager = function (settings) {
@@ -261,9 +275,13 @@
 		///<param name="routes">Raw route information</param>
 
 		this.baseUrl = settings.baseUrl;
+		this.lowerCaseUrls = settings.lowerCaseUrls;
 		this.routes = [];
+		var routeSettings = {
+			lowerCaseUrls: this.lowerCaseUrls
+		};
 		for (var i = 0, count = settings.routes.length; i < count; i++) {
-			this.routes.push(new Route(settings.routes[i]));
+			this.routes.push(new Route(settings.routes[i], routeSettings));
 		}
 	};
 

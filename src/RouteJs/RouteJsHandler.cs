@@ -150,11 +150,13 @@ namespace RouteJs
 		private static string GetJsonData()
 		{
 			var router = ComponentRegistration.Container.Resolve<RouteJs>();
+			var config = ComponentRegistration.Container.Resolve<IRouteJsConfiguration>();
 			var routes = router.GetRoutes();
 			var settings = new
 			{
 				Routes = routes,
-				BaseUrl = VirtualPathUtility.ToAbsolute("~/")
+				BaseUrl = VirtualPathUtility.ToAbsolute("~/"),
+				LowerCaseUrls = config.LowerCaseUrls,
 			};
 			var jsonRoutes = JsonConvert.SerializeObject(settings, new JsonSerializerSettings
 			{

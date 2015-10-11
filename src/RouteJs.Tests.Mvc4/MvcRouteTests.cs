@@ -70,24 +70,5 @@ namespace RouteJs.Tests.Mvc
 			Assert.AreEqual("HelloWorld", result[0].Defaults["action"]);
 			Assert.AreEqual("TestArea", result[0].Defaults["area"]);
 		}
-
-		[Test]
-		public void HandlesLowerCaseUrls()
-		{
-			var routes = new RouteCollection();
-			routes.MapRoute(
-				name: "Hello",
-				url: "Hello/World",
-				defaults: new { controller = "Hello", action = "Hello-World" }
-			);
-			var routeJs = CreateRouteJs(routes, lowerCaseUrls: true);
-
-			var result = routeJs.GetRoutes().ToList();
-
-			Assert.AreEqual(1, result.Count);
-			Assert.AreEqual("hello/world", result[0].Url);
-			Assert.AreEqual("hello", result[0].Defaults["controller"]);
-			Assert.AreEqual("hello-world", result[0].Defaults["action"]);
-		}
 	}
 }
