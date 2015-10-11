@@ -25,6 +25,7 @@ namespace RouteJs
 		/// If <c>true</c>, urls will be converted to lowercase.
 		/// If <c>false</c>, urls will remain the same.
 		/// </summary>
+		[ConfigurationProperty("lowerCaseUrls", DefaultValue = false)]
 		public bool LowerCaseUrls
 		{
 			get { return (bool)this["lowerCaseUrls"]; }
