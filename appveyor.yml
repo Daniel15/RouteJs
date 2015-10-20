@@ -9,6 +9,5 @@ build:
   verbosity: normal
 test_script:
 - nunit-console.exe bin\ReleaseTests\RouteJs\RouteJs.Tests.dll bin\ReleaseTests\RouteJs.Mvc5\RouteJs.Tests.Mvc5.dll bin\ReleaseTests\RouteJs.Mvc4\RouteJs.Tests.Mvc4.dll bin\ReleaseTests\RouteJs.Mvc3\RouteJs.Tests.Mvc3.dll bin\ReleaseTests\RouteJs.Mvc2\RouteJs.Tests.Mvc2.dll
-- dnx --project src\RouteJs.Tests.AspNet test
 artifacts:
 - path: output\*.nupkg
