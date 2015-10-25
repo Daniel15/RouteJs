@@ -99,6 +99,15 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+2.0.2 - 25th October 2015
+-------------------------
+ - Updated ASP.NET 5 support to beta 8.
+ - [#43](https://github.com/Daniel15/RouteJs/issues/43) - Add LowerCaseUrls
+   option to convert generated URLs to lowercase. *Thanks to 
+   [Mohammad Rahhal](https://github.com/mrahhal)*.
+ - [#37](https://github.com/Daniel15/RouteJs/issues/37) - Handle empty URLs
+   (ie. home page).
+ 
 2.0.1 - 13th September 2015
 ---------------------------
  - Updated ASP.NET 5 support to beta 7
