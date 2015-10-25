@@ -41,6 +41,16 @@ describe('Route', function() {
 			var url = route.build({ controller: 'Hello', action: 'HelloWorld', extraParam: 'yeah' });
 			expect(url).toEqual('hello/world?extraParam=yeah');
 		});
+
+		it('should handle empty routes', function () {
+			route = new RouteJs.Route({
+				url: '',
+				defaults: { controller: 'Hello', action: 'HelloWorld' }
+			});
+
+			var url = route.build({ controller: 'Hello', action: 'HelloWorld' });
+			expect(url).toBe('');
+		});
 	});
 
 	describe('Simple route with parameter', function() {

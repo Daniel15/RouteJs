@@ -118,7 +118,7 @@
 			// Try to merge all URL parameters
 			// If null, this means a required parameters was not specified.
 			finalUrl = this._merge(finalValues, processedParams);
-			if (!finalUrl) {
+			if (finalUrl === null) {
 				return null;
 			}
 			
