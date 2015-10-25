@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Mvc.Abstractions;
+using Microsoft.AspNet.Mvc.Controllers;
+using Microsoft.AspNet.Mvc.Infrastructure;
 using Moq;
 using Xunit;
-using Xunit.Sdk;
 
 namespace RouteJs.Tests.AspNet
 {

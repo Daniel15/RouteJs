@@ -24,7 +24,7 @@ namespace RouteJs.Tests.AspNet
 		public void HandlesRegexConstraints(string inlineConstraint, string expected)
 		{
 			var routeOptions = new Mock<IOptions<RouteOptions>>();
-			routeOptions.Setup(x => x.Options).Returns(new RouteOptions());
+			routeOptions.Setup(x => x.Value).Returns(new RouteOptions());
 			var constraintResolver = new DefaultInlineConstraintResolver(routeOptions.Object);
 			var constraint = constraintResolver.ResolveConstraint(inlineConstraint);
 

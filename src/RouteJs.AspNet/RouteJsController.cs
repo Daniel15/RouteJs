@@ -37,8 +37,8 @@ namespace RouteJs
 			var javascript = _routeJs.GetJavaScript(debugMode);
 			if (shouldCache)
 			{
-				Response.Headers.Set("Expires", (DateTime.Now + _cacheFor).ToString("R"));
-				Response.Headers.Set("Cache-control", "public, max-age=" + _cacheFor.TotalSeconds.ToString(CultureInfo.InvariantCulture));
+				Response.Headers.Add("Expires", (DateTime.Now + _cacheFor).ToString("R"));
+				Response.Headers.Add("Cache-control", "public, max-age=" + _cacheFor.TotalSeconds.ToString(CultureInfo.InvariantCulture));
 			}
 			return Content(javascript, "text/javascript");
 		}

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNet.Mvc;
 using System.Linq;
+using Microsoft.AspNet.Mvc.Controllers;
+using Microsoft.AspNet.Mvc.Infrastructure;
 
 namespace RouteJs
 {

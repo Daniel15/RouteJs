@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Mvc.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
