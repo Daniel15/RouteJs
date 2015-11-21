@@ -1,5 +1,5 @@
 {
-  "version": "2.0.2-*",
+  "version": "2.0.3-*",
   "title": "RouteJs (ASP.NET 5 and MVC 6)",
   "authors": [ "Daniel Lo Nigro" ],
   "owners": [ "Daniel Lo Nigro" ],
@@ -11,10 +11,10 @@
   "tags": [ "asp.net", "mvc", "asp", "routing", "route", "url", "ajax", "jquery", "javascript", "js", "vnext" ],
 
   "dependencies": {
-    "Microsoft.AspNet.Http": "1.0.0-beta8",
-    "Microsoft.AspNet.Http.Abstractions": "1.0.0-beta8",
-    "Microsoft.AspNet.Mvc": "6.0.0-beta8",
-    "Microsoft.AspNet.Routing": "1.0.0-beta8"
+    "Microsoft.AspNet.Http": "1.0.0-rc1-final",
+    "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
+    "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+    "Microsoft.AspNet.Routing": "1.0.0-rc1-final"
   },
 
   "frameworks": {

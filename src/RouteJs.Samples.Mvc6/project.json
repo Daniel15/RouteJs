@@ -2,13 +2,13 @@
     "webroot": "wwwroot",
     "version": "1.0.0-*",
 
-    "dependencies": {
-      "Microsoft.AspNet.IISPlatformHandler": "1.0.0-beta8",
-      "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta8",
-        "RouteJs.AspNet": "",
-      "Microsoft.AspNet.Mvc": "6.0.0-beta8",
-      "Microsoft.AspNet.StaticFiles": "1.0.0-beta8"
-    },
+  "dependencies": {
+    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
+    "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
+    "RouteJs.AspNet": "",
+    "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+    "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final"
+  },
 
     "commands": {
       "web": "Microsoft.AspNet.Server.Kestrel"

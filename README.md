@@ -99,6 +99,10 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+2.0.3 - 20th November 2015
+--------------------------
+ - Updated ASP.NET 5 support to RC 1.
+
 2.0.2 - 25th October 2015
 -------------------------
  - Updated ASP.NET 5 support to beta 8.
