@@ -73,10 +73,16 @@ namespace RouteJs
 				// Every filter must pass in order to use this route
 				.Where(route => _routeFilters.All(filter => filter.AllowRoute(route)));
 
+			var baseUrl = _actionContext.HttpContext.Request.PathBase.Value;
+			if (baseUrl.Length == 0 || baseUrl[0] != '/')
+			{
+				baseUrl = "/" + baseUrl;
+			}
+
 			var settings = new
 			{
 				Routes = routes,
-				BaseUrl = _actionContext.HttpContext.Request.PathBase.Value,
+				BaseUrl = baseUrl,
 				LowerCaseUrls = _routeJsConfiguration.LowerCaseUrls,
 			};
 			var jsonRoutes = JsonConvert.SerializeObject(settings, new JsonSerializerSettings
