@@ -50,7 +50,7 @@ namespace RouteJs.Tests.AspNet
 
 			var routeJs = new RouteJs(new[] { routeFetcher.Object }, actionContext.Object, Enumerable.Empty<IRouteFilter>(), config.Object);
 			var result = routeJs.GetJsonData();
-			const string expected = @"{""routes"":[{""url"":""foo/bar"",""defaults"":{""controller"":""Foo"",""action"":""Bar""},""constraints"":{""constr"":""aint""},""optional"":[""id""]}],""baseUrl"":""/base"",""lowerCaseUrls"":false}";
+			const string expected = @"{""routes"":[{""url"":""foo/bar"",""defaults"":{""controller"":""Foo"",""action"":""Bar""},""constraints"":{""constr"":""aint""},""optional"":[""id""]}],""baseUrl"":""/base/"",""lowerCaseUrls"":false}";
 			Assert.Equal(expected, result);
 		}
 

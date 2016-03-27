@@ -78,6 +78,10 @@ namespace RouteJs
 			{
 				baseUrl = "/" + baseUrl;
 			}
+			if (baseUrl.Last() != '/')
+			{
+				baseUrl += '/';
+			}
 
 			var settings = new
 			{
