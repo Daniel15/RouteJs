@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<Major>2</Major>
 		<Minor>0</Minor>
-		<Build>3</Build>
+		<Build>4</Build>
 		<Revision>0</Revision>
 		<BuildType Condition="'$(BuildType)' == ''">dev</BuildType>
 		<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\tools\MSBuildTasks</MSBuildCommunityTasksPath>
