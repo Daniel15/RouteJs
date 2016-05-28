@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNet.Mvc.Controllers;
-using Microsoft.AspNet.Mvc.Infrastructure;
-using Microsoft.AspNet.Mvc.Routing;
-using Microsoft.AspNet.Routing;
-using Microsoft.AspNet.Routing.Template;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Internal;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Routing.Template;
+using Microsoft.AspNetCore.Routing.Tree;
 
 namespace RouteJs
 {
@@ -13,18 +15,18 @@ namespace RouteJs
 	/// Gets information about the attribute routes in the site
 	/// </summary>
 	/// <remarks>
-	/// Reference: https://github.com/aspnet/Mvc/blob/dev/src/Microsoft.AspNet.Mvc.Core/Routing/AttributeRoute.cs
+	/// Reference: https://github.com/aspnet/Mvc/blob/dev/src/Microsoft.AspNetCore.Mvc.Core/Routing/AttributeRoute.cs
 	/// </remarks>
 	public class AttributeRouteFetcher : IRouteFetcher
     {
 		private readonly IInlineConstraintResolver _constraintResolver;
-		private readonly IActionDescriptorsCollectionProvider _actionDescriptorsCollectionProvider;
+		private readonly IActionDescriptorCollectionProvider _actionDescriptorsCollectionProvider;
 		private readonly IRouteTemplateParser _parser;
 		private readonly IConstraintsProcessor _constraintsProcessor;
 
 		public AttributeRouteFetcher(
 			IInlineConstraintResolver constraintResolver,
-			IActionDescriptorsCollectionProvider actionDescriptorsCollectionProvider,
+			IActionDescriptorCollectionProvider actionDescriptorsCollectionProvider,
 			IRouteTemplateParser parser, 
 			IConstraintsProcessor constraintsProcessor
 		)
@@ -66,7 +68,7 @@ namespace RouteJs
 		private AttributeRouteInfo ProcessAttributeRoute(ControllerActionDescriptor action)
 		{
 			var constraint = action.RouteConstraints
-				.FirstOrDefault(c => c.RouteKey == AttributeRouting.RouteGroupKey);
+				.FirstOrDefault(c => c.RouteKey == TreeRouter.RouteGroupKey);
 			if (constraint == null ||
 				constraint.KeyHandling != RouteKeyHandling.RequireKey ||
 				constraint.RouteValue == null)
@@ -87,7 +89,7 @@ namespace RouteJs
                 Defaults = GetDefaults(action, template),
                 Optional = new List<string>(),
 				Order = action.AttributeRouteInfo.Order,
-				Precedence = AttributeRoutePrecedence.Compute(template),
+				Precedence = RoutePrecedence.ComputeGenerated(template),
 			};
 			_parser.Parse(template, info);
 

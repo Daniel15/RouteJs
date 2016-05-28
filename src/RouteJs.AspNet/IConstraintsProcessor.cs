@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Microsoft.AspNet.Routing;
+using Microsoft.AspNetCore.Routing;
 
 namespace RouteJs
 {

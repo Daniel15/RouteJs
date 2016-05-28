@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNet.Routing;
-using Microsoft.AspNet.Routing.Template;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Routing.Template;
 
 namespace RouteJs
 {
@@ -36,9 +36,9 @@ namespace RouteJs
 			for (var i = 0; i < routeCollection.Count; i++)
 			{
 				var route = routeCollection[i];
-				if (route is TemplateRoute)
+				if (route is Route)
 				{
-					yield return ProcessTemplateRoute((TemplateRoute)route);
+					yield return ProcessTemplateRoute((Route)route);
 				}
 			}
 		}
@@ -48,7 +48,7 @@ namespace RouteJs
 		/// </summary>
 		/// <param name="route">Template route to get information from</param>
 		/// <returns>Information from the route</returns>
-		private RouteInfo ProcessTemplateRoute(TemplateRoute route)
+		private RouteInfo ProcessTemplateRoute(Route route)
 		{
 			var info = new RouteInfo
 			{

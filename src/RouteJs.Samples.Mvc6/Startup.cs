@@ -1,26 +1,49 @@
-﻿using Microsoft.AspNet.Builder;
+﻿using System.IO;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace RouteJs.Samples.Mvc6
 {
     public class Startup
     {
-        public void ConfigureServices(IServiceCollection services)
+		public static void Main(string[] args)
+		{
+			var host = new WebHostBuilder()
+				.UseKestrel()
+				.UseContentRoot(Directory.GetCurrentDirectory())
+				.UseIISIntegration()
+				.UseStartup<Startup>()
+				.Build();
+
+			host.Run();
+		}
+
+		public void ConfigureServices(IServiceCollection services)
         {
 			services.AddMvc();
+			services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
-			services.AddRouteJs().ConfigureRouteJs(config =>
+			services.AddRouteJs(config =>
 			{
 				config.ExposeAllRoutes = true;
 			});
 		}
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-			// Add the platform handler to the request pipeline.
-			app.UseIISPlatformHandler();
+			loggerFactory.AddConsole();
+			loggerFactory.AddDebug();
 
-			app.UseStaticFiles();
+	        if (env.IsDevelopment())
+	        {
+		        app.UseDeveloperExceptionPage();
+	        }
+
+	        app.UseStaticFiles();
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(

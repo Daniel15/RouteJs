@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Http.Internal;
-using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
@@ -67,7 +67,7 @@ namespace RouteJs.Tests.AspNet
 
 		    return new RouteJsController(routeJs.Object)
 		    {
-			    ActionContext = new ActionContext {HttpContext = httpContext.Object}
+			    ControllerContext = new ControllerContext { HttpContext = httpContext.Object}
 		    };
 	    }
     }

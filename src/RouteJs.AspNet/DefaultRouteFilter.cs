@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNet.Mvc.Controllers;
-using Microsoft.AspNet.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace RouteJs
 {
@@ -14,7 +14,7 @@ namespace RouteJs
 		/// <summary>
 		/// Action descriptors collection, containing information about all actions.
 		/// </summary>
-		private readonly IActionDescriptorsCollectionProvider _actionDescriptorsCollectionProvider;
+		private readonly IActionDescriptorCollectionProvider _actionDescriptorsCollectionProvider;
 
 		/// <summary>
 		/// Whitelist of controllers whose routes are always rendered.
@@ -25,7 +25,7 @@ namespace RouteJs
 		/// </summary>
 		private readonly ISet<string> _controllerBlacklist = new HashSet<string>();
 
-	    public DefaultRouteFilter(IRouteJsConfiguration configuration, IActionDescriptorsCollectionProvider actionDescriptorsCollectionProvider)
+	    public DefaultRouteFilter(IRouteJsConfiguration configuration, IActionDescriptorCollectionProvider actionDescriptorsCollectionProvider)
 	    {
 		    _configuration = configuration;
 		    _actionDescriptorsCollectionProvider = actionDescriptorsCollectionProvider;

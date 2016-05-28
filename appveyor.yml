@@ -2,13 +2,11 @@ version: '{build}'
 os: Visual Studio 2015
 install:
 - set PATH=%ProgramFiles(x86)%\MSBuild\14.0\Bin;%PATH%
-- dnvm update-self
-- dnvm install 1.0.0-rc1-final
 build:
   project: build.proj
   verbosity: normal
 test_script:
 - nunit-console.exe bin\ReleaseTests\RouteJs\RouteJs.Tests.dll bin\ReleaseTests\RouteJs.Mvc5\RouteJs.Tests.Mvc5.dll bin\ReleaseTests\RouteJs.Mvc4\RouteJs.Tests.Mvc4.dll bin\ReleaseTests\RouteJs.Mvc3\RouteJs.Tests.Mvc3.dll bin\ReleaseTests\RouteJs.Mvc2\RouteJs.Tests.Mvc2.dll
-- dnx --project src\RouteJs.Tests.AspNet test
+- dotnet test src\RouteJs.Tests.AspNet
 artifacts:
 - path: output\*.nupkg

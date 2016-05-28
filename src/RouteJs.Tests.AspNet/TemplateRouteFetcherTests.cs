@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Routing;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder.Internal;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Routing.Internal;
 using Moq;
 using Xunit;
 
@@ -86,14 +88,19 @@ namespace RouteJs.Tests.AspNet
 		/// <returns>List of routes returned from the route fetcher</returns>
 		private static IList<RouteInfo> RunFetcher(Action<RouteBuilder> configure)
 	    {
-			var routes = new RouteBuilder();
 			var serviceProvider = new Mock<IServiceProvider>();
-			serviceProvider.Setup(x => x.GetService(typeof(IInlineConstraintResolver))).Returns(
-				new Mock<IInlineConstraintResolver>().Object
-			);
-			routes.ServiceProvider = serviceProvider.Object;
-			routes.DefaultHandler = new Mock<IRouter>().Object;
-		    configure(routes);
+			serviceProvider.Setup(x => x.GetService(typeof(RoutingMarkerService)))
+				.Returns(new Mock<RoutingMarkerService>().Object);
+			serviceProvider.Setup(x => x.GetService(typeof(IInlineConstraintResolver)))
+				.Returns(new Mock<IInlineConstraintResolver>().Object);
+
+			var appBuilder = new Mock<IApplicationBuilder>();
+			appBuilder.Setup(x => x.ApplicationServices).Returns(serviceProvider.Object);
+			var routes = new RouteBuilder(appBuilder.Object)
+			{
+				DefaultHandler = new Mock<IRouter>().Object
+			};
+			configure(routes);
 
 			var router = routes.Build();
 			var routeData = new RouteData();

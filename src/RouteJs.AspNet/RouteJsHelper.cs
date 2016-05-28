@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Rendering;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace RouteJs
@@ -27,7 +29,7 @@ namespace RouteJs
 		/// <summary>
 		/// URL helper
 		/// </summary>
-	    private readonly IUrlHelper _urlHelper;
+	    private readonly IUrlHelperFactory _urlHelperFactory;
 		/// <summary>
 		/// Service provider for dependency injection
 		/// </summary>
@@ -37,11 +39,18 @@ namespace RouteJs
 		/// </summary>
 		private readonly IHostingEnvironment _env;
 
-		public RouteJsHelper(IUrlHelper urlHelper, IServiceProvider serviceProvider, IHostingEnvironment env)
+		private readonly IActionContextAccessor _actionContextAccessor;
+
+		public RouteJsHelper(
+			IUrlHelperFactory urlHelperFactory, 
+			IServiceProvider serviceProvider, 
+			IHostingEnvironment env,
+			IActionContextAccessor actionContextAccessor)
 		{
-			_urlHelper = urlHelper;
+			_urlHelperFactory = urlHelperFactory;
 			_serviceProvider = serviceProvider;
 			_env = env;
+			_actionContextAccessor = actionContextAccessor;
 		}
 
 		/// <summary>
@@ -55,7 +64,8 @@ namespace RouteJs
 				// Script tag has not been built yet, compute the hash and create it.
 				var hash = ComputeHash();
 				var environment = _env.IsProduction() ? MINIFIED_MODE : null;
-				var url = _urlHelper.Action("Routes", "RouteJs", new { hash, environment });
+				var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
+				var url = urlHelper.Action("Routes", "RouteJs", new { hash, environment });
 				_scriptTag = new HtmlString($"<script src=\"{url}\"></script>");
             }
 			return _scriptTag;

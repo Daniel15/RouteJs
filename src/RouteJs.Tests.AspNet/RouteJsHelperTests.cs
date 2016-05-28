@@ -1,8 +1,9 @@
 ﻿using System;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Routing;
-using Microsoft.AspNet.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using Xunit;
 
@@ -40,6 +41,8 @@ namespace RouteJs.Tests.AspNet
 				}
 				return url;
 			});
+			var urlHelperFactory = new Mock<IUrlHelperFactory>();
+			urlHelperFactory.Setup(x => x.GetUrlHelper(It.IsAny<ActionContext>())).Returns(urlHelper.Object);
 
 			var routeJs = new Mock<IRouteJs>();
 			routeJs.Setup(x => x.GetJavaScript(It.IsAny<bool>())).Returns(scriptOutput);
@@ -47,11 +50,13 @@ namespace RouteJs.Tests.AspNet
 			serviceProvider.Setup(x => x.GetService(typeof (IRouteJs))).Returns(routeJs.Object);
 			var hostingEnvironment = new Mock<IHostingEnvironment>();
 			hostingEnvironment.Setup(x => x.EnvironmentName).Returns(environment);
+			var actionContextAccessor = new Mock<IActionContextAccessor>();
 
 		    var helper = new RouteJsHelper(
-				urlHelper.Object, 
+				urlHelperFactory.Object,
 				serviceProvider.Object, 
-				hostingEnvironment.Object
+				hostingEnvironment.Object,
+				actionContextAccessor.Object
 			);
 
 			RouteJsHelper.ClearCache();

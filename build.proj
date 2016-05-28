@@ -2,8 +2,8 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build;Test;Package" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
 		<Major>2</Major>
-		<Minor>0</Minor>
-		<Build>4</Build>
+		<Minor>1</Minor>
+		<Build>0</Build>
 		<Revision>0</Revision>
 		<BuildType Condition="'$(BuildType)' == ''">dev</BuildType>
 		<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\tools\MSBuildTasks</MSBuildCommunityTasksPath>
@@ -15,8 +15,8 @@
 		<PackageAssemblies Include="RouteJs.Mvc4" />
 		<PackageAssemblies Include="RouteJs.Mvc3" />
 		<PackageAssemblies Include="RouteJs.Mvc2" />
-		<PackageAssembliesAspNet5 Include="RouteJs.AspNet" />
-		<AspNet5ProjectJson Include="src/RouteJs.AspNet/project.json" />
+		<PackageAssembliesAspNetCore Include="RouteJs.AspNet" />
+		<AspNetCoreProjectJson Include="src/RouteJs.AspNet/project.json" />
 	</ItemGroup>
 	<Import Project="src/tasks.proj" />
 
@@ -43,30 +43,30 @@
 			AssemblyInformationalVersion="$(Major).$(Minor).$(FullBuild)"
 		/>
 		<!-- 		
-			Set version for ASP.NET 5 projects. In theory K_BUILD_VERSION should work but it doesn't seem 		
+			Set version for ASP.NET Core projects. In theory K_BUILD_VERSION should work but it doesn't seem 		
 			to be functional yet :(. We work around this by physically writing the build number to the 		
 			project.json files. For development builds we write the full version number (including 		
 			build date) and reset it later so the dev build number isn't commited to the repo.		
 		-->
 		<UpdateAspNetProjectVersion
-			Files="@(AspNet5ProjectJson)"
+			Files="@(AspNetCoreProjectJson)"
 			Version="$(Major).$(Minor).$(FullBuild)"
 		/>
 	</Target>
 
 	<Target Name="Clean" BeforeTargets="Build">
 		<!--
-			ASP.NET 5 projects don't delete generated files when cleaned or rebuilt, so we need to		
+			ASP.NET Core projects don't delete generated files when cleaned or rebuilt, so we need to		
 			do it here. See https://github.com/aspnet/XRE/issues/1301 		
 		-->
 		<DeleteTree Directories="src/artifacts" />
 	</Target>
 	
 	<Target Name="RestorePackages" DependsOnTargets="Clean">
-		<!-- NuGet packages for ASP.NET 5 projects -->
+		<!-- NuGet packages for ASP.NET Core projects -->
 		<Exec
 			WorkingDirectory="$(MSBuildProjectDirectory)"
-			Command="dnu restore --quiet --parallel"
+			Command="dotnet restore --quiet"
 		/>
 		<!-- npm packages -->
 		<Exec
@@ -82,10 +82,10 @@
 		/>
 		<MSBuild Projects="$(SolutionFile)" Targets="Rebuild" Properties="Configuration=Release;Platform=Any CPU;NoWarn=1607,7035" />
 	</Target>
-	<Target Name="ResetAspNetVersion" AfterTargets="Build">
+	<Target Name="ResetAspNetVersion" AfterTargets="Package">
 		<!-- Resets the version number in ASP.NET project.json files so we don't commit -dev- version numbers -->
 		<UpdateAspNetProjectVersion
-			Files="@(AspNet5ProjectJson)"
+			Files="@(AspNetCoreProjectJson)"
 			Version="$(Major).$(Minor).$(Build)-*"
 	/>
 	</Target>
@@ -93,7 +93,7 @@
 	<Target Name="Test" DependsOnTargets="Build">
 		<Exec
 			WorkingDirectory="src/RouteJs.Tests.AspNet"
-			Command="dnx test"
+			Command="dotnet test"
 		/>
 		<NUnit
 			ToolPath="src\packages\NUnit.Runners.2.6.1\tools"
@@ -116,14 +116,10 @@
 			WorkingDirectory="$(MSBuildProjectDirectory)"
 			Command="src\.nuget\NuGet.exe pack src\%(PackageAssemblies.Identity)\%(PackageAssemblies.Identity).csproj -IncludeReferencedProjects -Symbols -Prop Configuration=Release -OutputDirectory output"
 		/>
-	</Target>
-
-	<Target Name="CopyAspNetPackages" AfterTargets="Package">
-		<!-- Copy over ASP.NET 5 packages -->
-		<ItemGroup>
-			<AspNet5Packages Include="src/artifacts/bin/%(PackageAssembliesAspNet5.Identity)/Release/*.nupkg" />
-		</ItemGroup>
-		<Copy SourceFiles="@(AspNet5Packages)" DestinationFolder="$(PackageOutputDir)" />
+		<Exec
+			WorkingDirectory="$(MSBuildProjectDirectory)"
+			Command="dotnet pack --output $(PackageOutputDir) --build-base-path bin/ --configuration Release --no-build src/%(PackageAssembliesAspNetCore.Identity)/project.json"
+		/>
 	</Target>
 
 	<Target Name="Push">

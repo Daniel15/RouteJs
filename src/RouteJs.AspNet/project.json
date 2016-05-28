@@ -1,41 +1,49 @@
 {
-  "version": "2.0.3-*",
-  "title": "RouteJs (ASP.NET 5 and MVC 6)",
+  "version": "2.1.0-*",
+  "title": "RouteJs (ASP.NET Core MVC)",
   "authors": [ "Daniel Lo Nigro" ],
-  "owners": [ "Daniel Lo Nigro" ],
-  "licenseUrl": "http://dan.cx/projects/routejs#licence",
-  "projectUrl": "http://dan.cx/projects/routejs",
-  "requireLicenseAcceptance": false,
-  "description": "JavaScript URL routing for ASP.NET 5 (vNext) and MVC 6. Allows you to use your ASP.NET MVC routes from JavaScript. Please refer to project site (http://dan.cx/projects/routejs) for more details, usage examples and sample code.",
-  "releaseNotes": "Please refer to project site (http://dan.cx/projects/routejs) for more details, release notes, usage examples and sample code.",
-  "tags": [ "asp.net", "mvc", "asp", "routing", "route", "url", "ajax", "jquery", "javascript", "js", "vnext" ],
+
+  "description": "JavaScript URL routing for ASP.NET Core (vNext) and MVC 6. Allows you to use your ASP.NET MVC routes from JavaScript. Please refer to project site (http://dan.cx/projects/routejs) for more details, usage examples and sample code.",
 
   "dependencies": {
-    "Microsoft.AspNet.Http": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
-    "Microsoft.AspNet.Routing": "1.0.0-rc1-final"
+    "Microsoft.AspNetCore.Http": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Mvc": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Routing": "1.0.0-rc2-final"
   },
-
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": { }
+    "net451": {
+      "bin": {
+        "assembly": "../../bin/RouteJs.AspNet/bin/{configuration}/net451/RouteJs.AspNet.dll",
+        "pdb": "../../bin/RouteJs.AspNet/bin/{configuration}/net451/RouteJs.AspNet.pdb"
+      }
+    },
+    "netstandard1.5": {
+      "imports": [
+        "dnxcore50"
+      ],
+      "bin": {
+        "assembly": "../../bin/RouteJs.AspNet/bin/{configuration}/netstandard1.5/RouteJs.AspNet.dll",
+        "pdb": "../../bin/RouteJs.AspNet/bin/{configuration}/netstandard1.5/RouteJs.AspNet.pdb"
+      }
+    }
   },
-
-  "shared": [
-    "../SharedAssemblyVersionInfo.cs"
-  ],
-  
-  "publishExclude": [
-    "node_modules",
-    "bower_components",
-    "**.xproj",
-    "**.user",
-    "**.vspscc"
-  ],
-  "exclude": [
-    "wwwroot",
-    "node_modules",
-    "bower_components"
-  ]
+  "buildOptions": {
+    "compile": [
+      "../SharedAssemblyVersionInfo.cs"
+    ],
+    "xmlDoc": true
+  },
+  "packOptions": {
+    "owners": [ "Daniel Lo Nigro" ],
+    "licenseUrl": "http://dan.cx/projects/routejs#licence",
+    "projectUrl": "http://dan.cx/projects/routejs",
+    "requireLicenseAcceptance": false,
+    "releaseNotes": "Please refer to project site (http://dan.cx/projects/routejs) for more details, release notes, usage examples and sample code.",
+    "tags": [ "asp.net", "mvc", "asp", "routing", "route", "url", "ajax", "jquery", "javascript", "js", "vnext", "asp.net 5" ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/Daniel15/RouteJs"
+    }
+  }
 }

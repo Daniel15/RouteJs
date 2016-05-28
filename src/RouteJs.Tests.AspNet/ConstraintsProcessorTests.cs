@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNet.Routing;
-using Microsoft.Extensions.OptionsModel;
+﻿using Microsoft.AspNetCore.Routing;
 using Moq;
 using System.Collections.Generic;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 namespace RouteJs.Tests.AspNet

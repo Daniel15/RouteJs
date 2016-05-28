@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Abstractions;
-using Microsoft.AspNet.Mvc.Controllers;
-using Microsoft.AspNet.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Moq;
 using Xunit;
 
@@ -33,8 +33,8 @@ namespace RouteJs.Tests.AspNet
 				ControllerTypeInfo = controllerType.GetTypeInfo(),
 			};
 
-			var descriptorProvider = new Mock<IActionDescriptorsCollectionProvider>();
-			descriptorProvider.Setup(x => x.ActionDescriptors).Returns(new ActionDescriptorsCollection(
+			var descriptorProvider = new Mock<IActionDescriptorCollectionProvider>();
+			descriptorProvider.Setup(x => x.ActionDescriptors).Returns(new ActionDescriptorCollection(
 				new List<ActionDescriptor> { descriptor },
 				version: 1
 			));

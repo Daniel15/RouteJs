@@ -1,4 +1,4 @@
-using Microsoft.AspNet.Routing.Template;
+using Microsoft.AspNetCore.Routing.Template;
 
 namespace RouteJs
 {
