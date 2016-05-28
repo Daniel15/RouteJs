@@ -38,17 +38,17 @@ and route information:
 <script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
 ```
 
-For ASP.NET 5 and MVC 6 Beta
+For ASP.NET Core (formerly ASP.NET 5) and ASP.NET Core MVC
 ----------------------------
 
 ```
 Install-Package RouteJs.AspNet
 ```
-Once installed, you need to add RouteJs to your `Startup.cs` file:
+Once installed, you need to add RouteJs to your `Startup.cs` file, and also ensure `IActionContextAccessor` is registered:
 
 ```csharp
+services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 services.AddRouteJs();
-
 ```
 
 The RouteJs handler also needs to be referenced in your view (generally `_Layout.cshtml` is a 
@@ -99,6 +99,12 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+2.1 - 28th May 2016
+-------------------
+ - Updated to ASP.NET Core RC2 
+ - [#49](https://github.com/Daniel15/RouteJs/issues/49) - Use `/` as default base URL when empty
+ - [#51](https://github.com/Daniel15/RouteJs/issues/51) - Ensure base path ends with `/`
+
 2.0.3 - 20th November 2015
 --------------------------
  - Updated ASP.NET 5 support to RC 1.
