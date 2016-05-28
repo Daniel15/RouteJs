@@ -39,7 +39,8 @@
 
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "nowarn": ["CS7035"]
   },
 
   "runtimeOptions": {

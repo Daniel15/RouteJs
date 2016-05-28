@@ -5,6 +5,9 @@
 	/// </summary>
 	public class RouteJsConfiguration : IRouteJsConfiguration
 	{
+		/// <summary>
+		/// Creates a new <see cref="RouteJsConfiguration"/>.
+		/// </summary>
 		public RouteJsConfiguration()
 		{
 			ExposeAllRoutes = true;

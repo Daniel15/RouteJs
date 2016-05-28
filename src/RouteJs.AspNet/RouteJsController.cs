@@ -19,6 +19,10 @@ namespace RouteJs
 		/// </summary>
 		private readonly IRouteJs _routeJs;
 
+		/// <summary>
+		/// Creates a new instance of the main RouteJs controller.
+		/// </summary>
+		/// <param name="routeJs"></param>
 		public RouteJsController(IRouteJs routeJs)
 		{
 			_routeJs = routeJs;

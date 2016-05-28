@@ -1,5 +1,8 @@
 ﻿namespace RouteJs
 {
+	/// <summary>
+	/// Main interface for RouteJs. 
+	/// </summary>
 	public interface IRouteJs
 	{
 		/// <summary>

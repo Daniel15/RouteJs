@@ -10,7 +10,7 @@ namespace RouteJs
 	{
 		/// <summary>
 		/// Parses the specified route template string, placing the available information in
-		/// <see cref="info" />.
+		/// <paramref name="info" />.
 		/// </summary>
 		/// <param name="template">Template to parse</param>
 		/// <param name="info">RouteInfo to store parsed info</param>

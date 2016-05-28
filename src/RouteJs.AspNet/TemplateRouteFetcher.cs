@@ -13,6 +13,11 @@ namespace RouteJs
 		private readonly IConstraintsProcessor _constraintsProcessor;
 		private readonly IRouteTemplateParser _parser;
 
+		/// <summary>
+		/// Creates a new <see cref="TemplateRouteFetcher"/>.
+		/// </summary>
+		/// <param name="constraintsProcessor">Constraint processor</param>
+		/// <param name="parser">Route template parser</param>
 		public TemplateRouteFetcher(IConstraintsProcessor constraintsProcessor, IRouteTemplateParser parser)
 		{
 			_constraintsProcessor = constraintsProcessor;

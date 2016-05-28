@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace RouteJs
 {
+	/// <summary>
+	/// Default route filter for ASP.NET Core.
+	/// </summary>
     public class DefaultRouteFilter : IRouteFilter
     {
 		/// <summary>
@@ -25,7 +28,12 @@ namespace RouteJs
 		/// </summary>
 		private readonly ISet<string> _controllerBlacklist = new HashSet<string>();
 
-	    public DefaultRouteFilter(IRouteJsConfiguration configuration, IActionDescriptorCollectionProvider actionDescriptorsCollectionProvider)
+		/// <summary>
+		/// Creates a new <see cref="DefaultRouteFilter"/>
+		/// </summary>
+		/// <param name="configuration">Route JS configuration</param>
+		/// <param name="actionDescriptorsCollectionProvider">ASP.NET action descriptor collection</param>
+		public DefaultRouteFilter(IRouteJsConfiguration configuration, IActionDescriptorCollectionProvider actionDescriptorsCollectionProvider)
 	    {
 		    _configuration = configuration;
 		    _actionDescriptorsCollectionProvider = actionDescriptorsCollectionProvider;

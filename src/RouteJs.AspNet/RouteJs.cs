@@ -33,6 +33,13 @@ namespace RouteJs
 		/// </summary>
 		private readonly ActionContext _actionContext;
 
+		/// <summary>
+		/// Creates a new <see cref="RouteJs"/>.
+		/// </summary>
+		/// <param name="routeFetchers">List of route fetchers to use</param>
+		/// <param name="actionContextAccessor"></param>
+		/// <param name="routeFilters">List of filters to apply to the fetched routes</param>
+		/// <param name="routeJsConfiguration">RouteJs configuration</param>
 		public RouteJs(
 			IEnumerable<IRouteFetcher> routeFetchers,
 			IActionContextAccessor actionContextAccessor,

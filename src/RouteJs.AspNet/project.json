@@ -1,5 +1,5 @@
 {
-  "version": "2.1.0-*",
+  "version": "2.1.1-*",
   "title": "RouteJs (ASP.NET Core MVC)",
   "authors": [ "Daniel Lo Nigro" ],
 
@@ -32,7 +32,9 @@
     "compile": [
       "../SharedAssemblyVersionInfo.cs"
     ],
-    "xmlDoc": true
+    "xmlDoc": true,
+    "nowarn": [ "CS7035" ],
+    "warningsAsErrors": true
   },
   "packOptions": {
     "owners": [ "Daniel Lo Nigro" ],

@@ -24,6 +24,13 @@ namespace RouteJs
 		private readonly IRouteTemplateParser _parser;
 		private readonly IConstraintsProcessor _constraintsProcessor;
 
+		/// <summary>
+		/// Creates a new <see cref="AttributeRouteFetcher"/>.
+		/// </summary>
+		/// <param name="constraintResolver"></param>
+		/// <param name="actionDescriptorsCollectionProvider"></param>
+		/// <param name="parser"></param>
+		/// <param name="constraintsProcessor"></param>
 		public AttributeRouteFetcher(
 			IInlineConstraintResolver constraintResolver,
 			IActionDescriptorCollectionProvider actionDescriptorsCollectionProvider,

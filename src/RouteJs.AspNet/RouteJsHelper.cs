@@ -41,6 +41,13 @@ namespace RouteJs
 
 		private readonly IActionContextAccessor _actionContextAccessor;
 
+		/// <summary>
+		/// Creates a new RouteJs helper
+		/// </summary>
+		/// <param name="urlHelperFactory"></param>
+		/// <param name="serviceProvider">ASP.NET service provider (dependency injection)</param>
+		/// <param name="env">ASP.NET environment</param>
+		/// <param name="actionContextAccessor"></param>
 		public RouteJsHelper(
 			IUrlHelperFactory urlHelperFactory, 
 			IServiceProvider serviceProvider, 
