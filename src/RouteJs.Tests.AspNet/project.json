@@ -4,7 +4,8 @@
   "authors": [ "Daniel Lo Nigro" ],
 
   "dependencies": {
-    "Microsoft.AspNetCore.Routing": "1.0.0-rc2-final",
+    "Microsoft.DotNet.InternalAbstractions": "1.0.0",
+    "Microsoft.AspNetCore.Routing": "1.1.0",
     "Moq": "4.2.1510.2205",
     "RouteJs.AspNet": {
       "target": "project"

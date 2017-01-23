@@ -66,7 +66,7 @@
 		<!-- NuGet packages for ASP.NET Core projects -->
 		<Exec
 			WorkingDirectory="$(MSBuildProjectDirectory)"
-			Command="dotnet restore --quiet"
+			Command="dotnet restore --verbosity minimal"
 		/>
 		<!-- npm packages -->
 		<Exec
@@ -93,7 +93,7 @@
 	<Target Name="Test" DependsOnTargets="Build">
 		<Exec
 			WorkingDirectory="src/RouteJs.Tests.AspNet"
-			Command="dotnet test"
+			Command="dotnet test -c Release"
 		/>
 		<NUnit
 			ToolPath="src\packages\NUnit.Runners.2.6.1\tools"

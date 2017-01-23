@@ -74,11 +74,9 @@ namespace RouteJs
 		/// <returns>Route information</returns>
 		private AttributeRouteInfo ProcessAttributeRoute(ControllerActionDescriptor action)
 		{
-			var constraint = action.RouteConstraints
-				.FirstOrDefault(c => c.RouteKey == TreeRouter.RouteGroupKey);
-			if (constraint == null ||
-				constraint.KeyHandling != RouteKeyHandling.RequireKey ||
-				constraint.RouteValue == null)
+			string constraint;
+			action.RouteValues.TryGetValue(TreeRouter.RouteGroupKey, out constraint);
+			if (string.IsNullOrEmpty(constraint))
 			{
 				// This can happen if an ActionDescriptor has a route template, but doesn't have one of our
 				// special route group constraints. This is a good indication that the user is using a 3rd party
@@ -96,7 +94,7 @@ namespace RouteJs
                 Defaults = GetDefaults(action, template),
                 Optional = new List<string>(),
 				Order = action.AttributeRouteInfo.Order,
-				Precedence = RoutePrecedence.ComputeGenerated(template),
+				Precedence = RoutePrecedence.ComputeOutbound(template),
 			};
 			_parser.Parse(template, info);
 
@@ -149,7 +147,7 @@ namespace RouteJs
 				);
 
 			defaults.Add("controller", action.ControllerName);
-			defaults.Add("action", action.Name);
+			defaults.Add("action", action.ActionName);
 			return defaults;
 		}
 

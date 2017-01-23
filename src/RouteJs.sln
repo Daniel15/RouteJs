@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{091DA9AC-BC24-4B65-8660-644746707D2B}"
 	ProjectSection(SolutionItems) = preProject
@@ -53,12 +53,6 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RouteJs.Samples.Mvc6", "RouteJs.Samples.Mvc6\RouteJs.Samples.Mvc6.xproj", "{61D6393D-CFBC-47ED-BE3E-437D9AB44D99}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RouteJs.AspNet", "RouteJs.AspNet\RouteJs.AspNet.xproj", "{1BF7B71F-F511-46CA-B543-074644AFB4CF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6262C463-7925-4D99-A4FE-363A1999119D}"
-	ProjectSection(SolutionItems) = preProject
-		RouteJs.Samples.Mvc6\global.json = RouteJs.Samples.Mvc6\global.json
-		RouteJs.AspNet\global.json = RouteJs.AspNet\global.json
-	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RouteJs.Tests.AspNet", "RouteJs.Tests.AspNet\RouteJs.Tests.AspNet.xproj", "{E7DEF2EB-671A-4DCE-838D-491D52192ADB}"
 EndProject
