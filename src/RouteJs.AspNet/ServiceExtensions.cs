@@ -15,7 +15,7 @@ namespace RouteJs
 		/// <param name="services">Service collection to register routes in</param>
 		/// <param name="configure">Function to configure RouteJs</param>
 		/// <returns>The service collection</returns>
-		public static IServiceCollection AddRouteJs(this IServiceCollection services, Action<RouteJsConfiguration> configure)
+		public static IServiceCollection AddRouteJs(this IServiceCollection services, Action<RouteJsConfiguration> configure = null)
 		{
 			services.AddSingleton<IRouteJsConfiguration>(provider => provider.GetRequiredService<IOptions<RouteJsConfiguration>>().Value);
 			services.AddSingleton<IRouteFetcher, TemplateRouteFetcher>();
