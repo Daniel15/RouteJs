@@ -74,18 +74,6 @@ namespace RouteJs
 		/// <returns>Route information</returns>
 		private AttributeRouteInfo ProcessAttributeRoute(ControllerActionDescriptor action)
 		{
-			string constraint;
-			action.RouteValues.TryGetValue(TreeRouter.RouteGroupKey, out constraint);
-			if (string.IsNullOrEmpty(constraint))
-			{
-				// This can happen if an ActionDescriptor has a route template, but doesn't have one of our
-				// special route group constraints. This is a good indication that the user is using a 3rd party
-				// routing system, or has customized their ADs in a way that we can no longer understand them.
-				//
-				// We just treat this case as an 'opt-out' of our attribute routing system.
-				return null;
-			}
-
 			var template = TemplateParser.Parse(action.AttributeRouteInfo.Template);
 
 			var info = new AttributeRouteInfo
