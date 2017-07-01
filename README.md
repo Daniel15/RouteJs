@@ -17,7 +17,7 @@ Required:
 
  * ASP.NET 4.0 or higher
  * [Json.NET](http://james.newtonking.com/projects/json-net.aspx)
- * Any version of ASP.NET MVC from 2 onwards
+ * Any version of ASP.NET MVC from 2 onwards, including ASP.NET Core
 
 Installation
 ============
@@ -38,8 +38,8 @@ and route information:
 <script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
 ```
 
-For ASP.NET Core (formerly ASP.NET 5) and ASP.NET Core MVC
-----------------------------
+For ASP.NET Core and ASP.NET Core MVC
+-------------------------------------
 
 ```
 Install-Package RouteJs.AspNet
@@ -47,6 +47,9 @@ Install-Package RouteJs.AspNet
 Once installed, you need to add RouteJs to your `Startup.cs` file, and also ensure `IActionContextAccessor` is registered:
 
 ```csharp
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using RouteJs;
+...
 services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 services.AddRouteJs();
 ```
@@ -87,7 +90,7 @@ The routes that are exposed are controlled by the web.config "exposeAllRoutes" s
 
 And via `Startup.cs` for ASP.NET MVC 6:
 ```csharp
-services.AddRouteJs().ConfigureRouteJs(config => {
+services.AddRouteJs(config => {
 	config.ExposeAllRoutes = true;
 });
 ```
@@ -99,6 +102,11 @@ controller. These two attributes currently affect all routes for the controller.
 
 Changelog
 =========
+2.2 - 1st July 2017
+-------------------
+ - [#53](https://github.com/Daniel15/RouteJs/pull/53) - Upgrade to ASP.NET Core 1.1 RTM
+ - Update `AddRouteJs` method to make `configure` argument optional
+
 2.1 - 28th May 2016
 -------------------
  - Updated to ASP.NET Core RC2 
