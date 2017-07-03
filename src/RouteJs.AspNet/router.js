@@ -306,7 +306,7 @@
 			
 			for (var i = 0, count = this.routes.length; i < count; i++) {
 				var url = this.routes[i].build(routeValues);
-				if (url) {
+				if (url != null) {
 					return this.baseUrl + url;
 				}
 			}
