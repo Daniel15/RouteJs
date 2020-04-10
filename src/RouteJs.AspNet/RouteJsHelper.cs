@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Html;
+using Microsoft.Extensions.Hosting;
 
 namespace RouteJs
 {
@@ -37,7 +38,7 @@ namespace RouteJs
 		/// <summary>
 		/// Hosting environment
 		/// </summary>
-		private readonly IHostingEnvironment _env;
+		private readonly IWebHostEnvironment _env;
 
 		private readonly IActionContextAccessor _actionContextAccessor;
 
@@ -51,7 +52,7 @@ namespace RouteJs
 		public RouteJsHelper(
 			IUrlHelperFactory urlHelperFactory, 
 			IServiceProvider serviceProvider, 
-			IHostingEnvironment env,
+			IWebHostEnvironment env,
 			IActionContextAccessor actionContextAccessor)
 		{
 			_urlHelperFactory = urlHelperFactory;
