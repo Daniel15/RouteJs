@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "compiler/resources/router.min.js",
+    "inputFiles": [
+      "compiler/resources/router.js"
+    ]
+  }
+]

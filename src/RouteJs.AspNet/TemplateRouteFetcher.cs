@@ -37,15 +37,18 @@ namespace RouteJs
 		/// <returns>Processed route information</returns>
 		public IEnumerable<RouteInfo> GetRoutes(RouteData routeData)
 		{
-			var routeCollection = routeData.Routers.OfType<RouteCollection>().First();
-			for (var i = 0; i < routeCollection.Count; i++)
-			{
-				var route = routeCollection[i];
-				if (route is Route)
-				{
-					yield return ProcessTemplateRoute((Route)route);
-				}
-			}
+			var routeCollection = routeData.Routers.OfType<RouteCollection>().FirstOrDefault();
+            if (routeCollection != null)
+            {
+                for (var i = 0; i < routeCollection.Count; i++)
+                {
+                    var route = routeCollection[i];
+                    if (route is Route)
+                    {
+                        yield return ProcessTemplateRoute((Route)route);
+                    }
+                } 
+            }
 		}
 
 		/// <summary>

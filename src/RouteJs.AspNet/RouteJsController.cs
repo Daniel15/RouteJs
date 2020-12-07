@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace RouteJs
 {
-	/// <summary>
-	/// ASP.NET MVC controller for RouteJs. Renders JavaScript to handle routing of ASP.NET URLs.
-	/// </summary>
-	public class RouteJsController : Controller
+    /// <summary>
+    /// ASP.NET MVC controller for RouteJs. Renders JavaScript to handle routing of ASP.NET URLs.
+    /// </summary>
+    [ApiExplorerSettings(IgnoreApi = true)]
+    public class RouteJsController : Controller
 	{
 		/// <summary>
 		/// How long to cache the JavaScript output for. Only used when a unique hash is present in the URL.
